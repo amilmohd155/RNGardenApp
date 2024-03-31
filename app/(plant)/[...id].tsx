@@ -8,7 +8,7 @@ export default function EditPlantScreen() {
   const { id } = useLocalSearchParams();
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 justify-center items-center">
       <Text style={styles.title}>{`Edit Plant Screen ${id[0]}`} </Text>
       <View
         style={styles.separator}

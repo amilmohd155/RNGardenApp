@@ -1,11 +1,14 @@
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
+import { FontAwesome6 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+
 export default function PlantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View className="flex-1 items-center justify-center bg-[#eff3ec]">
       <Stack.Screen
         options={{
           headerShown: true,
@@ -13,15 +16,26 @@ export default function PlantScreen() {
           header: ({ navigation }) => {
             return (
               <View className="flex-row items-center justify-between w-full p-5">
-                <Text>Hello world</Text>
+                <Ionicons
+                  name="arrow-back"
+                  size={24}
+                  color="#59746f"
+                  className="bg-white p-2 rounded-full"
+                  onPress={() => navigation.goBack()}
+                />
+                <Link href={`/${id}/edit`} asChild>
+                  <FontAwesome6
+                    name="edit"
+                    size={24}
+                    color="#59746f"
+                    className="bg-white p-2 rounded-full"
+                  />
+                </Link>
               </View>
             );
           },
         }}
       />
-      <Link href={`/${id}/edit`} push>
-        Edit
-      </Link>
     </View>
   );
 }
