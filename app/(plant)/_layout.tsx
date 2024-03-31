@@ -1,0 +1,10 @@
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Stack } from "expo-router";
+
+export default function PlantLayout() {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <Stack />
+    </SafeAreaView>
+  );
+}

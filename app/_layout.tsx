@@ -10,6 +10,7 @@ import {
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Image } from "expo-image";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { cssInterop } from "nativewind";
 import { useColorScheme } from "@/components/useColorScheme";
@@ -59,10 +60,13 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="(plant)" />
+        </Stack>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }

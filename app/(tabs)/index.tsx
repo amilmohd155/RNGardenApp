@@ -8,12 +8,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const DATA = [
   {
+    id: "1",
     name: "Beavertail Cactus",
     location: "Bedroom's windowsill",
     rate: "2",
     image: "https://picsum.photos/seed/696/3000/2000",
   },
   {
+    id: "2",
     name: "Vatikalive Canna",
     location: "Kitchen's windowsill",
     rate: "1",
@@ -51,7 +53,8 @@ export default function Garden() {
           data={DATA}
           renderItem={({ item }) => (
             <PlantCard
-              key={item.name}
+              id={item.id}
+              key={item.id}
               rate={item.rate}
               location={item.location}
               name={item.name}
