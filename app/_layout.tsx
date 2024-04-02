@@ -7,12 +7,12 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { Image, ImageBackground } from "expo-image";
+import { cssInterop, remapProps } from "nativewind";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Image } from "expo-image";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
-import { cssInterop } from "nativewind";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
@@ -55,6 +55,10 @@ export default function RootLayout() {
 }
 
 cssInterop(Image, { className: "style" });
+remapProps(ImageBackground, {
+  className: "style",
+  imageClassName: "imageStyle",
+});
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();

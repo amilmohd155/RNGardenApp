@@ -1,32 +1,16 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
+import { DATA } from "@/constants/SampleData";
 import { FlashList } from "@shopify/flash-list";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { PlantCard } from "@/components/PlantCard";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const DATA = [
-  {
-    id: "1",
-    name: "Beavertail Cactus",
-    location: "Bedroom's windowsill",
-    rate: "2",
-    image: "https://picsum.photos/seed/696/3000/2000",
-  },
-  {
-    id: "2",
-    name: "Vatikalive Canna",
-    location: "Kitchen's windowsill",
-    rate: "1",
-    image: "https://picsum.photos/seed/698/3000/2000",
-  },
-];
-
 export default function Garden() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View className="flex-1 bg-[#eff3ec] p-5">
+      <View className="flex-1 bg-surface p-5">
         {/* Title */}
         <View className="py-5">
           <Text className="text-[#374544] font-bold text-5xl">My garden</Text>

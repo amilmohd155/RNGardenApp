@@ -60,6 +60,7 @@ export default function TabLayout() {
         name="add"
         options={{
           title: "New plant",
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name="add-circle" focused={focused} color={color} />
           ),

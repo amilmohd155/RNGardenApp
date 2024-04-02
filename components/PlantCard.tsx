@@ -1,5 +1,7 @@
 import { Pressable, Text, View } from "react-native";
 
+import Animated from "react-native-reanimated";
+import { AnimatedImage } from "./AnimatedImage";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
@@ -43,7 +45,8 @@ export const PlantCard = ({
               <Text className="text-[#5584cd] text-lg font-bold">{`in ${rate} days`}</Text>
             </View>
           </View>
-          <Image
+          <AnimatedImage
+            sharedTransitionTag="plant-image"
             className="w-40 h-40 rounded-tr-xl rounded-br-xl"
             source={image}
             placeholder={blurhash}
