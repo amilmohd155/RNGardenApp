@@ -3,7 +3,9 @@ import { Link, Tabs } from "expo-router";
 import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { useColorScheme } from "@/components/useColorScheme";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { useColorScheme } from "nativewind";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon({
@@ -27,7 +29,7 @@ function TabBarIcon({
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
 
   return (
     <Tabs
@@ -35,8 +37,10 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
         tabBarShowLabel: true,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
-          borderRadius: 24,
+          borderTopStartRadius: 24,
+          borderTopEndRadius: 24,
           backgroundColor: Colors[colorScheme ?? "light"].background,
           height: 70,
         },

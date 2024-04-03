@@ -8,12 +8,12 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { Image, ImageBackground } from "expo-image";
-import { cssInterop, remapProps } from "nativewind";
+import { cssInterop, remapProps, useColorScheme } from "nativewind";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
-import { useColorScheme } from "@/components/useColorScheme";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
 
@@ -61,16 +61,16 @@ remapProps(ImageBackground, {
 });
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
 
   return (
-    <SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="(plant)" />
         </Stack>
       </ThemeProvider>
-    </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

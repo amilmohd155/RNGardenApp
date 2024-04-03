@@ -1,8 +1,5 @@
 import { Link, useLocalSearchParams } from "expo-router";
-import { Text, View } from "@/components/Themed";
-
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function EditPlantScreen() {
   const { id } = useLocalSearchParams();
@@ -10,12 +7,7 @@ export default function EditPlantScreen() {
   return (
     <View className="flex-1 justify-center items-center">
       <Text style={styles.title}>{`Edit Plant Screen ${id[0]}`} </Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      {/* <EditScreenInfo path="app/(tabs)/settings/index.tsx" /> */}
+      <View style={styles.separator} />
       <Link
         href="/settings/one"
         push
