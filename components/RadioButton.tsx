@@ -6,10 +6,15 @@ import { Ionicons } from "@expo/vector-icons";
 type RadioButtonProps = {
   data: { label: string; value: string }[];
   onSelect: (value: string) => void;
+  defaultValue?: string;
 };
 
-export const RadioButton = ({ data, onSelect }: RadioButtonProps) => {
-  const [userOption, setUserOption] = useState<string>(data[0].value);
+export const RadioButton = ({
+  data,
+  onSelect,
+  defaultValue = data[0].value,
+}: RadioButtonProps) => {
+  const [userOption, setUserOption] = useState<string>(defaultValue);
 
   const handleSelection = (value: string) => {
     onSelect(value);

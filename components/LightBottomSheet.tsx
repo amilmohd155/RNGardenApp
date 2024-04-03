@@ -2,33 +2,66 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFooter,
   BottomSheetView,
+  useBottomSheet,
 } from "@gorhom/bottom-sheet";
-import { Ref, forwardRef, useCallback, useMemo } from "react";
+import {
+  Ref,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Text, View } from "react-native";
+import { UseControllerProps, useController } from "react-hook-form";
 
 import { ActionButton } from "./ActionButton";
+import { LIGHT_CONDITIONS } from "@/constants/values";
+import { PlantFV } from "@/lib/Form";
 import { RadioButton } from "./RadioButton";
 
 const RADIODATA = [
   {
-    label: "Bright Indirect",
-    value: "Bright Indirect",
+    label: LIGHT_CONDITIONS.BRIGHT_INDIRECT,
+    value: LIGHT_CONDITIONS.BRIGHT_INDIRECT,
   },
   {
-    label: "Bright Direct",
-    value: "Bright Direct",
+    label: LIGHT_CONDITIONS.BRIGHT_DIRECT,
+    value: LIGHT_CONDITIONS.BRIGHT_DIRECT,
   },
   {
-    label: "Low Light",
-    value: "Low Light",
+    label: LIGHT_CONDITIONS.LOW_LIGHT,
+    value: LIGHT_CONDITIONS.LOW_LIGHT,
   },
 ];
 
-export const LightBottomSheet = forwardRef(({}, ref: Ref<BottomSheet>) => {
+export const LightBottomSheet = forwardRef<
+  BottomSheet,
+  {
+    onChange?: (value: string) => void;
+    onSubmit?: (value: string) => void;
+  } & UseControllerProps<PlantFV>
+>(({ onChange, onSubmit, ...props }, ref) => {
   const snapPoints = useMemo(() => ["50%"], []);
 
+  const { field, fieldState, formState } = useController<PlantFV>({
+    ...props,
+  });
+
+  const handleOnChange = useCallback((value: string) => {
+    field.onChange(value);
+    onChange && onChange(value);
+  }, []);
+
+  const handleOnSubmit = useCallback(() => {
+    onSubmit && onSubmit(field.value as string);
+    // Close the bottom sheet
+    // @ts-ignore
+    ref?.current?.close();
+  }, [field.value]);
+
   const renderBackdrop = useCallback(
-    (props) => (
+    (props: any) => (
       <BottomSheetBackdrop
         {...props}
         appearsOnIndex={0}
@@ -39,7 +72,7 @@ export const LightBottomSheet = forwardRef(({}, ref: Ref<BottomSheet>) => {
   );
 
   const renderFooter = useCallback(
-    (props) => (
+    (props: any) => (
       <BottomSheetFooter {...props} bottomInset={24}>
         <View className="mx-5">
           <ActionButton
@@ -49,12 +82,12 @@ export const LightBottomSheet = forwardRef(({}, ref: Ref<BottomSheet>) => {
             containerClassName="bg-[#cfddba]"
             labelClassname="text-primary"
             size={16}
-            onPress={() => {}} // Add onPress
+            onPress={handleOnSubmit} // Add onPress
           />
         </View>
       </BottomSheetFooter>
     ),
-    []
+    [handleOnSubmit]
   );
 
   return (
@@ -81,7 +114,8 @@ export const LightBottomSheet = forwardRef(({}, ref: Ref<BottomSheet>) => {
 
         <RadioButton
           data={RADIODATA}
-          onSelect={(value) => console.log(value)}
+          onSelect={handleOnChange}
+          defaultValue={formState.defaultValues?.light}
         />
       </BottomSheetView>
     </BottomSheet>
