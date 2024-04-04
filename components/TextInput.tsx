@@ -5,9 +5,9 @@ import {
   TextInputProps,
   View,
 } from "react-native";
+import React, { useEffect } from "react";
 
 import { PlantFV } from "@/lib/Form";
-import React from "react";
 
 export const TextInput = ({
   label,
@@ -15,17 +15,23 @@ export const TextInput = ({
 }: { label: string } & UseControllerProps<PlantFV> & TextInputProps) => {
   const {
     field: { value, onChange, ...field },
-    fieldState,
+    fieldState: { error },
     formState,
   } = useController<PlantFV>(props);
 
   return (
     <View className="gap-2">
-      <Text className="text-xl font-bold">{label}</Text>
+      <View className="flex-row justify-between items-center">
+        <Text className="text-xl font-bold">{label}</Text>
+        {error && <Text className="text-red-500 text-sm italic">Required</Text>}
+      </View>
+
       <DefaultTextInput
         {...field}
         {...props}
-        className="border-[#ece5e5] focus:border-primary border-2 p-3 rounded-lg text-lg"
+        className={`focus:border-primary border-2 p-3 rounded-lg text-lg ${
+          error ? "border-red-500" : "border-[#ece5e5]"
+        }`}
         placeholderClassName="text-[#9c9b9c]"
         onChangeText={onChange}
         value={value?.toString()}

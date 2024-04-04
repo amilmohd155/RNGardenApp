@@ -20,6 +20,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 
 import { ActionButton } from "@/components/ActionButton";
 import { Counter } from "@/components/Counter";
@@ -30,7 +31,6 @@ import { LightBottomSheet } from "@/components/LightBottomSheet";
 import { RadioButton } from "@/components/RadioButton";
 import { TextArea } from "@/components/TextArea";
 import { TextInput } from "@/components/TextInput";
-import { useForm } from "react-hook-form";
 import { useNavigation } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,25 +40,23 @@ export default function AddScreen() {
 
   const navigation = useNavigation();
 
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    getValues,
-    reset,
-  } = useForm<PlantFV>({
+  const { handleSubmit, control, formState, reset } = useForm<PlantFV>({
     defaultValues: {
-      plantName: "",
-      room: "",
       period: 1,
       portion: 100,
       light: LIGHT_CONDITIONS.BRIGHT_INDIRECT,
     },
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: zodResolver(plantSchema),
   });
 
-  const onSubmit = (data: PlantFV) => console.log(data);
+  const onSubmit: SubmitHandler<PlantFV> = (data) => {
+    console.log("Form data", data);
+  };
+
+  const onError: SubmitErrorHandler<PlantFV> = (errors) => {
+    console.log(errors);
+  };
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -88,7 +86,7 @@ export default function AddScreen() {
 
         {/* Save Button */}
         <ActionButton
-          onPress={handleSubmit(onSubmit)}
+          onPress={handleSubmit(onSubmit, onError)}
           containerClassName="bg-[#cfddba]"
           labelClassname="text-primary"
           label="Save"

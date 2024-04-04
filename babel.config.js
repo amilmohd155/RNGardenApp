@@ -1,8 +1,8 @@
 module.exports = function (api) {
   api.cache(true);
   return {
+    plugins: ["react-native-worklets-core/plugin"],
     presets: [
-      ["react-native-worklets-core/plugin"],
       [
         "babel-preset-expo",
         {

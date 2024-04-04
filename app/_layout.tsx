@@ -1,5 +1,6 @@
 import "../global.css";
 
+import * as SQLite from "expo-sqlite";
 import * as SplashScreen from "expo-splash-screen";
 
 import {
@@ -12,7 +13,7 @@ import { cssInterop, remapProps, useColorScheme } from "nativewind";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Platform } from "react-native";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
@@ -30,6 +31,22 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+// Open the database connection.
+function openDatabase() {
+  if (Platform.OS === "web") {
+    return {
+      transaction: () => {
+        return {
+          executeSql: () => {},
+        };
+      },
+    };
+  }
+  const db = SQLite.openDatabase("plants.db", "1.0", "Plants Database");
+
+  return db;
+}
+
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -44,6 +61,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      openDatabase();
     }
   }, [loaded]);
 
@@ -62,6 +80,13 @@ remapProps(ImageBackground, {
 
 function RootLayoutNav() {
   const { colorScheme } = useColorScheme();
+  // const { hasPermission, requestPermission } = useCameraPermission();
+
+  // useEffect(() => {
+  //   if (!hasPermission) {
+  //     requestPermission();
+  //   }
+  // }, [hasPermission]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

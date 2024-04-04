@@ -11,7 +11,11 @@ export const TextArea = ({
 }: { label: string } & TextInputProps & UseControllerProps<PlantFV>) => {
   const [count, setCount] = useState(0);
 
-  const { formState, field, fieldState } = useController<PlantFV>(props);
+  const {
+    formState,
+    field,
+    fieldState: { error },
+  } = useController<PlantFV>(props);
 
   const handleTextChange = (text: string) => {
     setCount(text.length);
@@ -20,7 +24,10 @@ export const TextArea = ({
 
   return (
     <View className="gap-2 mb-5">
-      <Text className="text-xl font-bold">{label}</Text>
+      <View className="flex-row justify-between items-center">
+        <Text className="text-xl font-bold">{label}</Text>
+        {error && <Text className="text-red-500 text-sm italic">Required</Text>}
+      </View>
       <TextInput
         {...field}
         {...props}
