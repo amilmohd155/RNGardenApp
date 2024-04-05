@@ -1,9 +1,9 @@
+import { Feather } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
 import { Controller, UseControllerProps, useController } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
-import { useEffect, useState } from "react";
 
-import { Feather } from "@expo/vector-icons";
-import { PlantFV } from "@/lib/Form";
+import { InsertPlantFieldValues } from "@/lib/form";
 
 const COUNTER_SIZE = 24;
 
@@ -20,7 +20,7 @@ export const Counter = ({
   min?: number;
   max?: number;
   increment?: number;
-} & UseControllerProps<PlantFV>) => {
+} & UseControllerProps<InsertPlantFieldValues>) => {
   const [count, setCount] = useState(props.defaultValue as number);
 
   const { field, fieldState, formState } = useController(props);

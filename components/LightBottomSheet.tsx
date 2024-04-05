@@ -2,51 +2,30 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFooter,
   BottomSheetView,
-  useBottomSheet,
 } from "@gorhom/bottom-sheet";
-import {
-  Ref,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { Text, View } from "react-native";
+import { forwardRef, useCallback, useMemo } from "react";
 import { UseControllerProps, useController } from "react-hook-form";
+import { Text, View } from "react-native";
 
 import { ActionButton } from "./ActionButton";
-import { LIGHT_CONDITIONS } from "@/constants/values";
-import { PlantFV } from "@/lib/Form";
 import { RadioButton } from "./RadioButton";
 
-const RADIODATA = [
-  {
-    label: LIGHT_CONDITIONS.BRIGHT_INDIRECT,
-    value: LIGHT_CONDITIONS.BRIGHT_INDIRECT,
-  },
-  {
-    label: LIGHT_CONDITIONS.BRIGHT_DIRECT,
-    value: LIGHT_CONDITIONS.BRIGHT_DIRECT,
-  },
-  {
-    label: LIGHT_CONDITIONS.LOW_LIGHT,
-    value: LIGHT_CONDITIONS.LOW_LIGHT,
-  },
-];
+import { LightConditionsRadioOptions } from "@/constants/values";
+import { InsertPlantFieldValues } from "@/lib/form";
 
 export const LightBottomSheet = forwardRef<
   BottomSheet,
   {
     onChange?: (value: string) => void;
     onSubmit?: (value: string) => void;
-  } & UseControllerProps<PlantFV>
+  } & UseControllerProps<InsertPlantFieldValues>
 >(({ onChange, onSubmit, ...props }, ref) => {
   const snapPoints = useMemo(() => ["50%"], []);
 
-  const { field, fieldState, formState } = useController<PlantFV>({
-    ...props,
-  });
+  const { field, fieldState, formState } =
+    useController<InsertPlantFieldValues>({
+      ...props,
+    });
 
   const handleOnChange = useCallback((value: string) => {
     field.onChange(value);
@@ -68,7 +47,7 @@ export const LightBottomSheet = forwardRef<
         disappearsOnIndex={-1}
       />
     ),
-    []
+    [],
   );
 
   const renderFooter = useCallback(
@@ -87,7 +66,7 @@ export const LightBottomSheet = forwardRef<
         </View>
       </BottomSheetFooter>
     ),
-    [handleOnSubmit]
+    [handleOnSubmit],
   );
 
   return (
@@ -113,7 +92,7 @@ export const LightBottomSheet = forwardRef<
         {/* Content */}
 
         <RadioButton
-          data={RADIODATA}
+          data={LightConditionsRadioOptions}
           onSelect={handleOnChange}
           defaultValue={formState.defaultValues?.light}
         />

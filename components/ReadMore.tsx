@@ -1,10 +1,10 @@
+import React, { useState } from "react";
 import {
   NativeSyntheticEvent,
   Text,
   TextLayoutEventData,
   View,
 } from "react-native";
-import React, { useState } from "react";
 
 type Props = {
   children: React.ReactNode;

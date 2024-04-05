@@ -1,13 +1,12 @@
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AnimatedImage } from "@/components/AnimatedImage";
-import { DATA } from "@/constants/SampleData";
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ReadMore } from "@/components/ReadMore";
+import { DATA } from "@/constants/SampleData";
 import { blurhash } from "@/constants/values";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const DESCRIPTION =
   'Leucojum vernum, called the spring snowflake, is a species of flowering plant in the family Amaryllidaceae. It is native to central and southern Europe from Belgium to Ukraine. It is considered naturalized in north-western Europe, including Great Britain and parts of Scandinavia, and in the US states of Georgia and Florida. This spring flowering bulbous herbaceous perennial is cultivated as an ornamental for a sunny position. The plant multiplies in favourable conditions to form clumps. Each plant bears a single white flower with greenish marks near the tip of the tepal, on a stem about 10–20 cm (3.9–7.9 in) tall, occasionally more.\nThe Latin specific epithet vernum means "relating to Spring". Its close relative, Leucojum aestivum, flowers in summer.';
@@ -74,21 +73,21 @@ export default function PlantScreen() {
             <GridItem icon="home" item={location} title="Room" />
 
             {/* Water portion */}
-            <GridItem icon="water" item={`300ml`} title="Water portion" />
+            <GridItem icon="water" item="300ml" title="Water portion" />
           </View>
 
           <View className="flex-row items-center justify-between">
             {/* Watering period */}
             <GridItem
               icon="timer"
-              item={`Every 5 days`}
+              item="Every 5 days"
               title="Watering period"
             />
 
             {/* Light Condition */}
             <GridItem
               icon="sunny"
-              item={`Bright indirect`}
+              item="Bright indirect"
               title="Light Condition"
             />
           </View>

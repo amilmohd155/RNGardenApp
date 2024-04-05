@@ -1,6 +1,5 @@
-import { Pressable, Text, View } from "react-native";
-
 import { Ionicons } from "@expo/vector-icons";
+import { Pressable, Text, View } from "react-native";
 
 export const ImageCard = ({}) => {
   return (

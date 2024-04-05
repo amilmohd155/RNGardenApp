@@ -1,16 +1,16 @@
+import { Ionicons } from "@expo/vector-icons";
+import { FlashList } from "@shopify/flash-list";
+import { Image } from "expo-image";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { StyleSheet, Text, TextInput, View } from "react-native";
 
+import { PlantCard } from "@/components/PlantCard";
 import Colors from "@/constants/Colors";
 import { DATA } from "@/constants/SampleData";
-import { FlashList } from "@shopify/flash-list";
-import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
-import { PlantCard } from "@/components/PlantCard";
-import { StatusBar } from "expo-status-bar";
 
 export default function Garden() {
   const inset = useSafeAreaInsets();

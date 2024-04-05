@@ -1,71 +1,34 @@
 import "../global.css";
 
-import * as SQLite from "expo-sqlite";
-import * as SplashScreen from "expo-splash-screen";
-
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { Image, ImageBackground } from "expo-image";
-import { cssInterop, remapProps, useColorScheme } from "nativewind";
-
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Platform } from "react-native";
-import { Stack } from "expo-router";
-import { useEffect } from "react";
 import { useFonts } from "expo-font";
+import { Image, ImageBackground } from "expo-image";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import * as SQLite from "expo-sqlite";
+import { cssInterop, remapProps, useColorScheme } from "nativewind";
+import { useEffect } from "react";
+import { Platform } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from "expo-router";
+import { useLoadAssets } from "@/hooks/useLoadAssets";
+
+export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "(tabs)",
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-// Open the database connection.
-function openDatabase() {
-  if (Platform.OS === "web") {
-    return {
-      transaction: () => {
-        return {
-          executeSql: () => {},
-        };
-      },
-    };
-  }
-  const db = SQLite.openDatabase("plants.db", "1.0", "Plants Database");
-
-  return db;
-}
-
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    ...FontAwesome.font,
-  });
+  const { isLoaded } = useLoadAssets();
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-      openDatabase();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
+  if (!isLoaded) {
     return null;
   }
 

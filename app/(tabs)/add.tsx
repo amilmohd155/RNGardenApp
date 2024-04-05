@@ -1,36 +1,25 @@
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetFooter,
-  BottomSheetView,
-} from "@gorhom/bottom-sheet";
 import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  PressableProps,
   ScrollView,
   Text,
   View,
 } from "react-native";
-import { PlantFV, plantSchema } from "@/lib/Form";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useRef, useState } from "react";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 
 import { ActionButton } from "@/components/ActionButton";
+import BottomSheet from "@gorhom/bottom-sheet";
 import { Counter } from "@/components/Counter";
 import { ImageCard } from "@/components/ImageCard";
+import { InsertPlantFieldValues } from "@/lib/form";
 import { Ionicons } from "@expo/vector-icons";
 import { LIGHT_CONDITIONS } from "@/constants/values";
 import { LightBottomSheet } from "@/components/LightBottomSheet";
-import { RadioButton } from "@/components/RadioButton";
 import { TextArea } from "@/components/TextArea";
 import { TextInput } from "@/components/TextInput";
+import { insertPlantSchema } from "@/db/schema";
 import { useNavigation } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,28 +29,29 @@ export default function AddScreen() {
 
   const navigation = useNavigation();
 
-  const { handleSubmit, control, formState, reset } = useForm<PlantFV>({
-    defaultValues: {
-      period: 1,
-      portion: 100,
-      light: LIGHT_CONDITIONS.BRIGHT_INDIRECT,
-    },
-    mode: "onSubmit",
-    resolver: zodResolver(plantSchema),
-  });
+  const { handleSubmit, control, formState, reset } =
+    useForm<InsertPlantFieldValues>({
+      defaultValues: {
+        period: 1,
+        portion: 100,
+        light: LIGHT_CONDITIONS.BRIGHT_INDIRECT,
+      },
+      mode: "onSubmit",
+      resolver: zodResolver(insertPlantSchema),
+    });
 
-  const onSubmit: SubmitHandler<PlantFV> = (data) => {
+  const onSubmit: SubmitHandler<InsertPlantFieldValues> = (data) => {
     console.log("Form data", data);
   };
 
-  const onError: SubmitErrorHandler<PlantFV> = (errors) => {
+  const onError: SubmitErrorHandler<InsertPlantFieldValues> = (errors) => {
     console.log(errors);
   };
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const [lightCondition, setLightCondition] = useState<string>(
-    LIGHT_CONDITIONS.BRIGHT_INDIRECT
+    LIGHT_CONDITIONS.BRIGHT_INDIRECT,
   );
   const handleLightConditionSubmit = (value: string) => {
     setLightCondition(value);
@@ -74,7 +64,7 @@ export default function AddScreen() {
         {/* Cancel Button */}
         <ActionButton
           onPress={() => {
-            reset({ plantName: "", room: "", period: 1 });
+            reset({ alias: "", room: "", period: 1 });
             navigation.goBack();
           }}
           containerClassName="bg-red-200"
@@ -111,7 +101,7 @@ export default function AddScreen() {
           <View className="gap-5 mb-10">
             {/* Plant Name Input */}
             <TextInput
-              name="plantName"
+              name="alias"
               control={control}
               placeholder="e.g. Monstera Deliciosa"
               label="Plant name (Alias)"

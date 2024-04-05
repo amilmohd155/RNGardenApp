@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Controller, UseControllerProps, useController } from "react-hook-form";
 import {
   TextInput as DefaultTextInput,
@@ -5,19 +6,19 @@ import {
   TextInputProps,
   View,
 } from "react-native";
-import React, { useEffect } from "react";
 
-import { PlantFV } from "@/lib/Form";
+import { InsertPlantFieldValues } from "@/lib/form";
 
 export const TextInput = ({
   label,
   ...props
-}: { label: string } & UseControllerProps<PlantFV> & TextInputProps) => {
+}: { label: string } & UseControllerProps<InsertPlantFieldValues> &
+  TextInputProps) => {
   const {
     field: { value, onChange, ...field },
     fieldState: { error },
     formState,
-  } = useController<PlantFV>(props);
+  } = useController<InsertPlantFieldValues>(props);
 
   return (
     <View className="gap-2">

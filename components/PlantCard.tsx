@@ -1,10 +1,11 @@
-import { Pressable, Text, View } from "react-native";
-
-import Animated from "react-native-reanimated";
-import { AnimatedImage } from "./AnimatedImage";
-import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { Link } from "expo-router";
+import { Pressable, Text, View } from "react-native";
+import Animated from "react-native-reanimated";
+
+import { AnimatedImage } from "./AnimatedImage";
+
 import { blurhash } from "@/constants/values";
 
 type PlantCardProps = {

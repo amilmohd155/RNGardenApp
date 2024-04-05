@@ -1,10 +1,14 @@
-import { Pressable, Text, View } from "react-native";
-import { useEffect, useState } from "react";
-
 import { Ionicons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import { Pressable, Text, View } from "react-native";
+
+export type RadioOption = {
+  label: string;
+  value: string;
+};
 
 type RadioButtonProps = {
-  data: { label: string; value: string }[];
+  data: RadioOption[];
   onSelect: (value: string) => void;
   defaultValue?: string;
 };

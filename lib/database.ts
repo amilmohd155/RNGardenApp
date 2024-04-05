@@ -11,7 +11,7 @@ const createPlantTable = (db: SQLite.SQLiteDatabase) => {
             period INTEGER,
             portion INTEGER,
             image TEXT
-        );`
+        );`,
     );
   });
 };

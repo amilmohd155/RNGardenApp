@@ -1,21 +1,22 @@
-import { Text, TextInput, TextInputProps, View } from "react-native";
-import { UseControllerProps, useController } from "react-hook-form";
-
-import { PlantFV } from "@/lib/Form";
 import { useState } from "react";
+import { UseControllerProps, useController } from "react-hook-form";
+import { Text, TextInput, TextInputProps, View } from "react-native";
+
+import { InsertPlantFieldValues } from "@/lib/form";
 
 export const TextArea = ({
   label,
   maxLength = 200,
   ...props
-}: { label: string } & TextInputProps & UseControllerProps<PlantFV>) => {
+}: { label: string } & TextInputProps &
+  UseControllerProps<InsertPlantFieldValues>) => {
   const [count, setCount] = useState(0);
 
   const {
     formState,
     field,
     fieldState: { error },
-  } = useController<PlantFV>(props);
+  } = useController<InsertPlantFieldValues>(props);
 
   const handleTextChange = (text: string) => {
     setCount(text.length);
