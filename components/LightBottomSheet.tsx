@@ -96,7 +96,7 @@ export const LightBottomSheet = forwardRef<
         <RadioButton
           data={LightConditionsRadioOptions}
           onSelect={handleOnChange}
-          defaultValue={formState.defaultValues?.light}
+          defaultValue={formState.defaultValues?.lightCondition as string}
         />
       </BottomSheetView>
     </BottomSheet>

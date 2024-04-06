@@ -1,5 +1,6 @@
 import "../global.css";
 
+import BottomSheet from "@gorhom/bottom-sheet";
 import {
   DarkTheme,
   DefaultTheme,
@@ -11,6 +12,7 @@ import { cssInterop, remapProps, useColorScheme } from "nativewind";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useLoadAssets } from "@/hooks/useLoadAssets";
+import { PortalProvider } from "@gorhom/portal";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -40,12 +42,16 @@ function RootLayoutNav() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="(plant)" />
-        </Stack>
-      </ThemeProvider>
+      <PortalProvider>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="(plant)" />
+          </Stack>
+        </ThemeProvider>
+      </PortalProvider>
     </GestureHandlerRootView>
   );
 }

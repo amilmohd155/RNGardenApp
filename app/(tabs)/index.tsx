@@ -1,18 +1,22 @@
-import { Ionicons } from "@expo/vector-icons";
+import BottomSheet from "@gorhom/bottom-sheet";
 import { FlashList } from "@shopify/flash-list";
-import { Image } from "expo-image";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import React, { useRef } from "react";
+import { Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { PlantCard } from "@/components/PlantCard";
+import {
+  FilterButton,
+  SearchBar,
+  PlantCard,
+  FilterBottomSheet,
+} from "@/components";
 import { DATA } from "@/constants/SampleData";
 
 export default function Garden() {
   const inset = useSafeAreaInsets();
+
+  // Bottom Sheet Ref
+  const filterSheetRef = useRef<BottomSheet>(null);
 
   return (
     <View className="flex-1 bg-surface p-5" style={{ paddingTop: inset.top }}>
@@ -22,20 +26,8 @@ export default function Garden() {
       </View>
       {/* Search Bar & Filter */}
       <View className="flex-row items-center gap-4 pb-5">
-        <View className="flex-1 flex-row items-center justify-between rounded-lg bg-white p-3 shadow-sm">
-          <TextInput
-            className="text-lg"
-            placeholder="Search for plants"
-            placeholderTextColor="#48676675"
-          />
-          <Ionicons name="search-outline" size={24} color="#486766" />
-        </View>
-        <Ionicons
-          name="filter"
-          size={24}
-          color="#486766"
-          className="rounded-lg bg-white p-3 "
-        />
+        <SearchBar />
+        <FilterButton onPress={() => filterSheetRef.current?.expand()} />
       </View>
       {/* List */}
       <FlashList
@@ -53,6 +45,8 @@ export default function Garden() {
         estimatedItemSize={DATA.length}
         ItemSeparatorComponent={() => <View className="h-5" />}
       />
+      {/* Filter Bottom Sheet */}
+      <FilterBottomSheet ref={filterSheetRef} />
     </View>
   );
 }
