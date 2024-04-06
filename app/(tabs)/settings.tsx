@@ -1,35 +1,108 @@
 import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { Pressable, SectionList, Switch, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+enum SettingTypes {
+  LINK,
+  SWITCH,
+  BUTTON,
+}
+
+type SettingListData = {
+  title: string;
+  data: {
+    label: string;
+    type: SettingTypes;
+    link?: string;
+  }[];
+};
+
+const DATA: SettingListData[] = [
+  {
+    title: "About",
+    data: [
+      {
+        label: "About the developer",
+        type: SettingTypes.LINK,
+      },
+      { label: "About the app", type: SettingTypes.LINK },
+    ],
+  },
+  {
+    title: "Notifcations",
+    data: [
+      { label: "Reminder", type: SettingTypes.SWITCH },
+      { label: "Updates", type: SettingTypes.SWITCH },
+    ],
+  },
+  {
+    title: "Other",
+    data: [
+      { label: "Theme", type: SettingTypes.LINK },
+      { label: "Language", type: SettingTypes.LINK },
+    ],
+  },
+  {
+    title: "Feedback",
+    data: [
+      { label: "Rate us", type: SettingTypes.LINK },
+      { label: "Contact us", type: SettingTypes.LINK },
+      { label: "Report a bug", type: SettingTypes.LINK },
+      { label: "Request a feature", type: SettingTypes.LINK },
+    ],
+  },
+];
 
 export default function SettingsScreen() {
+  const inset = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Settings</Text>
-      <View style={styles.separator} />
-      <Link
-        href="/settings/one"
-        push
-        onPress={() => console.log("Link to /settings")}
-      >
-        One
-      </Link>
+    <View className="flex-1 bg-surface px-5">
+      <View className="py-10">
+        <Text
+          style={{ paddingTop: inset.top }}
+          className="text-5xl font-bold text-primary"
+        >
+          Settings
+        </Text>
+      </View>
+      <SectionList
+        // className="flex-1"
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={<View className="h-20" />}
+        sections={DATA}
+        stickySectionHeadersEnabled={false}
+        keyExtractor={(item, index) => item.label + index}
+        renderItem={({ item }) => {
+          if (item.type === SettingTypes.LINK) {
+            return (
+              <Link href="/(settings)/developer" asChild>
+                <Pressable className="my-1 rounded-lg bg-white  p-5">
+                  <Text className="text-lg">{item.label}</Text>
+                </Pressable>
+              </Link>
+            );
+          }
+          return (
+            <View className="my-1 flex-row items-center justify-between rounded-lg bg-white px-5 py-1">
+              <Text className="text-lg">{item.label}</Text>
+              <Switch
+                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                // onValueChange={toggleSwitch}
+                // value={isEnabled}
+              />
+            </View>
+          );
+        }}
+        renderSectionHeader={({ section: { title } }) => (
+          <Text className="py-2 text-xl font-semibold text-primary">
+            {title}
+          </Text>
+        )}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});

@@ -11,7 +11,7 @@ import { forwardRef, useCallback, useMemo, useState } from "react";
 import { Pressable, View, Text } from "react-native";
 
 export const FilterBottomSheet = forwardRef<BottomSheet>((_, ref) => {
-  const snapPoints = useMemo(() => ["40%"], []);
+  const snapPoints = useMemo(() => ["45%"], []);
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -25,39 +25,40 @@ export const FilterBottomSheet = forwardRef<BottomSheet>((_, ref) => {
   );
 
   return (
-    <Portal>
-      <BottomSheet
-        ref={ref}
-        snapPoints={snapPoints}
-        index={-1}
-        backdropComponent={renderBackdrop}
-        handleIndicatorStyle={{ backgroundColor: "#FFF" }}
-        handleStyle={{
-          backgroundColor: "#59746f",
-          borderTopEndRadius: 15,
-          borderTopStartRadius: 15,
-        }}
-      >
-        <BottomSheetView>
-          <Text className="bg-primary p-5 text-center text-2xl font-bold tracking-wide text-white">
-            Sort & Filter
-          </Text>
-          <View className="gap-3 p-5">
-            <FilterSegementedControl
-              label="Sort by"
-              values={["Plant name", "Room", "Watering period"]}
-              selectedIndex={0}
-            />
+    // <Portal>
+    <BottomSheet
+      ref={ref}
+      snapPoints={snapPoints}
+      index={-1}
+      enablePanDownToClose
+      backdropComponent={renderBackdrop}
+      handleIndicatorStyle={{ backgroundColor: "#FFF" }}
+      handleStyle={{
+        backgroundColor: "#59746f",
+        borderTopEndRadius: 15,
+        borderTopStartRadius: 15,
+      }}
+    >
+      <BottomSheetView>
+        <Text className="bg-primary p-5 text-center text-2xl font-bold tracking-wide text-white">
+          Sort & Filter
+        </Text>
+        <View className="gap-3 p-5">
+          <FilterSegementedControl
+            label="Sort by"
+            values={["Plant name", "Room", "Watering period"]}
+            selectedIndex={0}
+          />
 
-            <FilterSegementedControl
-              label="Status"
-              values={["All", "Finished", "Upcoming"]}
-              selectedIndex={0}
-            />
-          </View>
-        </BottomSheetView>
-      </BottomSheet>
-    </Portal>
+          <FilterSegementedControl
+            label="Status"
+            values={["All", "Finished", "Upcoming"]}
+            selectedIndex={0}
+          />
+        </View>
+      </BottomSheetView>
+    </BottomSheet>
+    // </Portal>
   );
 });
 
@@ -69,7 +70,7 @@ export const FilterButton = ({ onPress }: { onPress: () => void }) => {
   return (
     <Pressable
       onPress={handleOnPress}
-      className="rounded-lg bg-white px-5 py-3 active:bg-gray-100"
+      className="rounded-lg bg-white px-5 py-3 shadow-sm active:bg-gray-100"
     >
       <FontAwesome name="sort" size={24} color="#486766" className="" />
     </Pressable>

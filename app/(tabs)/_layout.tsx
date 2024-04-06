@@ -4,6 +4,8 @@ import { useColorScheme } from "nativewind";
 import React from "react";
 
 import Colors from "@/constants/Colors";
+import { Platform } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon({
@@ -28,6 +30,7 @@ function TabBarIcon({
 
 export default function TabLayout() {
   const { colorScheme } = useColorScheme();
+  const inset = useSafeAreaInsets();
 
   return (
     <Tabs
@@ -40,7 +43,7 @@ export default function TabLayout() {
           borderTopStartRadius: 24,
           borderTopEndRadius: 24,
           backgroundColor: Colors[colorScheme ?? "light"].background,
-          height: 70,
+          height: Platform.OS === "ios" ? 70 + inset.bottom : 70,
         },
         tabBarLabelStyle: {
           fontSize: 12,
