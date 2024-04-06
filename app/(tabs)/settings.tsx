@@ -25,8 +25,13 @@ const DATA: SettingListData[] = [
       {
         label: "About the developer",
         type: SettingTypes.LINK,
+        link: "/(settings)/developer",
       },
-      { label: "About the app", type: SettingTypes.LINK },
+      {
+        label: "About the app",
+        type: SettingTypes.LINK,
+        link: "/(settings)/about",
+      },
     ],
   },
   {
@@ -39,7 +44,7 @@ const DATA: SettingListData[] = [
   {
     title: "Other",
     data: [
-      { label: "Theme", type: SettingTypes.LINK },
+      { label: "Theme", type: SettingTypes.LINK, link: "/(settings)/theme" },
       { label: "Language", type: SettingTypes.LINK },
     ],
   },
@@ -68,7 +73,6 @@ export default function SettingsScreen() {
         </Text>
       </View>
       <SectionList
-        // className="flex-1"
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View className="h-20" />}
         sections={DATA}
@@ -77,7 +81,7 @@ export default function SettingsScreen() {
         renderItem={({ item }) => {
           if (item.type === SettingTypes.LINK) {
             return (
-              <Link href="/(settings)/developer" asChild>
+              <Link href={item.link ? item.link : "/(settings)/one"} asChild>
                 <Pressable className="my-1 rounded-lg bg-white  p-5">
                   <Text className="text-lg">{item.label}</Text>
                 </Pressable>

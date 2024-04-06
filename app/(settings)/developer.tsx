@@ -1,5 +1,4 @@
-import Colors from "@/constants/Colors";
-import { Ionicons, Entypo } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Linking from "expo-linking";
@@ -7,16 +6,41 @@ import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import Colors from "@/constants/Colors";
+import { Stack } from "expo-router";
+
 export default function DeveloperScreen() {
-  const inset = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
   return (
     <>
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTransparent: true,
+          header: ({ navigation }) => {
+            return (
+              <View
+                className="justify-betwee w-full flex-row items-center p-5"
+                style={{ paddingTop: insets.top }}
+              >
+                <Ionicons
+                  name="arrow-back"
+                  size={32}
+                  color="black"
+                  className="rounded-full p-2 active:bg-[rgba(0,0,0,0.1)]"
+                  onPress={() => navigation.goBack()}
+                />
+              </View>
+            );
+          },
+        }}
+      />
       <LinearGradient
         // Background Linear Gradient
         colors={["rgba(0,0,0,0.8)", "transparent"]}
         className="absolute bottom-0 left-0 right-0 top-0"
       />
-      <View className="flex-1 px-6" style={{ paddingTop: inset.top }}>
+      <View className="flex-1 px-6" style={{ paddingTop: insets.top + 45 }}>
         {/* Developer Information */}
         <Image
           source={require("@/assets/images/adaptive-icon.png")}
