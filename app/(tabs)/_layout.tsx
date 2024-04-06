@@ -1,9 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Link, Tabs } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { Tabs } from "expo-router";
 import { useColorScheme } from "nativewind";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import Colors from "@/constants/Colors";
 

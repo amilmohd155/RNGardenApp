@@ -42,17 +42,17 @@ export const Counter = ({
   };
 
   return (
-    <View className="items-center py-1 flex-row gap-5">
+    <View className="flex-row items-center gap-5 py-1">
       {/* Label */}
       <Text className="text-xl font-bold">{label}</Text>
       {/* Counter */}
-      <View className="flex-row gap-3 items-center">
+      <View className="flex-row items-center gap-3">
         {/* Decrement */}
         <Pressable
           hitSlop={10}
           onPress={minus}
           disabled={count <= min}
-          className="bg-[#eef0eb] rounded-lg p-2 disabled:bg-red-100"
+          className="rounded-lg bg-[#eef0eb] p-2 disabled:bg-red-100"
         >
           <Feather name="minus" size={COUNTER_SIZE} color="#3e5e5e" />
         </Pressable>
@@ -63,7 +63,7 @@ export const Counter = ({
           hitSlop={10}
           onPress={add}
           disabled={count >= max}
-          className="bg-[#eef0eb]  rounded-lg p-2  disabled:bg-red-100"
+          className="rounded-lg  bg-[#eef0eb] p-2  disabled:bg-red-100"
         >
           <Feather name="plus" size={COUNTER_SIZE} color="#3e5e5e" />
         </Pressable>

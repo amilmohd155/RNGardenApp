@@ -21,9 +21,9 @@ export const ActionButton = ({
   return (
     <Pressable
       {...props}
-      className={`flex-1 flex-row items-center rounded-lg p-3 gap-2 justify-center ${containerClassName}`}
+      className={`flex-1 flex-row items-center justify-center gap-2 rounded-lg p-3 ${containerClassName}`}
     >
-      <Text className={`font-semibold text-2xl ${labelClassname}`}>
+      <Text className={`text-2xl font-semibold ${labelClassname}`}>
         {label}
       </Text>
       <Ionicons name={icon} size={size} color={iconColor} />

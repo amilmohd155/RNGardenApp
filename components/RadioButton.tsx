@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
 export type RadioOption = {
@@ -31,7 +31,7 @@ export const RadioButton = ({
         <Pressable
           key={item.value}
           onPress={() => handleSelection(item.value)}
-          className={`flex-row items-center justify-between p-5 rounded-lg active:bg-[##eff3ec50] ${
+          className={`flex-row items-center justify-between rounded-lg p-5 active:bg-[##eff3ec50] ${
             userOption === item.value ? "bg-surface" : ""
           }`}
         >

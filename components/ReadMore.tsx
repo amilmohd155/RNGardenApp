@@ -32,7 +32,7 @@ export const ReadMore = ({ children, numberOfLines = 3 }: Props) => {
         {children}
       </Text>
       {lengthMore ? (
-        <Text onPress={toggleNumberOfLines} className="text-[#969696] mt-1">
+        <Text onPress={toggleNumberOfLines} className="mt-1 text-[#969696]">
           {textshown ? "Read less" : "Read more"}
         </Text>
       ) : null}

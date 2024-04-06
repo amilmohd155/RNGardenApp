@@ -22,22 +22,24 @@ export const LightBottomSheet = forwardRef<
 >(({ onChange, onSubmit, ...props }, ref) => {
   const snapPoints = useMemo(() => ["50%"], []);
 
-  const { field, fieldState, formState } =
-    useController<InsertPlantFieldValues>({
-      ...props,
-    });
+  const { field, formState } = useController<InsertPlantFieldValues>({
+    ...props,
+  });
 
-  const handleOnChange = useCallback((value: string) => {
-    field.onChange(value);
-    onChange && onChange(value);
-  }, []);
+  const handleOnChange = useCallback(
+    (value: string) => {
+      field.onChange(value);
+      onChange && onChange(value);
+    },
+    [field, onChange],
+  );
 
   const handleOnSubmit = useCallback(() => {
     onSubmit && onSubmit(field.value as string);
     // Close the bottom sheet
     // @ts-ignore
     ref?.current?.close();
-  }, [field.value]);
+  }, [field.value, onSubmit, ref]);
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -84,7 +86,7 @@ export const LightBottomSheet = forwardRef<
       }}
       backgroundStyle={{ backgroundColor: "white" }}
     >
-      <BottomSheetView className="flex-1 p-5 mb-5 gap-5">
+      <BottomSheetView className="mb-5 flex-1 gap-5 p-5">
         {/* Header */}
         <Text className="text-3xl font-bold text-primary">
           Lighting Condition

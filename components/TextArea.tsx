@@ -13,7 +13,6 @@ export const TextArea = ({
   const [count, setCount] = useState(0);
 
   const {
-    formState,
     field,
     fieldState: { error },
   } = useController<InsertPlantFieldValues>(props);
@@ -24,22 +23,22 @@ export const TextArea = ({
   };
 
   return (
-    <View className="gap-2 mb-5">
-      <View className="flex-row justify-between items-center">
+    <View className="mb-5 gap-2">
+      <View className="flex-row items-center justify-between">
         <Text className="text-xl font-bold">{label}</Text>
-        {error && <Text className="text-red-500 text-sm italic">Required</Text>}
+        {error && <Text className="text-sm italic text-red-500">Required</Text>}
       </View>
       <TextInput
         {...field}
         {...props}
         maxLength={maxLength}
         onChangeText={handleTextChange}
-        className="border-[#ece5e5] focus:border-primary border-2 p-5 rounded-lg text-lg text-pretty align-top"
+        className="text-pretty rounded-lg border-2 border-[#ece5e5] p-5 align-top text-lg focus:border-primary"
         value={field.value?.toString()}
       />
       {/* Helper */}
       <Text
-        className={`-mt-8 italic text-right me-5 ${
+        className={`-mt-8 me-5 text-right italic ${
           count >= maxLength ? "text-red-500" : "text-gray-500"
         }`}
       >{`${count}/${maxLength}`}</Text>

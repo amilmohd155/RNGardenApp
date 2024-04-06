@@ -1,3 +1,7 @@
+import { Ionicons } from "@expo/vector-icons";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { useNavigation } from "expo-router";
+import React, { useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -6,49 +10,26 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useRef, useState } from "react";
-import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ActionButton } from "@/components/ActionButton";
-import BottomSheet from "@gorhom/bottom-sheet";
 import { Counter } from "@/components/Counter";
 import { ImageCard } from "@/components/ImageCard";
-import { InsertPlantFieldValues } from "@/lib/form";
-import { Ionicons } from "@expo/vector-icons";
-import { LIGHT_CONDITIONS } from "@/constants/values";
 import { LightBottomSheet } from "@/components/LightBottomSheet";
 import { TextArea } from "@/components/TextArea";
 import { TextInput } from "@/components/TextInput";
-import { insertPlantSchema } from "@/db/schema";
-import { useNavigation } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { LIGHT_CONDITIONS } from "@/constants/values";
+import { useInsertPlantForm } from "@/hooks/useInsertPlantForm";
 
 export default function AddScreen() {
   const inset = useSafeAreaInsets();
 
   const navigation = useNavigation();
 
-  const { handleSubmit, control, formState, reset } =
-    useForm<InsertPlantFieldValues>({
-      defaultValues: {
-        period: 1,
-        portion: 100,
-        light: LIGHT_CONDITIONS.BRIGHT_INDIRECT,
-      },
-      mode: "onSubmit",
-      resolver: zodResolver(insertPlantSchema),
-    });
-
-  const onSubmit: SubmitHandler<InsertPlantFieldValues> = (data) => {
-    console.log("Form data", data);
-  };
-
-  const onError: SubmitErrorHandler<InsertPlantFieldValues> = (errors) => {
-    console.log(errors);
-  };
-
   const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const { handleSubmit, control, reset, onError, onSubmit } =
+    useInsertPlantForm();
 
   const [lightCondition, setLightCondition] = useState<string>(
     LIGHT_CONDITIONS.BRIGHT_INDIRECT,
@@ -60,7 +41,7 @@ export default function AddScreen() {
   return (
     <View className="flex-1 bg-white px-5" style={{ paddingTop: inset.top }}>
       {/* Header */}
-      <View className="flex-row gap-5 rounded-b-lg my-5 justify-center">
+      <View className="my-5 flex-row justify-center gap-5 rounded-b-lg">
         {/* Cancel Button */}
         <ActionButton
           onPress={() => {
@@ -98,7 +79,7 @@ export default function AddScreen() {
         <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never">
           <ImageCard />
           {/* Form */}
-          <View className="gap-5 mb-10">
+          <View className="mb-10 gap-5">
             {/* Plant Name Input */}
             <TextInput
               name="alias"
@@ -142,7 +123,7 @@ export default function AddScreen() {
               <Text className="text-xl font-bold">Lighting Condition</Text>
               <Pressable
                 onPress={() => bottomSheetRef.current?.expand()}
-                className="flex-row border-[#ece5e5] active:border-primary border-2 p-4 rounded-lg justify-between items-center"
+                className="flex-row items-center justify-between rounded-lg border-2 border-[#ece5e5] p-4 active:border-primary"
               >
                 <Text className="text-lg">{lightCondition}</Text>
                 <Ionicons name="chevron-down" size={24} color="#3e5e5e" />
@@ -169,7 +150,7 @@ export default function AddScreen() {
       <LightBottomSheet
         ref={bottomSheetRef}
         control={control}
-        name="light"
+        name="lightCondition"
         onSubmit={handleLightConditionSubmit}
       />
     </View>

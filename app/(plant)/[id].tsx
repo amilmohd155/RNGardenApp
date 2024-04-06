@@ -28,14 +28,14 @@ export default function PlantScreen() {
           header: ({ navigation }) => {
             return (
               <View
-                className="flex-row items-center justify-between w-full p-5"
+                className="w-full flex-row items-center justify-between p-5"
                 style={{ paddingTop: insets.top + 20 }}
               >
                 <Ionicons
                   name="arrow-back"
                   size={32}
                   color="#59746f"
-                  className="bg-white p-2 rounded-full"
+                  className="rounded-full bg-white p-2"
                   onPress={() => navigation.goBack()}
                 />
                 <Link href={`/${id}/edit`} asChild>
@@ -43,7 +43,7 @@ export default function PlantScreen() {
                     name="pencil"
                     size={32}
                     color="#59746f"
-                    className="bg-white p-2 rounded-full"
+                    className="rounded-full bg-white p-2"
                   />
                 </Link>
               </View>
@@ -59,15 +59,15 @@ export default function PlantScreen() {
         placeholder={blurhash}
         transition={1000}
         contentFit="cover"
-        className="w-full h-1/3"
+        className="h-1/3 w-full"
       />
       {/* Body */}
-      <View className="flex-1 bg-white rounded-t-[32] -mt-16 pt-10 px-5">
+      <View className="-mt-16 flex-1 rounded-t-[32] bg-white px-5 pt-10">
         {/* Name */}
-        <Text className="text-5xl text-primary font-bold">{name}</Text>
+        <Text className="text-5xl font-bold text-primary">{name}</Text>
 
         {/* Details */}
-        <View className="rounded-lg border-[#ece5e5] border-2 gap-y-3 p-3 my-5">
+        <View className="my-5 gap-y-3 rounded-lg border-2 border-[#ece5e5] p-3">
           <View className="flex-row items-center justify-between">
             {/* Location */}
             <GridItem icon="home" item={location} title="Room" />
@@ -102,7 +102,7 @@ export default function PlantScreen() {
         {/* Note */}
         <View className="my-5 gap-2">
           <Text className="text-3xl font-bold text-[]">NOTE</Text>
-          <Text className="text-[#a9a1a1] border-[#ece5e5] border-2 p-3 rounded-lg min-h-min h-[100]">
+          <Text className="h-[100] min-h-min rounded-lg border-2 border-[#ece5e5] p-3 text-[#a9a1a1]">
             This plant is sensitive to overwatering. Make sure the soil is dry
             before watering again.
           </Text>
@@ -122,7 +122,7 @@ const GridItem = ({
   icon: React.ComponentProps<typeof Ionicons>["name"];
 }) => {
   return (
-    <View className="flex-1 flex-row gap-3 items-center">
+    <View className="flex-1 flex-row items-center gap-3">
       <Ionicons name={icon} size={20} color="rgb(89 116 111)" />
       <View className="flex-1 gap-1">
         <Text className="text-2xl font-semibold">{title}</Text>

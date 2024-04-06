@@ -31,5 +31,7 @@ export function useLoadAssets() {
     }
   }, [hasFontsLoaded, hasRunMigrations]);
 
-  return { isLoaded: hasFontsLoaded && hasRunMigrations };
+  return {
+    isLoaded: hasFontsLoaded && hasRunMigrations,
+  };
 }

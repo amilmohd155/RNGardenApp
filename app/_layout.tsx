@@ -1,19 +1,13 @@
 import "../global.css";
 
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useFonts } from "expo-font";
 import { Image, ImageBackground } from "expo-image";
 import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import * as SQLite from "expo-sqlite";
 import { cssInterop, remapProps, useColorScheme } from "nativewind";
-import { useEffect } from "react";
-import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useLoadAssets } from "@/hooks/useLoadAssets";
@@ -43,13 +37,6 @@ remapProps(ImageBackground, {
 
 function RootLayoutNav() {
   const { colorScheme } = useColorScheme();
-  // const { hasPermission, requestPermission } = useCameraPermission();
-
-  // useEffect(() => {
-  //   if (!hasPermission) {
-  //     requestPermission();
-  //   }
-  // }, [hasPermission]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

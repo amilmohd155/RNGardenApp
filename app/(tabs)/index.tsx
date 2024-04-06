@@ -9,7 +9,6 @@ import {
 } from "react-native-safe-area-context";
 
 import { PlantCard } from "@/components/PlantCard";
-import Colors from "@/constants/Colors";
 import { DATA } from "@/constants/SampleData";
 
 export default function Garden() {
@@ -19,11 +18,11 @@ export default function Garden() {
     <View className="flex-1 bg-surface p-5" style={{ paddingTop: inset.top }}>
       {/* Title */}
       <View className="py-5">
-        <Text className="text-[#374544] font-bold text-5xl">My garden</Text>
+        <Text className="text-5xl font-bold text-[#374544]">My garden</Text>
       </View>
       {/* Search Bar & Filter */}
-      <View className="flex-row gap-4 items-center pb-5">
-        <View className="flex-1 flex-row bg-white p-3 rounded-lg shadow-sm items-center justify-between">
+      <View className="flex-row items-center gap-4 pb-5">
+        <View className="flex-1 flex-row items-center justify-between rounded-lg bg-white p-3 shadow-sm">
           <TextInput
             className="text-lg"
             placeholder="Search for plants"
@@ -35,7 +34,7 @@ export default function Garden() {
           name="filter"
           size={24}
           color="#486766"
-          className="bg-white p-3 rounded-lg "
+          className="rounded-lg bg-white p-3 "
         />
       </View>
       {/* List */}
