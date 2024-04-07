@@ -38,6 +38,7 @@ remapProps(ImageBackground, {
 
 function RootLayoutNav() {
   const { colorScheme } = useColorScheme();
+  console.log(colorScheme);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

@@ -10,3 +10,4 @@ export * from "./ReadMore";
 export * from "./SearchBar";
 export * from "./TextArea";
 export * from "./TextInput";
+export { default as ThemeBottomSheet } from "./ThemeBottomSheet";

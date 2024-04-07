@@ -1,12 +1,14 @@
+import { ThemeBottomSheet } from "@/components";
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
-import React from "react";
+import React, { useMemo } from "react";
 import { Pressable, SectionList, Switch, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 enum SettingTypes {
   LINK,
   SWITCH,
-  BUTTON,
+  BOTTOMSHEET,
 }
 
 type SettingListData = {
@@ -44,7 +46,11 @@ const DATA: SettingListData[] = [
   {
     title: "Other",
     data: [
-      { label: "Theme", type: SettingTypes.LINK, link: "/(settings)/theme" },
+      {
+        label: "Theme",
+        type: SettingTypes.BOTTOMSHEET,
+        link: "/(settings)/theme",
+      },
       { label: "Language", type: SettingTypes.LINK },
     ],
   },
@@ -61,6 +67,8 @@ const DATA: SettingListData[] = [
 
 export default function SettingsScreen() {
   const inset = useSafeAreaInsets();
+
+  const bottomSheetRef = React.useRef<BottomSheet>(null);
 
   return (
     <View className="flex-1 bg-surface px-5">
@@ -79,27 +87,41 @@ export default function SettingsScreen() {
         stickySectionHeadersEnabled={false}
         keyExtractor={(item, index) => item.label + index}
         renderItem={({ item }) => {
-          if (item.type === SettingTypes.LINK) {
-            return (
-              <Link href={item.link ? item.link : "/(settings)/one"} asChild>
-                <Pressable className="my-1 rounded-lg bg-white  p-5">
+          switch (item.type) {
+            case SettingTypes.LINK: {
+              return (
+                <Link href={item.link ? item.link : "/(settings)/one"} asChild>
+                  <Pressable className="my-1 rounded-lg bg-white  p-5">
+                    <Text className="text-lg">{item.label}</Text>
+                  </Pressable>
+                </Link>
+              );
+            }
+            case SettingTypes.SWITCH: {
+              return (
+                <View className="my-1 flex-row items-center justify-between rounded-lg bg-white px-5 py-1">
+                  <Text className="text-lg">{item.label}</Text>
+                  <Switch
+                    trackColor={{ false: "#767577", true: "#81b0ff" }}
+                    // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                    ios_backgroundColor="#3e3e3e"
+                    // onValueChange={toggleSwitch}
+                    // value={isEnabled}
+                  />
+                </View>
+              );
+            }
+            case SettingTypes.BOTTOMSHEET: {
+              return (
+                <Pressable
+                  onPress={() => bottomSheetRef.current?.expand()}
+                  className="my-1 rounded-lg bg-white p-5"
+                >
                   <Text className="text-lg">{item.label}</Text>
                 </Pressable>
-              </Link>
-            );
+              );
+            }
           }
-          return (
-            <View className="my-1 flex-row items-center justify-between rounded-lg bg-white px-5 py-1">
-              <Text className="text-lg">{item.label}</Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "#81b0ff" }}
-                // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                // onValueChange={toggleSwitch}
-                // value={isEnabled}
-              />
-            </View>
-          );
         }}
         renderSectionHeader={({ section: { title } }) => (
           <Text className="py-2 text-xl font-semibold text-primary">
@@ -107,6 +129,7 @@ export default function SettingsScreen() {
           </Text>
         )}
       />
+      <ThemeBottomSheet ref={bottomSheetRef} />
     </View>
   );
 }
