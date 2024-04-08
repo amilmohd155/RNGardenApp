@@ -24,7 +24,9 @@ export default {
 
 export const theme = {
   light: vars({
-    "--color-primary-default": "#3a5e96",
+    "--color-primary": "#3a5e96",
   }),
-  dark: vars({}),
+  dark: vars({
+    "--color-primary": "#3a5e96",
+  }),
 };

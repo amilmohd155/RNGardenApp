@@ -29,20 +29,20 @@ function TabBarIcon({
 }
 
 export default function TabLayout() {
-  const { colorScheme } = useColorScheme();
+  // const { colorScheme } = useColorScheme();
   const inset = useSafeAreaInsets();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        // tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
         tabBarShowLabel: true,
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
           borderTopStartRadius: 24,
           borderTopEndRadius: 24,
-          backgroundColor: Colors[colorScheme ?? "light"].background,
+          // backgroundColor: Colors[colorScheme ?? "light"].background,
           height: Platform.OS === "ios" ? 70 + inset.bottom : 70,
         },
         tabBarLabelStyle: {

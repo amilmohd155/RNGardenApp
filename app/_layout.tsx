@@ -8,7 +8,7 @@ import {
 } from "@react-navigation/native";
 import { Image, ImageBackground } from "expo-image";
 import { Stack } from "expo-router";
-import { cssInterop, remapProps, useColorScheme } from "nativewind";
+import { cssInterop, remapProps, useColorScheme, vars } from "nativewind";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useLoadAssets } from "@/hooks/useLoadAssets";
@@ -35,6 +35,15 @@ remapProps(ImageBackground, {
   className: "style",
   imageClassName: "imageStyle",
 });
+
+const theme = {
+  light: vars({
+    "--color-primary": "#3a5e96",
+  }),
+  dark: vars({
+    "--color-primary": "#3a5e96",
+  }),
+};
 
 function RootLayoutNav() {
   const { colorScheme } = useColorScheme();

@@ -54,7 +54,6 @@ const ThemeBottomSheet = forwardRef<BottomSheet>((_, ref) => {
 
   const handleSettingTheme = useCallback(
     (value: ThemePreferences) => {
-      // setThemePreference(value);
       setColorScheme(value);
       setThemePreference(value);
     },
