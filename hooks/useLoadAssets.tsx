@@ -2,7 +2,10 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
+import { useColorScheme } from "nativewind";
 import { useEffect } from "react";
+
+import { useAppPersistStore } from "./useAppPersistStore";
 
 import db from "@/db/client";
 import migrations from "@/drizzle/migrations";
@@ -19,6 +22,14 @@ export function useLoadAssets() {
 
   const { success: hasRunMigrations, error: runningMigrationError } =
     useMigrations(db, migrations);
+
+  const { themePreference } = useAppPersistStore();
+  const { setColorScheme } = useColorScheme();
+
+  // Theme
+  useEffect(() => {
+    setColorScheme(themePreference);
+  }, [setColorScheme, themePreference]);
 
   useEffect(() => {
     if (loadingFontsError) throw loadingFontsError;

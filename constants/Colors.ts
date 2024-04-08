@@ -1,3 +1,7 @@
+import { vars } from "nativewind";
+
+export type ThemePreferences = "light" | "dark" | "system";
+
 const tintColorLight = "#3e5e5e";
 const tintColorDark = "#fff";
 
@@ -16,4 +20,11 @@ export default {
     tabIconDefault: "#ccc",
     tabIconSelected: tintColorDark,
   },
+};
+
+export const theme = {
+  light: vars({
+    "--color-primary-default": "#3a5e96",
+  }),
+  dark: vars({}),
 };

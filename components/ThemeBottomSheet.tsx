@@ -1,25 +1,20 @@
 import { Ionicons } from "@expo/vector-icons";
 import BottomSheet, {
   BottomSheetBackdrop,
-  BottomSheetFooter,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { LinearGradient } from "expo-linear-gradient";
+import { useColorScheme } from "nativewind";
 import React, { forwardRef, memo, useCallback, useMemo } from "react";
 import { View, Text, Pressable } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { ActionButton } from "./ActionButton";
+import { ThemePreferences } from "@/constants/Colors";
+import { useAppPersistStore } from "@/hooks/useAppPersistStore";
 
 type IThemeData = {
   label: string;
-  value: string;
+  value: ThemePreferences;
   icon: React.ComponentProps<typeof Ionicons>["name"];
-  // iconColor: string;
-  // fontColor: string;
-  // borderColor: string;
-  // backgroundColor: string;
-  // activeBackgroundColor: string;
 };
 
 const ThemeData: IThemeData[] = [
@@ -27,36 +22,24 @@ const ThemeData: IThemeData[] = [
     label: "On",
     value: "dark",
     icon: "moon-outline",
-    // iconColor: "[#eff3ec]",
-    // fontColor: "text-surface",
-    // borderColor: "[#1d1f25]",
-    // backgroundColor: "[#3b3f4f]",
-    // activeBackgroundColor: "[#1d1f25]",
   },
   {
     label: "Off",
     value: "light",
     icon: "sunny-outline",
-    // iconColor: "[#374544]",
-    // fontColor: "text-surface",
-    // borderColor: "green-400",
-    // backgroundColor: "[#86aaa7]",
-    // activeBackgroundColor: "green-400",
   },
   {
     label: "Use device settings",
-    value: "auto",
+    value: "system",
     icon: "cog-outline",
-    // iconColor: "[rgb(55 65 81)]",
-    // fontColor: "text-gray-700",
-    // borderColor: "gray-600",
-    // backgroundColor: "gray-50",
-    // activeBackgroundColor: "gray-400",
   },
 ];
 
 const ThemeBottomSheet = forwardRef<BottomSheet>((_, ref) => {
   const snapPoints = useMemo(() => ["40%"], []);
+
+  const { setColorScheme, colorScheme } = useColorScheme();
+  const { themePreference, setThemePreference } = useAppPersistStore();
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -69,6 +52,15 @@ const ThemeBottomSheet = forwardRef<BottomSheet>((_, ref) => {
     [],
   );
 
+  const handleSettingTheme = useCallback(
+    (value: ThemePreferences) => {
+      // setThemePreference(value);
+      setColorScheme(value);
+      setThemePreference(value);
+    },
+    [setColorScheme, setThemePreference],
+  );
+
   return (
     <BottomSheet
       snapPoints={snapPoints}
@@ -78,7 +70,11 @@ const ThemeBottomSheet = forwardRef<BottomSheet>((_, ref) => {
       backdropComponent={renderBackdrop}
       backgroundComponent={({ style }) => (
         <LinearGradient
-          colors={["rgba(0,0,0,0.8)", "transparent"]}
+          colors={
+            colorScheme === "light"
+              ? ["rgba(89, 116, 111, 0.8)", "transparent"]
+              : ["rgba(0,0,0,0.8)", "transparent"]
+          }
           style={style}
         />
       )}
@@ -94,10 +90,11 @@ const ThemeBottomSheet = forwardRef<BottomSheet>((_, ref) => {
         {ThemeData.map(({ value, icon, label }) => (
           <ThemeCard
             key={value}
-            onPress={() => {}}
+            onPress={handleSettingTheme}
             icon={icon}
             label={label}
             value={value}
+            selected={themePreference === value}
           />
         ))}
       </BottomSheetView>
@@ -112,22 +109,28 @@ const ThemeCard = ({
   value,
   onPress,
   icon,
+  selected,
 }: {
   label: string;
-  value: string;
-  onPress: () => void;
+  value: ThemePreferences;
+  onPress: (value: ThemePreferences) => void;
   icon: React.ComponentProps<typeof Ionicons>["name"];
+  selected: boolean;
 }) => {
   return (
     <Pressable
-      onPress={onPress}
+      onPress={() => onPress(value)}
       className="mx-8 my-1 flex-row items-center justify-between rounded-2xl border-2 p-5"
     >
       <View className="flex-row gap-5">
         <Ionicons name={icon} size={16} color="#FFF" />
         <Text className="text-lg font-semibold text-white">{label}</Text>
       </View>
-      <Ionicons name="radio-button-off" size={16} color="#FFF" />
+      <Ionicons
+        name={selected ? "radio-button-on" : "radio-button-off"}
+        size={16}
+        color="#FFF"
+      />
     </Pressable>
   );
 };
