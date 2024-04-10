@@ -1,19 +1,16 @@
 import "../global.css";
 
-import { PortalHost, PortalProvider } from "@gorhom/portal";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import { PortalProvider } from "@gorhom/portal";
+import { ThemeProvider } from "@react-navigation/native";
 import { Image, ImageBackground } from "expo-image";
 import { Stack } from "expo-router";
 import { cssInterop, remapProps, useColorScheme } from "nativewind";
+import { TextInput } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useLoadAssets } from "@/hooks/useLoadAssets";
 import { NavigationTheme } from "@/theme";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -36,6 +33,19 @@ cssInterop(Image, { className: "style" });
 remapProps(ImageBackground, {
   className: "style",
   imageClassName: "imageStyle",
+});
+cssInterop(TextInput, {
+  className: {
+    target: "style",
+  },
+});
+cssInterop(Ionicons, {
+  className: {
+    target: "style",
+    nativeStyleToProp: {
+      color: "color",
+    },
+  },
 });
 
 function RootLayoutNav() {

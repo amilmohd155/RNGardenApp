@@ -101,16 +101,20 @@ export default function SettingsScreen() {
             case SettingTypes.LINK: {
               return (
                 <Link href={item.link ? item.link : "/(settings)/one"} asChild>
-                  <Pressable className="my-1 rounded-lg bg-white  p-5">
-                    <Text className="text-lg">{item.label}</Text>
+                  <Pressable className="my-1 rounded-lg bg-inverseSurface  p-5">
+                    <Text className="text-lg text-inverseOnSurface">
+                      {item.label}
+                    </Text>
                   </Pressable>
                 </Link>
               );
             }
             case SettingTypes.SWITCH: {
               return (
-                <View className="my-1 flex-row items-center justify-between rounded-lg bg-white px-5 py-1">
-                  <Text className="text-lg">{item.label}</Text>
+                <View className="my-1 flex-row items-center justify-between rounded-lg bg-inverseSurface px-5 py-1">
+                  <Text className="text-lg text-inverseOnSurface">
+                    {item.label}
+                  </Text>
                   <Switch
                     trackColor={{ false: "#767577", true: "#81b0ff" }}
                     // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -125,9 +129,11 @@ export default function SettingsScreen() {
               return (
                 <Pressable
                   onPress={() => bottomSheetRef.current?.snapToIndex(1)}
-                  className="my-1 rounded-lg bg-white p-5"
+                  className="my-1 rounded-lg bg-inverseSurface p-5"
                 >
-                  <Text className="text-lg">{item.label}</Text>
+                  <Text className="text-lg text-inverseOnSurface">
+                    {item.label}
+                  </Text>
                 </Pressable>
               );
             }

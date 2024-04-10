@@ -1,11 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
+import { cva } from "class-variance-authority";
+import { UseControllerProps } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
 
-export const ImageCard = ({}) => {
+import { InsertPlantFieldValues } from "@/lib/form";
+
+export const ImageCard = (
+  props: UseControllerProps<InsertPlantFieldValues>,
+) => {
+  const iconStyle = cva("{}-[color]: color-inverseOnSurface")();
+
   return (
-    <Pressable className="my-5 items-center rounded-xl bg-[#eeeeee] py-10 active:bg-[#c6c5c5]">
-      <Ionicons name="camera" size={50} color="#000" />
-      <Text className="text-center text-2xl font-bold text-[#9c9b9c]">
+    <Pressable className="my-5 items-center rounded-xl bg-inverseSurface py-10 active:bg-inverseSurface/50">
+      <Ionicons name="camera" size={50} className={iconStyle} />
+      <Text className="text-center text-2xl font-bold text-inverseOnSurface">
         Tap to upload the photo
       </Text>
     </Pressable>

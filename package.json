@@ -26,6 +26,7 @@
     "@react-navigation/native": "^6.0.2",
     "@shopify/flash-list": "1.6.3",
     "babel-plugin-inline-import": "^3.0.0",
+    "class-variance-authority": "^0.7.0",
     "drizzle-orm": "^0.30.7",
     "drizzle-zod": "^0.5.0",
     "expo": "^50.0.15",

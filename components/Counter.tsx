@@ -44,7 +44,7 @@ export const Counter = ({
   return (
     <View className="flex-row items-center gap-5 py-1">
       {/* Label */}
-      <Text className="text-xl font-bold">{label}</Text>
+      <Text className="text-xl font-bold text-onSurfaceVariant">{label}</Text>
       {/* Counter */}
       <View className="flex-row items-center gap-3">
         {/* Decrement */}
@@ -57,7 +57,9 @@ export const Counter = ({
           <Feather name="minus" size={COUNTER_SIZE} color="#3e5e5e" />
         </Pressable>
         {/* Count */}
-        <Text className="text-xl font-bold">{field.value}</Text>
+        <Text className="text-xl font-bold text-onSurfaceVariant">
+          {field.value}
+        </Text>
         {/* Increment */}
         <Pressable
           hitSlop={10}

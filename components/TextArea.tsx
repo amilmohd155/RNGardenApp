@@ -3,6 +3,7 @@ import { UseControllerProps, useController } from "react-hook-form";
 import { Text, TextInput, TextInputProps, View } from "react-native";
 
 import { InsertPlantFieldValues } from "@/lib/form";
+import { cva } from "class-variance-authority";
 
 export const TextArea = ({
   label,
@@ -22,10 +23,14 @@ export const TextArea = ({
     field.onChange(text);
   };
 
+  const textInputStyle = cva(
+    "text-pretty rounded-lg border-2 border-[#ece5e5] p-5 align-top text-lg focus:border-primary {}-[placeholderTextColor]:color-onSurfaceVariant/50",
+  )();
+
   return (
     <View className="mb-5 gap-2">
       <View className="flex-row items-center justify-between">
-        <Text className="text-xl font-bold">{label}</Text>
+        <Text className="text-xl font-bold text-onSurfaceVariant">{label}</Text>
         {error && <Text className="text-sm italic text-red-500">Required</Text>}
       </View>
       <TextInput
@@ -33,7 +38,7 @@ export const TextArea = ({
         {...props}
         maxLength={maxLength}
         onChangeText={handleTextChange}
-        className="text-pretty rounded-lg border-2 border-[#ece5e5] p-5 align-top text-lg focus:border-primary"
+        className={textInputStyle}
         value={field.value?.toString()}
       />
       {/* Helper */}

@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
+import { cva } from "class-variance-authority";
 import { useNavigation } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -10,6 +11,12 @@ import {
   Text,
   View,
 } from "react-native";
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ActionButton } from "@/components/ActionButton";
@@ -21,11 +28,11 @@ import { TextInput } from "@/components/TextInput";
 import { LIGHT_CONDITIONS } from "@/constants/values";
 import { useInsertPlantForm } from "@/hooks/useInsertPlantForm";
 
+const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
+
 export default function AddScreen() {
   const inset = useSafeAreaInsets();
-
   const navigation = useNavigation();
-
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const { handleSubmit, control, reset, onError, onSubmit } =
@@ -34,12 +41,16 @@ export default function AddScreen() {
   const [lightCondition, setLightCondition] = useState<string>(
     LIGHT_CONDITIONS.BRIGHT_INDIRECT,
   );
+
   const handleLightConditionSubmit = (value: string) => {
     setLightCondition(value);
   };
 
   return (
-    <View className="flex-1 bg-white px-5" style={{ paddingTop: inset.top }}>
+    <View
+      className="flex-1 bg-surfaceBright px-5"
+      style={{ paddingTop: inset.top }}
+    >
       {/* Header */}
       <View className="my-5 flex-row justify-center gap-5 rounded-b-lg">
         {/* Cancel Button */}
@@ -69,7 +80,7 @@ export default function AddScreen() {
       {/* Content */}
 
       {/* Divider */}
-      <View className="h-0.5 bg-slate-100" />
+      <View className="h-0.5 bg-outline" />
       {/* Image */}
       <KeyboardAvoidingView
         style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
@@ -77,14 +88,25 @@ export default function AddScreen() {
         // keyboardVerticalOffset={}
       >
         <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never">
-          <ImageCard />
+          <ImageCard control={control} name="image" />
           {/* Form */}
           <View className="mb-10 gap-5">
+            {/* Scientific Name */}
+            <View className="flex-row gap-2">
+              <Text className="text-xl font-bold text-onSurfaceVariant">
+                Scientific Name:
+              </Text>
+              <Text className="text-lg italic text-onSurface">
+                Monstera Deliciosa
+              </Text>
+            </View>
+            {/* Description */}
+            <Description />
             {/* Plant Name Input */}
             <TextInput
               name="alias"
               control={control}
-              placeholder="e.g. Monstera Deliciosa"
+              placeholder="e.g. Dexter's plant, Monstera.."
               label="Plant name (Alias)"
             />
             {/* Room Input */}
@@ -120,16 +142,23 @@ export default function AddScreen() {
             />
             {/* Light Condition */}
             <View className="gap-2">
-              <Text className="text-xl font-bold">Lighting Condition</Text>
+              <Text className="text-xl font-bold text-onSurfaceVariant">
+                Lighting Condition
+              </Text>
               <Pressable
                 onPress={() => bottomSheetRef.current?.expand()}
                 className="flex-row items-center justify-between rounded-lg border-2 border-[#ece5e5] p-4 active:border-primary"
               >
-                <Text className="text-lg">{lightCondition}</Text>
-                <Ionicons name="chevron-down" size={24} color="#3e5e5e" />
+                <Text className="text-lg text-onSurfaceVariant/50">
+                  {lightCondition}
+                </Text>
+                <Ionicons
+                  name="chevron-down"
+                  size={24}
+                  className={cva("{}-[color]:color-primary")()}
+                />
               </Pressable>
             </View>
-
             {/* Notes */}
             <TextArea
               name="notes"
@@ -156,3 +185,55 @@ export default function AddScreen() {
     </View>
   );
 }
+
+const Description = () => {
+  const animatedHeight = useSharedValue(0);
+
+  const [expanded, setExpanded] = useState(false);
+  const [height, setHeight] = useState(0);
+
+  const handleCollapsibleView = useCallback(() => {
+    setExpanded((prev) => !prev);
+  }, []);
+
+  const collapsableStyle = useAnimatedStyle(() => {
+    animatedHeight.value = expanded ? withTiming(height) : withTiming(0);
+
+    return {
+      height: animatedHeight.value,
+    };
+  }, [expanded]);
+
+  const rotatedIconStyle = useAnimatedStyle(() => {
+    const rotate = interpolate(animatedHeight.value, [0, height], [0, 180]);
+
+    return {
+      transform: [{ rotate: `${rotate}deg` }],
+    };
+  }, [expanded]);
+
+  return (
+    <Pressable className="gap-2" onPress={handleCollapsibleView}>
+      <View className="flex-row items-center gap-2">
+        <Text className=" text-xl font-bold text-onSurfaceVariant">
+          Description
+        </Text>
+        <AnimatedIcon
+          name="chevron-down"
+          size={16}
+          style={[rotatedIconStyle]}
+        />
+      </View>
+      <Animated.View style={[collapsableStyle]}>
+        <Text
+          className="text-lg italic text-onSurface"
+          // onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
+          onTextLayout={(e) => setHeight(e.nativeEvent.lines[0].height + 20)}
+        >
+          Monstera is a genus of about 50 species of flowering plants in the
+          arum family, Araceae, native to tropical regions of the Americas.
+        </Text>
+      </Animated.View>
+    </Pressable>
+  );
+};

@@ -35,14 +35,14 @@
     /* Surface */
     --color-surface: 245 255 243;
     --color-surface-dim: 197 255 251;
-    --color-surface-bright: 0 209 206;
+    --color-surface-bright: 255 255 255;
     --color-on-surface: 0 33 14;
     --color-on-surface-variant: 63 73 71;
 
     /* Inverse */
     /* Inverse Surface */
     --color-inverse-surface: 0 57 28;
-    --color-inverse-on-surface: 0 57 28;
+    --color-inverse-on-surface: 153 247 181;
     /* Inverse Primary */
     --color-inverse-primary: 83 219 202;
 

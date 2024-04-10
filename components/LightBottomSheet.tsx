@@ -12,7 +12,7 @@ import { RadioButton } from "./RadioButton";
 
 import { LightConditionsRadioOptions } from "@/constants/values";
 import { InsertPlantFieldValues } from "@/lib/form";
-import { Portal } from "@gorhom/portal";
+import Colors from "@/theme/Colors";
 
 export const LightBottomSheet = forwardRef<
   BottomSheet,
@@ -21,7 +21,7 @@ export const LightBottomSheet = forwardRef<
     onSubmit?: (value: string) => void;
   } & UseControllerProps<InsertPlantFieldValues>
 >(({ onChange, onSubmit, ...props }, ref) => {
-  const snapPoints = useMemo(() => ["50%", "60%"], []);
+  const snapPoints = useMemo(() => ["40%", "50%"], []);
 
   const { field, formState } = useController<InsertPlantFieldValues>({
     ...props,
@@ -47,7 +47,7 @@ export const LightBottomSheet = forwardRef<
       <BottomSheetBackdrop
         {...props}
         appearsOnIndex={1}
-        disappearsOnIndex={-1}
+        disappearsOnIndex={0}
       />
     ),
     [],
@@ -78,16 +78,16 @@ export const LightBottomSheet = forwardRef<
       snapPoints={snapPoints}
       index={-1}
       enablePanDownToClose
-      // backdropComponent={renderBackdrop}
+      backdropComponent={renderBackdrop}
       footerComponent={renderFooter}
       handleStyle={{
-        backgroundColor: "white",
+        backgroundColor: Colors.primaryContainer,
         borderTopEndRadius: 25,
         borderTopStartRadius: 25,
       }}
-      backgroundStyle={{ backgroundColor: "white" }}
+      // backgroundStyle={{ backgroundColor: Colors.surface }}
     >
-      <BottomSheetView className="mb-5 flex-1 gap-5 p-5">
+      <BottomSheetView className="flex-1 gap-5 bg-primaryContainer p-5">
         {/* Header */}
         <Text className="text-3xl font-bold text-primary">
           Lighting Condition

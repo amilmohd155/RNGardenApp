@@ -40,7 +40,7 @@ export const FilterBottomSheet = forwardRef<BottomSheet>((_, ref) => {
       }}
     >
       <BottomSheetView>
-        <Text className="bg-secondary text-onSecondary p-5 text-center text-2xl font-bold tracking-wide">
+        <Text className="bg-secondary p-5 text-center text-2xl font-bold tracking-wide text-onSecondary">
           Sort & Filter
         </Text>
         <View className="gap-3 p-5">
@@ -70,9 +70,14 @@ export const FilterButton = ({ onPress }: { onPress: () => void }) => {
   return (
     <Pressable
       onPress={handleOnPress}
-      className="bg-secondaryContainer rounded-lg px-5 py-3 shadow-sm active:bg-gray-100"
+      className="rounded-lg bg-secondaryContainer px-5 py-3 shadow-sm active:bg-gray-100"
     >
-      <FontAwesome name="sort" size={24} color="#486766" className="" />
+      <FontAwesome
+        name="sort"
+        size={24}
+        color={Colors.primary[600]}
+        className=""
+      />
     </Pressable>
   );
 };

@@ -1,14 +1,11 @@
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { randomUUID } from "expo-crypto";
 
 import { LightConditionsAsArray } from "@/constants/values";
 
 export const plants = sqliteTable(
   "plants",
   {
-    id: text("id")
-      .$defaultFn(() => randomUUID())
-      .primaryKey(),
+    id: integer("id").unique().primaryKey(),
     alias: text("alias").notNull(),
     scientificName: text("scientific_name"),
     room: text("room").notNull(),
@@ -18,6 +15,7 @@ export const plants = sqliteTable(
       enum: LightConditionsAsArray,
     }),
     notes: text("notes"),
+    image: text("image"),
   },
   (table) => {
     return {

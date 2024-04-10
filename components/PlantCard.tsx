@@ -37,33 +37,31 @@ export const PlantCard = ({
       asChild
     >
       <Pressable>
-        <View className="bg-secondary flex-row justify-between rounded-xl">
+        <View className="flex-row justify-between rounded-xl bg-secondary">
           <View className="justify-between p-5">
             <View className="gap-1">
               {/* Scientific Name */}
               {scientificName && (
-                <Text className="text-onTertiaryContainer text-sm font-bold italic">
+                <Text className="text-sm font-bold italic text-onTertiary/50">
                   {scientificName}
                 </Text>
               )}
 
               {/* Plant Name */}
-              <Text className="text-onSecondary text-xl font-bold">
+              <Text className="text-xl font-bold text-onSecondary">
                 {alias}
               </Text>
               {/* Location */}
-              <Text className="text-onSecondaryContainer/75 font-semibold">
-                {room}
-              </Text>
+              <Text className="font-semibold text-onSecondary/75">{room}</Text>
             </View>
             {/* Reminder */}
-            <View className="bg-tertiary shrink flex-row items-center gap-1 rounded-2xl p-2">
+            <View className="shrink flex-row items-center gap-1 rounded-2xl border-2 border-outline bg-tertiary px-3 py-2">
               <Ionicons
                 name="water-outline"
                 size={24}
                 color={Colors.onTertiaryContainer}
               />
-              <Text className="text-onTertiary text-lg font-bold">{`${quantity}ml in ${period} days`}</Text>
+              <Text className="text-lg font-bold text-onTertiary">{`${quantity}ml in ${period} days`}</Text>
             </View>
           </View>
           <Animated.View
