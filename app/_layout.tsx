@@ -1,6 +1,6 @@
 import "../global.css";
 
-import { PortalProvider } from "@gorhom/portal";
+import { PortalHost, PortalProvider } from "@gorhom/portal";
 import {
   DarkTheme,
   DefaultTheme,
@@ -8,10 +8,12 @@ import {
 } from "@react-navigation/native";
 import { Image, ImageBackground } from "expo-image";
 import { Stack } from "expo-router";
-import { cssInterop, remapProps, useColorScheme, vars } from "nativewind";
+import { cssInterop, remapProps, useColorScheme } from "nativewind";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useLoadAssets } from "@/hooks/useLoadAssets";
+import { NavigationTheme } from "@/theme";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -36,15 +38,6 @@ remapProps(ImageBackground, {
   imageClassName: "imageStyle",
 });
 
-const theme = {
-  light: vars({
-    "--color-primary": "#3a5e96",
-  }),
-  dark: vars({
-    "--color-primary": "#3a5e96",
-  }),
-};
-
 function RootLayoutNav() {
   const { colorScheme } = useColorScheme();
 
@@ -52,7 +45,8 @@ function RootLayoutNav() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <PortalProvider>
         <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+          // value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+          value={NavigationTheme(colorScheme)}
         >
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />

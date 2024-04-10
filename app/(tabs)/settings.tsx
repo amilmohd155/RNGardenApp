@@ -1,9 +1,11 @@
-import { ThemeBottomSheet } from "@/components";
 import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
-import { Link } from "expo-router";
-import React, { useMemo } from "react";
+import { Link, useFocusEffect, useNavigation } from "expo-router";
+import React, { useEffect, useMemo } from "react";
 import { Pressable, SectionList, Switch, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { ThemeBottomSheet } from "@/components";
+import { Portal } from "@gorhom/portal";
 
 enum SettingTypes {
   LINK,
@@ -70,6 +72,14 @@ export default function SettingsScreen() {
 
   const bottomSheetRef = React.useRef<BottomSheet>(null);
 
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.addListener("blur", () => {
+      bottomSheetRef.current?.close();
+    });
+  }, [navigation]);
+
   return (
     <View className="flex-1 bg-surface px-5">
       <View className="py-10">
@@ -114,7 +124,7 @@ export default function SettingsScreen() {
             case SettingTypes.BOTTOMSHEET: {
               return (
                 <Pressable
-                  onPress={() => bottomSheetRef.current?.expand()}
+                  onPress={() => bottomSheetRef.current?.snapToIndex(1)}
                   className="my-1 rounded-lg bg-white p-5"
                 >
                   <Text className="text-lg">{item.label}</Text>
@@ -129,6 +139,7 @@ export default function SettingsScreen() {
           </Text>
         )}
       />
+
       <ThemeBottomSheet ref={bottomSheetRef} />
     </View>
   );

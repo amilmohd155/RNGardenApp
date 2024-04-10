@@ -1,3 +1,4 @@
+const colors = require("./theme/Colors");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "selector",
@@ -7,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#59746f",
-        surface: "#eff3ec",
+        //  Custom Colors
+        ...colors,
       },
     },
   },

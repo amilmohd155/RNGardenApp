@@ -1,9 +1,9 @@
+import Colors from "@/theme/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { Portal } from "@gorhom/portal";
 import SegmentedControl, {
   SegmentedControlProps,
 } from "@react-native-segmented-control/segmented-control";
@@ -11,14 +11,14 @@ import { forwardRef, useCallback, useMemo, useState } from "react";
 import { Pressable, View, Text } from "react-native";
 
 export const FilterBottomSheet = forwardRef<BottomSheet>((_, ref) => {
-  const snapPoints = useMemo(() => ["45%"], []);
+  const snapPoints = useMemo(() => ["50%", "60%"], []);
 
   const renderBackdrop = useCallback(
     (props: any) => (
       <BottomSheetBackdrop
         {...props}
-        appearsOnIndex={0}
-        disappearsOnIndex={-1}
+        appearsOnIndex={1}
+        disappearsOnIndex={0}
       />
     ),
     [],
@@ -34,13 +34,13 @@ export const FilterBottomSheet = forwardRef<BottomSheet>((_, ref) => {
       backdropComponent={renderBackdrop}
       handleIndicatorStyle={{ backgroundColor: "#FFF" }}
       handleStyle={{
-        backgroundColor: "#59746f",
+        backgroundColor: Colors.secondary[600],
         borderTopEndRadius: 15,
         borderTopStartRadius: 15,
       }}
     >
       <BottomSheetView>
-        <Text className="bg-primary p-5 text-center text-2xl font-bold tracking-wide text-white">
+        <Text className="bg-secondary text-onSecondary p-5 text-center text-2xl font-bold tracking-wide">
           Sort & Filter
         </Text>
         <View className="gap-3 p-5">
@@ -70,7 +70,7 @@ export const FilterButton = ({ onPress }: { onPress: () => void }) => {
   return (
     <Pressable
       onPress={handleOnPress}
-      className="rounded-lg bg-white px-5 py-3 shadow-sm active:bg-gray-100"
+      className="bg-secondaryContainer rounded-lg px-5 py-3 shadow-sm active:bg-gray-100"
     >
       <FontAwesome name="sort" size={24} color="#486766" className="" />
     </Pressable>

@@ -2,12 +2,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Linking from "expo-linking";
+import { Stack } from "expo-router";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import Colors from "@/constants/Colors";
-import { Stack } from "expo-router";
+import Colors from "@/theme/Colors";
 
 export default function DeveloperScreen() {
   const insets = useSafeAreaInsets();

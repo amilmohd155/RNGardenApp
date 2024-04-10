@@ -1,3 +1,114 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary */
+    --color-primary: 0 106 96;
+    --color-on-primary: 255 255 255;
+    /* Primary Container */
+    --color-primary-container: 116 248 230;
+    --color-on-primary-container: 0 32 28;
+
+    /* Secondary */
+    --color-secondary: 74 99 95;
+    --color-on-secondary: 255 255 255;
+    /* Secondary Container */
+    --color-secondary-container: 204 232 226;
+    --color-on-secondary-container: 5 32 28;
+
+    /* Tertiary */
+    --color-tertiary: 69 97 121;
+    --color-on-tertiary: 255 255 255;
+    /* Tertiary Container */
+    --color-tertiary-container: 204 229 255;
+    --color-on-tertiary-container: 0 29 49;
+
+    /* Error */
+    --color-error: 186 26 26;
+    --color-on-error: 255 255 255;
+    /* Error Container */
+    --color-error-container: 255 218 214;
+    --color-on-error-container: 65 0 2;
+
+    /* Surface */
+    --color-surface: 245 255 243;
+    --color-surface-dim: 197 255 251;
+    --color-surface-bright: 0 209 206;
+    --color-on-surface: 0 33 14;
+    --color-on-surface-variant: 63 73 71;
+
+    /* Inverse */
+    /* Inverse Surface */
+    --color-inverse-surface: 0 57 28;
+    --color-inverse-on-surface: 0 57 28;
+    /* Inverse Primary */
+    --color-inverse-primary: 83 219 202;
+
+    /* Outline */
+    --color-outline: 111 121 119;
+    --color-outline-variant: 190 201 198;
+
+    /* Scrim */
+    --color-scrim: 0 0 0;
+
+    /* Shadow */
+    --color-shadow: 0 0 0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* Primary */
+      --color-primary: 83 219 202;
+      --color-on-primary: 0 55 49;
+      /* Primary Container */
+      --color-primary-container: 0 80 72;
+      --color-on-primary-container: 116 248 230;
+
+      /* Secondary */
+      --color-secondary: 177 204 198;
+      --color-on-secondary: 28 53 49;
+      /* Secondary Container */
+      --color-secondary-container: 51 75 71;
+      --color-on-secondary-container: 204 232 226;
+
+      /* Tertiary */
+      --color-tertiary: 173 202 230;
+      --color-on-tertiary: 21 51 73;
+      /* Tertiary Container */
+      --color-tertiary-container: 45 73 97;
+      --color-on-tertiary-container: 204 229 255;
+
+      /* Error */
+      --color-error: 255 180 171;
+      --color-on-error: 105 0 5;
+      /* Error Container */
+      --color-error-container: 147 0 10;
+      --color-on-error-container: 255 218 214;
+
+      /* Surface */
+      --color-surface: 0 33 14;
+      --color-surface-dim: 83 180 101;
+      --color-surface-bright: 0 33 14;
+      --color-on-surface: 153 247 181;
+      --color-on-surface-variant: 190 201 198;
+
+      /* Inverse */
+      /* Inverse Surface */
+      --color-inverse-surface: 153 247 181;
+      --color-inverse-on-surface: 0 33 14;
+      /* Inverse Primary */
+      --color-inverse-primary: 0 106 96;
+
+      /* Outline */
+      --color-outline: 137 147 144;
+      --color-outline-variant: 63 73 71;
+
+      /* Scrim */
+      --color-scrim: 0 0 0;
+
+      /* Shadow */
+      --color-shadow: 0 0 0;
+    }
+  }
+}

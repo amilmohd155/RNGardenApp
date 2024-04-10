@@ -1,15 +1,24 @@
 import { Ionicons } from "@expo/vector-icons";
 import BottomSheet, {
   BottomSheetBackdrop,
+  BottomSheetBackdropProps,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { LinearGradient } from "expo-linear-gradient";
 import { useColorScheme } from "nativewind";
-import React, { forwardRef, memo, useCallback, useMemo } from "react";
+import React, {
+  forwardRef,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { View, Text, Pressable } from "react-native";
 
-import { ThemePreferences } from "@/constants/Colors";
 import { useAppPersistStore } from "@/hooks/useAppPersistStore";
+import { ThemePreferences } from "@/theme";
+import { Portal } from "@gorhom/portal";
+import { useNavigation } from "expo-router";
 
 type IThemeData = {
   label: string;
@@ -36,17 +45,19 @@ const ThemeData: IThemeData[] = [
 ];
 
 const ThemeBottomSheet = forwardRef<BottomSheet>((_, ref) => {
-  const snapPoints = useMemo(() => ["40%"], []);
+  const snapPoints = useMemo(() => ["40%", "60%"], []);
 
   const { setColorScheme, colorScheme } = useColorScheme();
   const { themePreference, setThemePreference } = useAppPersistStore();
 
   const renderBackdrop = useCallback(
-    (props: any) => (
+    (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
         {...props}
-        appearsOnIndex={0}
-        disappearsOnIndex={-1}
+        // onPress={() => console.log("Backdrop Pressed")}
+        appearsOnIndex={1}
+        disappearsOnIndex={0}
+        enableTouchThrough
       />
     ),
     [],
@@ -61,43 +72,49 @@ const ThemeBottomSheet = forwardRef<BottomSheet>((_, ref) => {
   );
 
   return (
-    <BottomSheet
-      snapPoints={snapPoints}
-      ref={ref}
-      index={-1}
-      enablePanDownToClose
-      backdropComponent={renderBackdrop}
-      backgroundComponent={({ style }) => (
-        <LinearGradient
-          colors={
-            colorScheme === "light"
-              ? ["rgba(89, 116, 111, 0.8)", "transparent"]
-              : ["rgba(0,0,0,0.8)", "transparent"]
-          }
-          style={style}
-        />
-      )}
-      handleIndicatorStyle={{ backgroundColor: "white" }}
-      backgroundStyle={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
-    >
-      <BottomSheetView className="flex-1">
-        <Text className="my-5 px-8 text-2xl font-semibold text-surface">
-          Dark Mode
-        </Text>
-        <View className="mb-5 h-1 border-b border-gray-600" />
-        {/* Options */}
-        {ThemeData.map(({ value, icon, label }) => (
-          <ThemeCard
-            key={value}
-            onPress={handleSettingTheme}
-            icon={icon}
-            label={label}
-            value={value}
-            selected={themePreference === value}
+    <Portal>
+      <BottomSheet
+        snapPoints={snapPoints}
+        ref={ref}
+        index={-1}
+        enablePanDownToClose
+        backdropComponent={renderBackdrop}
+        backgroundComponent={({ style }) => (
+          <LinearGradient
+            colors={
+              colorScheme === "light"
+                ? ["rgba(89, 116, 111, 0.8)", "transparent"]
+                : ["rgba(0,0,0,1)", "rgba(0,0,0,0.8)"]
+            }
+            style={style}
           />
-        ))}
-      </BottomSheetView>
-    </BottomSheet>
+        )}
+        handleIndicatorStyle={{ backgroundColor: "white" }}
+        backgroundStyle={{
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+        }}
+        style={{ zIndex: 1000, flex: 1 }}
+      >
+        <BottomSheetView className="flex-1">
+          <Text className="my-5 px-8 text-2xl font-semibold text-surface">
+            Dark Mode
+          </Text>
+          <View className="mb-5 h-1 border-b border-gray-600" />
+          {/* Options */}
+          {ThemeData.map(({ value, icon, label }) => (
+            <ThemeCard
+              key={value}
+              onPress={handleSettingTheme}
+              icon={icon}
+              label={label}
+              value={value}
+              selected={themePreference === value}
+            />
+          ))}
+        </BottomSheetView>
+      </BottomSheet>
+    </Portal>
   );
 });
 

@@ -9,7 +9,7 @@ import {
   useColorScheme,
 } from "react-native";
 
-import Colors from "@/constants/Colors";
+import Colors from "@/theme/Colors";
 
 type ThemeProps = {
   lightColor?: string;

@@ -4,24 +4,29 @@ import { Link } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import Animated from "react-native-reanimated";
 
-import { AnimatedImage } from "./AnimatedImage";
+// import { AnimatedImage } from "./AnimatedImage";
 
 import { blurhash } from "@/constants/values";
+import Colors from "@/theme/Colors";
 
 type PlantCardProps = {
   id: string;
-  name: string;
-  location: string;
-  rate: string;
+  scientificName?: string;
+  alias: string;
+  room: string;
+  period: number;
   image: string;
+  quantity: number;
 };
 
 export const PlantCard = ({
   id,
-  name,
-  location,
-  rate,
+  scientificName,
+  alias,
+  room,
+  period,
   image,
+  quantity,
 }: PlantCardProps) => {
   return (
     <Link
@@ -32,28 +37,47 @@ export const PlantCard = ({
       asChild
     >
       <Pressable>
-        <View className="flex-row justify-between rounded-xl bg-white">
-          <View className="flex-1 justify-between p-5">
+        <View className="bg-secondary flex-row justify-between rounded-xl">
+          <View className="justify-between p-5">
             <View className="gap-1">
+              {/* Scientific Name */}
+              {scientificName && (
+                <Text className="text-onTertiaryContainer text-sm font-bold italic">
+                  {scientificName}
+                </Text>
+              )}
+
               {/* Plant Name */}
-              <Text className="text-xl font-bold text-[#374544]">{name}</Text>
+              <Text className="text-onSecondary text-xl font-bold">
+                {alias}
+              </Text>
               {/* Location */}
-              <Text className="font-semibold text-[#486766]">{location}</Text>
+              <Text className="text-onSecondaryContainer/75 font-semibold">
+                {room}
+              </Text>
             </View>
             {/* Reminder */}
-            <View className="shrink flex-row items-center gap-1 rounded-2xl bg-[#eff6fe] p-2">
-              <Ionicons name="water-outline" size={24} color="#5584cd" />
-              <Text className="text-lg font-bold text-[#5584cd]">{`in ${rate} days`}</Text>
+            <View className="bg-tertiary shrink flex-row items-center gap-1 rounded-2xl p-2">
+              <Ionicons
+                name="water-outline"
+                size={24}
+                color={Colors.onTertiaryContainer}
+              />
+              <Text className="text-onTertiary text-lg font-bold">{`${quantity}ml in ${period} days`}</Text>
             </View>
           </View>
-          <AnimatedImage
+          <Animated.View
             sharedTransitionTag="plant-image"
-            className="h-40 w-40 rounded-br-xl rounded-tr-xl"
-            source={image}
-            placeholder={blurhash}
-            contentFit="cover"
-            transition={1000}
-          />
+            className="h-40 w-40"
+          >
+            <Image
+              className="flex-1 rounded-br-xl rounded-tr-xl"
+              source={image}
+              placeholder={blurhash}
+              contentFit="cover"
+              transition={1000}
+            />
+          </Animated.View>
         </View>
       </Pressable>
     </Link>

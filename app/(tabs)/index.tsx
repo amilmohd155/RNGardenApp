@@ -13,32 +13,49 @@ import {
 import { DATA } from "@/constants/SampleData";
 
 export default function Garden() {
-  const inset = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
 
   // Bottom Sheet Ref
   const filterSheetRef = useRef<BottomSheet>(null);
 
   return (
-    <View className="flex-1 bg-surface p-5" style={{ paddingTop: inset.top }}>
-      {/* Title */}
-      <View className="py-5">
-        <Text className="text-5xl font-bold text-[#374544]">My garden</Text>
-      </View>
-      {/* Search Bar & Filter */}
-      <View className="flex-row items-center gap-4 pb-5">
-        <SearchBar />
-        <FilterButton onPress={() => filterSheetRef.current?.expand()} />
-      </View>
+    <View
+      className="flex-1 bg-surface p-5"
+      style={{
+        paddingTop: insets.top + 10,
+      }}
+    >
       {/* List */}
       <FlashList
+        contentContainerStyle={{
+          paddingBottom: 80,
+        }}
+        showsVerticalScrollIndicator={false}
         data={DATA}
+        ListHeaderComponent={() => (
+          <>
+            {/* Title */}
+            <View className="py-5">
+              <Text className="text-onSurface text-5xl font-bold">
+                My garden
+              </Text>
+            </View>
+            {/* Search Bar & Filter */}
+            <View className="flex-row items-center gap-4 pb-5">
+              <SearchBar />
+              <FilterButton onPress={() => filterSheetRef.current?.expand()} />
+            </View>
+          </>
+        )}
         renderItem={({ item }) => (
           <PlantCard
             id={item.id}
             key={item.id}
-            rate={item.rate}
-            location={item.location}
-            name={item.name}
+            period={item.period}
+            room={item.room}
+            alias={item.alias}
+            scientificName={item.scientificName}
+            quantity={item.quantity}
             image={item.image}
           />
         )}

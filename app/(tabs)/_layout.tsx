@@ -5,7 +5,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import Colors from "@/constants/Colors";
+import Colors from "@/theme/Colors";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon({
@@ -35,15 +35,14 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        // tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
         tabBarShowLabel: true,
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
           borderTopStartRadius: 24,
           borderTopEndRadius: 24,
-          // backgroundColor: Colors[colorScheme ?? "light"].background,
           height: Platform.OS === "ios" ? 70 + inset.bottom : 70,
+          position: "absolute",
         },
         tabBarLabelStyle: {
           fontSize: 12,

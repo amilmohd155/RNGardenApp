@@ -4,7 +4,7 @@ import superjson from "superjson";
 import { create } from "zustand";
 import { persist, PersistStorage } from "zustand/middleware";
 
-import { ThemePreferences } from "@/constants/Colors";
+import { ThemePreferences } from "@/theme";
 
 export { useColorScheme } from "nativewind";
 

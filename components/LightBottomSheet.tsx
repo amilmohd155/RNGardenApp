@@ -12,6 +12,7 @@ import { RadioButton } from "./RadioButton";
 
 import { LightConditionsRadioOptions } from "@/constants/values";
 import { InsertPlantFieldValues } from "@/lib/form";
+import { Portal } from "@gorhom/portal";
 
 export const LightBottomSheet = forwardRef<
   BottomSheet,
@@ -20,7 +21,7 @@ export const LightBottomSheet = forwardRef<
     onSubmit?: (value: string) => void;
   } & UseControllerProps<InsertPlantFieldValues>
 >(({ onChange, onSubmit, ...props }, ref) => {
-  const snapPoints = useMemo(() => ["50%"], []);
+  const snapPoints = useMemo(() => ["50%", "60%"], []);
 
   const { field, formState } = useController<InsertPlantFieldValues>({
     ...props,
@@ -45,7 +46,7 @@ export const LightBottomSheet = forwardRef<
     (props: any) => (
       <BottomSheetBackdrop
         {...props}
-        appearsOnIndex={0}
+        appearsOnIndex={1}
         disappearsOnIndex={-1}
       />
     ),
@@ -77,7 +78,7 @@ export const LightBottomSheet = forwardRef<
       snapPoints={snapPoints}
       index={-1}
       enablePanDownToClose
-      backdropComponent={renderBackdrop}
+      // backdropComponent={renderBackdrop}
       footerComponent={renderFooter}
       handleStyle={{
         backgroundColor: "white",

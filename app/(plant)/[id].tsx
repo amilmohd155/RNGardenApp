@@ -1,6 +1,8 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
+import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AnimatedImage } from "@/components/AnimatedImage";
@@ -17,7 +19,7 @@ export default function PlantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
 
-  const { image, location, rate, name } = DATA[parseInt(id)];
+  const { image, room, period, alias, scientificName } = DATA[parseInt(id, 10)];
 
   return (
     <View className="flex-1 bg-[#eff3ec]">
@@ -53,24 +55,25 @@ export default function PlantScreen() {
       />
 
       {/* Image */}
-      <AnimatedImage
-        sharedTransitionTag="plant-image"
-        source={image}
-        placeholder={blurhash}
-        transition={1000}
-        contentFit="cover"
-        className="h-1/3 w-full"
-      />
+      <Animated.View sharedTransitionTag="plant-image" className="h-1/3 w-full">
+        <Image
+          source={image}
+          placeholder={blurhash}
+          transition={1000}
+          contentFit="cover"
+          className="flex-1"
+        />
+      </Animated.View>
       {/* Body */}
       <View className="-mt-16 flex-1 rounded-t-[32] bg-white px-5 pt-10">
         {/* Name */}
-        <Text className="text-5xl font-bold text-primary">{name}</Text>
+        <Text className="text-5xl font-bold text-primary">{alias}</Text>
 
         {/* Details */}
         <View className="my-5 gap-y-3 rounded-lg border-2 border-[#ece5e5] p-3">
           <View className="flex-row items-center justify-between">
             {/* Location */}
-            <GridItem icon="home" item={location} title="Room" />
+            <GridItem icon="home" item={room} title="Room" />
 
             {/* Water portion */}
             <GridItem icon="water" item="300ml" title="Water portion" />
