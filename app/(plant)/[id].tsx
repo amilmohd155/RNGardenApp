@@ -1,6 +1,8 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { cva } from "class-variance-authority";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useNavigation } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -9,10 +11,8 @@ import { AnimatedImage } from "@/components/AnimatedImage";
 import { ReadMore } from "@/components/ReadMore";
 import { DATA } from "@/constants/SampleData";
 import { blurhash } from "@/constants/values";
-import { usePlantActions, usePlantStore } from "@/hooks/usePlantStore";
-import { useCallback, useEffect, useState } from "react";
-import { cva } from "class-variance-authority";
 import { useEditPlantActions } from "@/hooks/useEditPlantStore";
+import { usePlantActions, usePlantStore } from "@/hooks/usePlantStore";
 
 const DESCRIPTION =
   'Leucojum vernum, called the spring snowflake, is a species of flowering plant in the family Amaryllidaceae. It is native to central and southern Europe from Belgium to Ukraine. It is considered naturalized in north-western Europe, including Great Britain and parts of Scandinavia, and in the US states of Georgia and Florida. This spring flowering bulbous herbaceous perennial is cultivated as an ornamental for a sunny position. The plant multiplies in favourable conditions to form clumps. Each plant bears a single white flower with greenish marks near the tip of the tepal, on a stem about 10–20 cm (3.9–7.9 in) tall, occasionally more.\nThe Latin specific epithet vernum means "relating to Spring". Its close relative, Leucojum aestivum, flowers in summer.';

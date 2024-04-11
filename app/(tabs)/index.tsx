@@ -96,10 +96,12 @@ const EmptyListComponent = () => {
         loop
         source={require("@/assets/anim/empty.json")}
       />
-      <Text className="text-xl font-bold text-onSurface">No plants found</Text>
-      <Link href="/(tabs)/add" className="text-xl text-primary">
+      <Text className="text-center text-xl font-bold text-onSurface">
+        {"Looks like you have no plants! \n Click on the plus icon to add one."}
+      </Text>
+      {/* <Link href="/(tabs)/add" className="text-xl text-primary">
         Add new plant
-      </Link>
+      </Link> */}
     </View>
   );
 };
