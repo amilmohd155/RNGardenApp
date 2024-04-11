@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { cva } from "class-variance-authority";
 import { useNavigation } from "expo-router";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -46,6 +46,19 @@ export default function AddScreen() {
     setLightCondition(value);
   };
 
+  useEffect(() => {
+    navigation.addListener("blur", () => {
+      reset({
+        alias: "",
+        room: "",
+        period: 1,
+        portion: 100,
+        notes: null,
+        image: null,
+      });
+    });
+  }, [navigation, reset]);
+
   return (
     <View
       className="flex-1 bg-surfaceBright px-5"
@@ -56,7 +69,6 @@ export default function AddScreen() {
         {/* Cancel Button */}
         <ActionButton
           onPress={() => {
-            reset({ alias: "", room: "", period: 1 });
             navigation.goBack();
           }}
           containerClassName="bg-red-200"
@@ -68,7 +80,7 @@ export default function AddScreen() {
 
         {/* Save Button */}
         <ActionButton
-          onPress={handleSubmit(onSubmit, onError)}
+          onPress={handleSubmit((data) => onSubmit(data), onError)}
           containerClassName="bg-[#cfddba]"
           labelClassname="text-primary"
           label="Save"
@@ -101,7 +113,7 @@ export default function AddScreen() {
               </Text>
             </View>
             {/* Description */}
-            <Description />
+            <Description content="" />
             {/* Plant Name Input */}
             <TextInput
               name="alias"
@@ -186,7 +198,7 @@ export default function AddScreen() {
   );
 }
 
-const Description = () => {
+const Description = ({ content }: { content: string }) => {
   const animatedHeight = useSharedValue(0);
 
   const [expanded, setExpanded] = useState(false);
@@ -221,6 +233,7 @@ const Description = () => {
         <AnimatedIcon
           name="chevron-down"
           size={16}
+          color="#3e5e5e"
           style={[rotatedIconStyle]}
         />
       </View>

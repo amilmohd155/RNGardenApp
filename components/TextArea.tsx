@@ -1,9 +1,9 @@
+import { cva } from "class-variance-authority";
 import { useState } from "react";
 import { UseControllerProps, useController } from "react-hook-form";
 import { Text, TextInput, TextInputProps, View } from "react-native";
 
 import { InsertPlantFieldValues } from "@/lib/form";
-import { cva } from "class-variance-authority";
 
 export const TextArea = ({
   label,
@@ -24,7 +24,7 @@ export const TextArea = ({
   };
 
   const textInputStyle = cva(
-    "text-pretty rounded-lg border-2 border-[#ece5e5] p-5 align-top text-lg focus:border-primary {}-[placeholderTextColor]:color-onSurfaceVariant/50",
+    "text-pretty rounded-lg border-2 text-onSecondaryContainer border-outline p-5 align-top text-lg focus:border-primary {}-[placeholderTextColor]:color-onSurfaceVariant/50",
   )();
 
   return (

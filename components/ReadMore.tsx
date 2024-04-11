@@ -26,13 +26,14 @@ export const ReadMore = ({ children, numberOfLines = 3 }: Props) => {
   return (
     <View>
       <Text
+        className="text-onSurfaceVariant"
         onTextLayout={onTextLayout}
         numberOfLines={textshown ? undefined : numberOfLines}
       >
         {children}
       </Text>
       {lengthMore ? (
-        <Text onPress={toggleNumberOfLines} className="mt-1 text-[#969696]">
+        <Text onPress={toggleNumberOfLines} className="mt-1 text-outline">
           {textshown ? "Read less" : "Read more"}
         </Text>
       ) : null}

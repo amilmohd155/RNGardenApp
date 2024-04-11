@@ -21,7 +21,7 @@ export const TextInput = ({
   } = useController<InsertPlantFieldValues>(props);
 
   const textInputStyle = cva(
-    `rounded-lg border-2 p-3 text-lg {}-[placeholderTextColor]:color-onSurfaceVariant/50 ${
+    `rounded-lg border-2 p-3 text-lg text-onSurfaceVariant {}-[placeholderTextColor]:color-onSurfaceVariant/50 ${
       error ? "border-error-500" : "border-outline"
     }`,
   )();

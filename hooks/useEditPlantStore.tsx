@@ -17,7 +17,16 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
   return {
     actions: {
       savePlant: (plant) => {
-        const { alias, room, period, portion, lightCondition, notes } = plant;
+        const {
+          alias,
+          room,
+          period,
+          portion,
+          lightCondition,
+          notes,
+          image,
+          description,
+        } = plant;
         db.insert(plants)
           .values({
             alias,
@@ -26,6 +35,8 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
             portion,
             lightCondition,
             notes,
+            image,
+            description,
           })
           .run();
 

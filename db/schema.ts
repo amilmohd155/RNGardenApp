@@ -1,11 +1,14 @@
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { v4 as uuid } from "uuid";
 
 import { LightConditionsAsArray } from "@/constants/values";
 
 export const plants = sqliteTable(
   "plants",
   {
-    id: integer("id").unique().primaryKey(),
+    id: text("id")
+      .$defaultFn(() => uuid())
+      .primaryKey(),
     alias: text("alias").notNull(),
     scientificName: text("scientific_name"),
     room: text("room").notNull(),
@@ -16,6 +19,10 @@ export const plants = sqliteTable(
     }),
     notes: text("notes"),
     image: text("image"),
+    description: text("description", { mode: "json" }).$type<{
+      text: string;
+      citation: string | null;
+    }>(),
   },
   (table) => {
     return {

@@ -1,6 +1,6 @@
 import "../global.css";
 
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { PortalProvider } from "@gorhom/portal";
 import { ThemeProvider } from "@react-navigation/native";
 import { Image, ImageBackground } from "expo-image";
@@ -11,6 +11,8 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useLoadAssets } from "@/hooks/useLoadAssets";
 import { NavigationTheme } from "@/theme";
+
+import "react-native-get-random-values";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -37,6 +39,14 @@ remapProps(ImageBackground, {
 cssInterop(TextInput, {
   className: {
     target: "style",
+  },
+});
+cssInterop(MaterialCommunityIcons, {
+  className: {
+    target: "style",
+    nativeStyleToProp: {
+      color: "color",
+    },
   },
 });
 cssInterop(Ionicons, {

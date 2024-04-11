@@ -7,17 +7,22 @@ import Animated from "react-native-reanimated";
 // import { AnimatedImage } from "./AnimatedImage";
 
 import { blurhash } from "@/constants/values";
+import { SelectPlant } from "@/db/schema";
 import Colors from "@/theme/Colors";
 
-type PlantCardProps = {
-  id: string;
-  scientificName?: string;
-  alias: string;
-  room: string;
-  period: number;
-  image: string;
-  quantity: number;
-};
+type PlantCardProps = Omit<
+  SelectPlant,
+  "lightCondition" | "notes" | "description"
+>;
+// {
+//   id: string;
+//   scientificName: string | null;
+//   alias: string;
+//   room: string;
+//   period: number;
+//   image: string | null;
+//   quantity: number | null;
+// }
 
 export const PlantCard = ({
   id,
@@ -25,8 +30,8 @@ export const PlantCard = ({
   alias,
   room,
   period,
-  image,
-  quantity,
+  image = "https://picsum.photos/seed/696/3000/2000",
+  portion: quantity,
 }: PlantCardProps) => {
   return (
     <Link

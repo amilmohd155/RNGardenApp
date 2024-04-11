@@ -19,7 +19,6 @@ export const useInsertPlantForm = () => {
   });
 
   const onSubmit: SubmitHandler<InsertPlantFieldValues> = (data) => {
-    // console.log("Form data", data);
     savePlant(data);
   };
 
