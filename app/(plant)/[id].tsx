@@ -1,7 +1,7 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useNavigation } from "expo-router";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -93,6 +93,18 @@ export default function PlantScreen() {
                       className={iconStyle}
                     />
                   </Link>
+                  <Pressable onPress={() => console.log("Reminder")}>
+                    <View className="absolute right-0 top-40 flex-row-reverse items-center gap-2 rounded-full bg-white px-4 py-3">
+                      <Text className="text-lg font-semibold text-primary">
+                        Reminder
+                      </Text>
+                      <MaterialCommunityIcons
+                        name="watering-can"
+                        size={24}
+                        className="{}-[color]:color-primary"
+                      />
+                    </View>
+                  </Pressable>
                 </View>
               </View>
             );
@@ -101,7 +113,10 @@ export default function PlantScreen() {
       />
 
       {/* Image */}
-      <Animated.View sharedTransitionTag="plant-image" className="h-1/3 w-full">
+      <Animated.View
+        sharedTransitionTag={`plant-image-${id}`}
+        className="h-1/3 w-full"
+      >
         <Image
           source={image}
           placeholder={blurhash}
@@ -110,11 +125,12 @@ export default function PlantScreen() {
           className="flex-1"
         />
       </Animated.View>
+
       {/* Body */}
       <View className="-mt-16 flex-1 rounded-t-[32] bg-surface px-5 pt-10">
         {/* Name */}
         <View className="flex-row items-center gap-3">
-          <Text className="text-5xl font-bold text-primary">{alias}</Text>
+          <Text className="py-1 text-5xl font-bold text-primary">{alias}</Text>
           <Text className="text-3xl text-[#a9a1a1]">{scientificName}</Text>
         </View>
 
@@ -159,12 +175,14 @@ export default function PlantScreen() {
         </View>
 
         {/* Note */}
-        <View className="my-5 gap-2">
-          {/* <Text className="text-2xl font-bold text-onSurface">NOTE</Text> */}
-          <Text className="h-[100] min-h-min rounded-lg border-2 border-outline/50 p-3 text-onSecondaryContainer/50">
-            {notes}
-          </Text>
-        </View>
+        {notes && (
+          <View className="my-5 gap-2">
+            <Text className="text-2xl font-bold text-onSurface">NOTE</Text>
+            <Text className="h-[100] min-h-min rounded-lg border-2 border-outline/50 p-3 text-onSecondaryContainer/50">
+              {notes}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );

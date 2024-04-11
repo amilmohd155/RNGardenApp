@@ -95,6 +95,7 @@ export default function SettingsScreen() {
         ListFooterComponent={<View className="h-20" />}
         sections={DATA}
         stickySectionHeadersEnabled={false}
+        overScrollMode="never"
         keyExtractor={(item, index) => item.label + index}
         renderItem={({ item }) => {
           switch (item.type) {

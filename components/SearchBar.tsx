@@ -13,7 +13,7 @@ export const SearchBar = () => {
     <View className="flex-1 flex-row items-center justify-between rounded-lg bg-secondary p-3 shadow-sm">
       <TextInput
         className={textInputStyle}
-        placeholder="Search for plants"
+        placeholder="Search your plants"
         // placeholderTextColor="#48676675"
       />
       <Ionicons name="search-outline" size={24} color={Colors.primary[800]} />

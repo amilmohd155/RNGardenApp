@@ -51,7 +51,7 @@ export default function DeveloperScreen() {
         {/* Position */}
         <Text className="text-muted text-lg">Full Stack Developer</Text>
         {/* Description */}
-        <Text className="my-5 text-pretty rounded-md  bg-surface p-5 text-start font-semibold italic leading-6 tracking-wider">
+        <Text className="my-5 text-pretty rounded-md  bg-tertiaryContainer p-5 text-start font-semibold italic leading-6 tracking-wider text-onTertiaryContainer">
           Highly skilled full stack developer with a strong background in
           front-end and back-end development. Proficient in multiple programming
           languages and frameworks. Committed to delivering robust and scalable
@@ -59,27 +59,35 @@ export default function DeveloperScreen() {
         </Text>
 
         {/* Contact */}
-        <View className="rounded-md bg-surface">
+        <View className="rounded-md bg-tertiaryContainer">
           {/* <Text className="text-xl font-semibold">Contacts</Text> */}
           <Pressable
             onPress={() => Linking.openURL("https://github.com/amilmohd155")}
-            className="flex-row items-center p-5  active:bg-gray-200"
+            className="flex-row items-center p-5  active:rounded-md active:bg-tertiary/50"
           >
-            <Ionicons name="logo-github" size={24} color={Colors.light.tint} />
-            <Text className="ml-2 text-lg">/amilmohd155</Text>
+            <Ionicons
+              name="logo-github"
+              size={24}
+              color={Colors.tertiary[100]}
+            />
+            <Text className="ml-2 text-lg text-onTertiaryContainer">
+              /amilmohd155
+            </Text>
           </Pressable>
           <Pressable
             onPress={() =>
               Linking.openURL("https://www.linkedin.com/in/amil-muhammed")
             }
-            className="flex-row items-center p-5  active:bg-gray-200"
+            className="flex-row items-center p-5  active:rounded-md active:bg-tertiary/50"
           >
             <Ionicons
               name="logo-linkedin"
               size={24}
-              color={Colors.light.tint}
+              color={Colors.tertiary[100]}
             />
-            <Text className="ml-2 text-lg">/amil-muhammed</Text>
+            <Text className="ml-2 text-lg text-onTertiaryContainer">
+              /amil-muhammed
+            </Text>
           </Pressable>
         </View>
       </View>

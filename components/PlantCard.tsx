@@ -70,7 +70,7 @@ export const PlantCard = ({
             </View>
           </View>
           <Animated.View
-            sharedTransitionTag="plant-image"
+            sharedTransitionTag={`plant-image-${id}`}
             className="h-40 w-40"
           >
             <Image

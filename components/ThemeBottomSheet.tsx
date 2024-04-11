@@ -83,7 +83,7 @@ const ThemeBottomSheet = forwardRef<BottomSheet>((_, ref) => {
           <LinearGradient
             colors={
               colorScheme === "light"
-                ? ["rgba(89, 116, 111, 0.8)", "transparent"]
+                ? ["rgba(89, 116, 111, 1)", "rgba(89, 116, 111, 0.7)"]
                 : ["rgba(0,0,0,1)", "rgba(0,0,0,0.8)"]
             }
             style={style}
@@ -97,7 +97,7 @@ const ThemeBottomSheet = forwardRef<BottomSheet>((_, ref) => {
         style={{ zIndex: 1000, flex: 1 }}
       >
         <BottomSheetView className="flex-1">
-          <Text className="my-5 px-8 text-2xl font-semibold text-surface">
+          <Text className="my-5 px-8 text-2xl font-semibold text-onSurface">
             Dark Mode
           </Text>
           <View className="mb-5 h-1 border-b border-gray-600" />

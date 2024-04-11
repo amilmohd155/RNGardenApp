@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigation } from "expo-router";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 
 import { useEditPlantActions } from "./useEditPlantStore";
@@ -7,6 +8,7 @@ import { InsertPlantFieldValues, insertPlantSchema } from "@/lib/form";
 
 export const useInsertPlantForm = () => {
   const { savePlant } = useEditPlantActions();
+  const navigation = useNavigation();
 
   const { ...rest } = useForm<InsertPlantFieldValues>({
     defaultValues: {
@@ -20,6 +22,7 @@ export const useInsertPlantForm = () => {
 
   const onSubmit: SubmitHandler<InsertPlantFieldValues> = (data) => {
     savePlant(data);
+    navigation.goBack();
   };
 
   const onError: SubmitErrorHandler<InsertPlantFieldValues> = (errors) => {
