@@ -7,7 +7,7 @@ export * from "./LightBottomSheet";
 export * from "./PlantCard";
 export * from "./RadioButton";
 export * from "./ReadMore";
-export * from "./SearchBar";
+export { default as SearchBar } from "./SearchBar";
 export * from "./TextArea";
 export * from "./TextInput";
 export { default as ThemeBottomSheet } from "./ThemeBottomSheet";

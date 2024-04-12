@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { UseControllerProps, useController } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
 
-import { InsertPlantFieldValues } from "@/lib/form";
+import { InsertPlantFieldValues } from "@/types/form";
 
 export const ImageCard = (
   props: UseControllerProps<InsertPlantFieldValues>,

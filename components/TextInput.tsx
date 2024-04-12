@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-import { InsertPlantFieldValues } from "@/lib/form";
+import { InsertPlantFieldValues } from "@/types/form";
 
 export const TextInput = ({
   label,

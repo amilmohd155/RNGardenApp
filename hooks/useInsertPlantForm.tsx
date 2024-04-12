@@ -4,7 +4,7 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 
 import { useEditPlantActions } from "./useEditPlantStore";
 
-import { InsertPlantFieldValues, insertPlantSchema } from "@/lib/form";
+import { InsertPlantFieldValues, insertPlantSchema } from "@/types/form";
 
 export const useInsertPlantForm = () => {
   const { savePlant } = useEditPlantActions();

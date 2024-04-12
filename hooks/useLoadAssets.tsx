@@ -9,6 +9,7 @@ import { useAppPersistStore } from "./useAppPersistStore";
 
 import db from "@/db/client";
 import migrations from "@/drizzle/migrations";
+import nativewindHelper from "@/lib/nativewind";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -41,6 +42,10 @@ export function useLoadAssets() {
       SplashScreen.hideAsync();
     }
   }, [hasFontsLoaded, hasRunMigrations]);
+
+  useEffect(() => {
+    nativewindHelper();
+  }, []);
 
   return {
     isLoaded: hasFontsLoaded && hasRunMigrations,

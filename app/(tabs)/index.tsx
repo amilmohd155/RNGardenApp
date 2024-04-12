@@ -1,8 +1,8 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { FlashList } from "@shopify/flash-list";
-import { Link } from "expo-router";
+import * as Notifications from "expo-notifications";
 import LottieView from "lottie-react-native";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -12,8 +12,7 @@ import {
   PlantCard,
   FilterBottomSheet,
 } from "@/components";
-import { DATA } from "@/constants/SampleData";
-import { usePlantStore, usePlants } from "@/hooks/usePlantStore";
+import { usePlantStore } from "@/hooks/usePlantStore";
 
 export default function Garden() {
   const insets = useSafeAreaInsets();
@@ -32,6 +31,10 @@ export default function Garden() {
     [sortPlants],
   );
 
+  // Notifications
+  // Notifications.
+
+  // * Render
   return (
     <View
       className="flex-1 bg-surface p-5"

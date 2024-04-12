@@ -1,15 +1,13 @@
 import "../global.css";
 
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { PortalProvider } from "@gorhom/portal";
 import { ThemeProvider } from "@react-navigation/native";
-import { Image, ImageBackground } from "expo-image";
 import { Stack } from "expo-router";
-import { cssInterop, remapProps, useColorScheme } from "nativewind";
-import { TextInput } from "react-native";
+import { useColorScheme } from "nativewind";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useLoadAssets } from "@/hooks/useLoadAssets";
+import nativewind from "@/lib/nativewind";
 import { NavigationTheme } from "@/theme";
 
 import "react-native-get-random-values";
@@ -30,33 +28,6 @@ export default function RootLayout() {
 
   return <RootLayoutNav />;
 }
-
-cssInterop(Image, { className: "style" });
-remapProps(ImageBackground, {
-  className: "style",
-  imageClassName: "imageStyle",
-});
-cssInterop(TextInput, {
-  className: {
-    target: "style",
-  },
-});
-cssInterop(MaterialCommunityIcons, {
-  className: {
-    target: "style",
-    nativeStyleToProp: {
-      color: "color",
-    },
-  },
-});
-cssInterop(Ionicons, {
-  className: {
-    target: "style",
-    nativeStyleToProp: {
-      color: "color",
-    },
-  },
-});
 
 function RootLayoutNav() {
   const { colorScheme } = useColorScheme();

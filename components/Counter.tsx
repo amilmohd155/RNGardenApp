@@ -2,7 +2,7 @@ import { Feather } from "@expo/vector-icons";
 import { UseControllerProps, useController } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
 
-import { InsertPlantFieldValues } from "@/lib/form";
+import { InsertPlantFieldValues } from "@/types/form";
 
 const COUNTER_SIZE = 24;
 

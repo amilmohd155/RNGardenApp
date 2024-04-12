@@ -3,7 +3,7 @@ import { useState } from "react";
 import { UseControllerProps, useController } from "react-hook-form";
 import { Text, TextInput, TextInputProps, View } from "react-native";
 
-import { InsertPlantFieldValues } from "@/lib/form";
+import { InsertPlantFieldValues } from "@/types/form";
 
 export const TextArea = ({
   label,

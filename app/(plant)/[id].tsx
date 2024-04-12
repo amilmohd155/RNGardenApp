@@ -2,17 +2,15 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { cva } from "class-variance-authority";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useNavigation } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { Pressable, Text, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { AnimatedImage } from "@/components/AnimatedImage";
 import { ReadMore } from "@/components/ReadMore";
-import { DATA } from "@/constants/SampleData";
 import { blurhash } from "@/constants/values";
 import { useEditPlantActions } from "@/hooks/useEditPlantStore";
-import { usePlantActions, usePlantStore } from "@/hooks/usePlantStore";
+import { usePlantStore } from "@/hooks/usePlantStore";
 
 const DESCRIPTION =
   'Leucojum vernum, called the spring snowflake, is a species of flowering plant in the family Amaryllidaceae. It is native to central and southern Europe from Belgium to Ukraine. It is considered naturalized in north-western Europe, including Great Britain and parts of Scandinavia, and in the US states of Georgia and Florida. This spring flowering bulbous herbaceous perennial is cultivated as an ornamental for a sunny position. The plant multiplies in favourable conditions to form clumps. Each plant bears a single white flower with greenish marks near the tip of the tepal, on a stem about 10–20 cm (3.9–7.9 in) tall, occasionally more.\nThe Latin specific epithet vernum means "relating to Spring". Its close relative, Leucojum aestivum, flowers in summer.';
@@ -24,8 +22,6 @@ export default function PlantScreen() {
   const insets = useSafeAreaInsets();
 
   const navigation = useNavigation();
-
-  // const { image, room, period, alias, scientificName } = DATA[parseInt(id, 10)];
 
   const plants = usePlantStore((state) =>
     state.plants.find((p) => p.id === id),
@@ -56,9 +52,7 @@ export default function PlantScreen() {
     description,
   } = plants;
 
-  const iconStyle = cva(
-    "rounded-full bg-white p-2 {}-[color]: color-primary",
-  )();
+  const iconStyle = cva("{}-[color]: color-onTertiaryContainer")();
 
   return (
     <View className="flex-1 bg-[#eff3ec]">
@@ -69,41 +63,53 @@ export default function PlantScreen() {
           header: ({ navigation }) => {
             return (
               <View
-                className="w-full flex-row items-center justify-between p-5"
+                className="w-full flex-row items-start justify-between p-5"
                 style={{ paddingTop: insets.top + 20 }}
               >
                 <Ionicons
                   name="arrow-back"
                   size={32}
                   // color="#59746f"
-                  className={iconStyle}
+                  className={`${iconStyle} rounded-full bg-tertiaryContainer p-2`}
                   onPress={() => navigation.goBack()}
                 />
-                <View className="flex-row items-center gap-3">
-                  <Ionicons
-                    name="trash"
-                    size={32}
-                    className={iconStyle}
+                <View className="flex items-end gap-2">
+                  {/* Edit and Delete Button */}
+                  <Pressable
                     onPress={handleDeletePost}
-                  />
+                    className="flex-row items-center gap-2 rounded-full bg-tertiaryContainer px-4 py-3"
+                  >
+                    <Ionicons name="trash" size={24} className={iconStyle} />
+                    <Text className="text-lg font-semibold text-onTertiaryContainer">
+                      Remove
+                    </Text>
+                  </Pressable>
+
                   <Link href={`/${id}/edit`} asChild>
-                    <MaterialCommunityIcons
-                      name="pencil"
-                      size={32}
-                      className={iconStyle}
-                    />
-                  </Link>
-                  <Pressable onPress={() => console.log("Reminder")}>
-                    <View className="absolute right-0 top-40 flex-row-reverse items-center gap-2 rounded-full bg-white px-4 py-3">
-                      <Text className="text-lg font-semibold text-primary">
-                        Reminder
-                      </Text>
+                    <Pressable className="flex-row items-center gap-2 rounded-full bg-tertiaryContainer px-4 py-3">
                       <MaterialCommunityIcons
-                        name="watering-can"
+                        name="pencil"
                         size={24}
-                        className="{}-[color]:color-primary"
+                        className={iconStyle}
                       />
-                    </View>
+                      <Text className="text-lg font-semibold text-onTertiaryContainer">
+                        Edit
+                      </Text>
+                    </Pressable>
+                  </Link>
+                  {/* Reminder Button  */}
+                  <Pressable
+                    onPress={() => console.log("Reminder")}
+                    className="flex-row items-center gap-2 rounded-full bg-tertiaryContainer px-4 py-3"
+                  >
+                    <MaterialCommunityIcons
+                      name="watering-can"
+                      size={24}
+                      className="{}-[color]: color-onTertiaryContainer"
+                    />
+                    <Text className="text-lg font-semibold text-onTertiaryContainer">
+                      Reminder
+                    </Text>
                   </Pressable>
                 </View>
               </View>

@@ -11,7 +11,7 @@ import { ActionButton } from "./ActionButton";
 import { RadioButton } from "./RadioButton";
 
 import { LightConditionsRadioOptions } from "@/constants/values";
-import { InsertPlantFieldValues } from "@/lib/form";
+import { InsertPlantFieldValues } from "@/types/form";
 import Colors from "@/theme/Colors";
 
 export const LightBottomSheet = forwardRef<

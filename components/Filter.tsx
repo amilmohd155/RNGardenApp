@@ -1,4 +1,3 @@
-import Colors from "@/theme/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import BottomSheet, {
   BottomSheetBackdrop,
@@ -8,8 +7,10 @@ import { Portal } from "@gorhom/portal";
 import SegmentedControl, {
   SegmentedControlProps,
 } from "@react-native-segmented-control/segmented-control";
-import { forwardRef, useCallback, useEffect, useMemo, useState } from "react";
-import { Pressable, View, Text } from "react-native";
+import { forwardRef, useCallback, useMemo, useState } from "react";
+import { View, Text } from "react-native";
+
+import Colors from "@/theme/Colors";
 
 enum SortBy {
   alias,
@@ -18,9 +19,8 @@ enum SortBy {
 }
 
 enum Status {
-  all,
-  finished,
-  upcoming,
+  watered,
+  notWatered,
 }
 
 export const FilterBottomSheet = forwardRef<
@@ -80,7 +80,7 @@ export const FilterBottomSheet = forwardRef<
 
               <FilterSegementedControl
                 label="Status"
-                values={["All", "Finished", "Upcoming"]}
+                values={["Watered", "Not Watered"]}
                 selectedIndex={selectedStatus}
                 onChange={(event) => {
                   onStatusChange(
@@ -106,8 +106,7 @@ export const FilterButton = ({ onPress }: { onPress: () => void }) => {
       onPress={handleOnPress}
       name="sort"
       size={24}
-      color={Colors.secondary[600]}
-      className="rounded-lg bg-secondary px-5 py-3 shadow-sm active:bg-gray-100"
+      className="{}-[color]:color-onSecondary rounded-lg bg-secondaryContainer px-5 py-3 shadow-lg active:bg-gray-100"
     />
   );
 };
