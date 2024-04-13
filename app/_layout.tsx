@@ -4,10 +4,10 @@ import { PortalProvider } from "@gorhom/portal";
 import { ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
+import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { useLoadAssets } from "@/hooks/useLoadAssets";
-import nativewind from "@/lib/nativewind";
+import { useLoadAssets, usePushNotification } from "@/hooks";
 import { NavigationTheme } from "@/theme";
 
 import "react-native-get-random-values";
@@ -21,6 +21,7 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const { isLoaded } = useLoadAssets();
+  usePushNotification();
 
   if (!isLoaded) {
     return null;

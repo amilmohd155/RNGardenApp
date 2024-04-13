@@ -1,4 +1,4 @@
-import { asc, desc, eq } from "drizzle-orm";
+import { asc, eq, ilike, like } from "drizzle-orm";
 import { create } from "zustand";
 
 import db from "@/db/client";
@@ -10,6 +10,7 @@ type PlantStore = {
     refetch: () => void;
     getById: (id: string) => SelectPlant | undefined;
     sortPlants: (sortBy: string) => void;
+    searchPlants: (search: string) => void;
   };
 };
 
@@ -18,14 +19,20 @@ export const usePlantStore = create<PlantStore>()((set) => {
 
   try {
     return {
-      plants: fetchStatement.all(),
+      plants: db.select().from(plants).all(),
       actions: {
         refetch: () => {
-          const result = fetchStatement.all();
+          const result = db.select().from(plants).all();
+          console.log("Refetching plants");
+
           set({ plants: result });
         },
         getById: (id) => {
-          const result = fetchStatement.where(eq(plants.id, id)).get();
+          const result = db
+            .selectDistinct()
+            .from(plants)
+            .where(eq(plants.id, id))
+            .get();
           return result;
         },
         sortPlants: (sortBy: string) => {
@@ -47,6 +54,15 @@ export const usePlantStore = create<PlantStore>()((set) => {
               break;
           }
         },
+        searchPlants: (search: string) => {
+          const result = db
+            .select()
+            .from(plants)
+            .where(like(plants.alias, `%${search.toLowerCase()}%`))
+            .all();
+
+          set({ plants: result });
+        },
       },
     };
   } catch (error) {
@@ -60,6 +76,9 @@ export const usePlantStore = create<PlantStore>()((set) => {
           return undefined;
         },
         sortPlants: () => {
+          console.error("No plant found");
+        },
+        searchPlants: () => {
           console.error("No plant found");
         },
       },

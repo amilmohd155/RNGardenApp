@@ -5,16 +5,16 @@ export type ThemePreferences = "light" | "dark" | "system";
 export const NavigationTheme = (
   colorScheme: "light" | "dark" | undefined,
 ): Theme => {
-  if (colorScheme !== "dark") {
+  if (colorScheme === "light") {
     return {
       dark: false,
       colors: {
-        primary: "rgb(0, 106, 96)",
-        background: "rgb(245, 255, 243)",
-        card: "rgb(255, 255, 255)",
+        primary: "#006a60",
+        background: "#f5fff3",
+        card: "#ffffff",
         text: "rgb(0 33 14)",
         border: "transparent",
-        notification: "rgb(74, 99, 95)",
+        notification: "#5a88ad",
       },
     };
   }
@@ -22,12 +22,12 @@ export const NavigationTheme = (
   return {
     dark: true,
     colors: {
-      primary: "rgb(83, 219, 202)",
-      background: "#fff",
-      card: "rgb(0, 33, 14)",
-      text: "#99f7b5",
+      primary: "#006b3f",
+      background: "#000000",
+      card: "#080a08",
+      text: "#ffffff",
       border: "transparent",
-      notification: "rgb(74, 99, 95)",
+      notification: "#5a88ad",
     },
   };
 };

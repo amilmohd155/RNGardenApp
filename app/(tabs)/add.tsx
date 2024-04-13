@@ -71,21 +71,21 @@ export default function AddScreen() {
           onPress={() => {
             navigation.goBack();
           }}
-          containerClassName="bg-red-200"
-          labelClassname="text-red-600"
           label="Cancel"
           icon="close"
-          iconColor="#DC2626"
+          labelClassname="text-red-600"
+          containerClassName={cva("bg-red-200 flex-1")()}
+          iconClassName={cva("{}-[color]: color-red-600")()}
         />
 
         {/* Save Button */}
         <ActionButton
           onPress={handleSubmit((data) => onSubmit(data), onError)}
-          containerClassName="bg-[#cfddba]"
-          labelClassname="text-primary"
+          containerClassName={cva("bg-primaryContainer flex-1")()}
+          labelClassname={cva("text-onPrimaryContainer")()}
           label="Save"
           icon="water"
-          iconColor="#3e5e5e"
+          iconClassName={cva("{}-[color]: color-onPrimaryContainer")()}
         />
       </View>
 

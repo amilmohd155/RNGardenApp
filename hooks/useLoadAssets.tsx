@@ -9,7 +9,7 @@ import { useAppPersistStore } from "./useAppPersistStore";
 
 import db from "@/db/client";
 import migrations from "@/drizzle/migrations";
-import nativewindHelper from "@/lib/nativewind";
+import nativewindHelper from "@/utils/nativewind";
 
 SplashScreen.preventAutoHideAsync();
 

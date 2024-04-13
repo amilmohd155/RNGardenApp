@@ -1,8 +1,7 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { FlashList } from "@shopify/flash-list";
-import * as Notifications from "expo-notifications";
 import LottieView from "lottie-react-native";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -31,9 +30,6 @@ export default function Garden() {
     [sortPlants],
   );
 
-  // Notifications
-  // Notifications.
-
   // * Render
   return (
     <View
@@ -42,6 +38,15 @@ export default function Garden() {
         paddingTop: insets.top + 10,
       }}
     >
+      {/* Title */}
+      <View className="py-5">
+        <Text className="text-5xl font-bold text-onSurface">My garden</Text>
+      </View>
+      {/* Search Bar & Filter */}
+      <View className="flex-row items-center gap-4 pb-5">
+        <SearchBar />
+        <FilterButton onPress={() => filterSheetRef.current?.expand()} />
+      </View>
       {/* List */}
       <FlashList
         contentContainerStyle={{
@@ -49,25 +54,9 @@ export default function Garden() {
         }}
         showsVerticalScrollIndicator={false}
         data={plants}
-        ListHeaderComponent={() => (
-          <>
-            {/* Title */}
-            <View className="py-5">
-              <Text className="text-5xl font-bold text-onSurface">
-                My garden
-              </Text>
-            </View>
-            {/* Search Bar & Filter */}
-            <View className="flex-row items-center gap-4 pb-5">
-              <SearchBar />
-              <FilterButton onPress={() => filterSheetRef.current?.expand()} />
-            </View>
-          </>
-        )}
         renderItem={({ item }) => (
           <PlantCard
             id={item.id}
-            key={item.id}
             period={item.period}
             room={item.room}
             alias={item.alias}
@@ -76,8 +65,9 @@ export default function Garden() {
             image={item.image}
           />
         )}
+        keyExtractor={(item) => item.id}
         estimatedItemSize={140}
-        ItemSeparatorComponent={() => <View className="h-5" />}
+        ItemSeparatorComponent={Seperator}
         ListEmptyComponent={EmptyListComponent}
       />
       {/* Filter Bottom Sheet */}
@@ -89,6 +79,10 @@ export default function Garden() {
     </View>
   );
 }
+
+const Seperator = () => {
+  return <View className="h-5" />;
+};
 
 const EmptyListComponent = () => {
   return (
@@ -102,9 +96,6 @@ const EmptyListComponent = () => {
       <Text className="text-center text-xl font-bold text-onSurface">
         {"Looks like you have no plants! \n Click on the plus icon to add one."}
       </Text>
-      {/* <Link href="/(tabs)/add" className="text-xl text-primary">
-        Add new plant
-      </Link> */}
     </View>
   );
 };

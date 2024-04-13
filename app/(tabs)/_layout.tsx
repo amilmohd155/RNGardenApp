@@ -29,7 +29,6 @@ function TabBarIcon({
 }
 
 export default function TabLayout() {
-  // const { colorScheme } = useColorScheme();
   const inset = useSafeAreaInsets();
 
   return (
@@ -37,7 +36,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: true,
-        tabBarHideOnKeyboard: true,
+        tabBarHideOnKeyboard: false,
         tabBarStyle: {
           borderTopStartRadius: 24,
           borderTopEndRadius: 24,

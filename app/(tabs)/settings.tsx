@@ -1,11 +1,10 @@
-import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
-import { Link, useFocusEffect, useNavigation } from "expo-router";
-import React, { useEffect, useMemo } from "react";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { Link, useNavigation } from "expo-router";
+import React, { useEffect } from "react";
 import { Pressable, SectionList, Switch, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemeBottomSheet } from "@/components";
-import { Portal } from "@gorhom/portal";
 
 enum SettingTypes {
   LINK,
