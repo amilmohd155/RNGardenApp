@@ -23,7 +23,6 @@ export const usePlantStore = create<PlantStore>()((set) => {
       actions: {
         refetch: () => {
           const result = db.select().from(plants).all();
-          console.log("Refetching plants");
 
           set({ plants: result });
         },

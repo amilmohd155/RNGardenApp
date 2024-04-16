@@ -23,7 +23,7 @@ export const NavigationTheme = (
     dark: true,
     colors: {
       primary: "#006b3f",
-      background: "#000000",
+      background: "transparent",
       card: "#080a08",
       text: "#ffffff",
       border: "transparent",

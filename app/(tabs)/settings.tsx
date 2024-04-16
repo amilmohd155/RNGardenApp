@@ -1,4 +1,5 @@
 import BottomSheet from "@gorhom/bottom-sheet";
+import { cva } from "class-variance-authority";
 import { Link, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
 import { Pressable, SectionList, Switch, Text, View } from "react-native";
@@ -66,6 +67,12 @@ const DATA: SettingListData[] = [
   },
 ];
 
+const ItemContainerClassName = cva(
+  "bg-tertiaryContainer border-outlineVariant my-1 rounded-lg border-2 p-5",
+);
+
+const ItemTextClassName = cva("text-onTertiaryContainer text-lg");
+
 export default function SettingsScreen() {
   const inset = useSafeAreaInsets();
 
@@ -80,15 +87,9 @@ export default function SettingsScreen() {
   }, [navigation]);
 
   return (
-    <View className="flex-1 bg-surface px-5">
-      <View className="py-10">
-        <Text
-          style={{ paddingTop: inset.top }}
-          className="text-5xl font-bold text-primary"
-        >
-          Settings
-        </Text>
-      </View>
+    <View className="bg-surface flex-1 px-5" style={{ paddingTop: inset.top }}>
+      <Text className="text-primary py-5 text-5xl font-bold">Settings</Text>
+
       <SectionList
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View className="h-20" />}
@@ -101,20 +102,18 @@ export default function SettingsScreen() {
             case SettingTypes.LINK: {
               return (
                 <Link href={item.link ? item.link : "/(settings)/one"} asChild>
-                  <Pressable className="my-1 rounded-lg bg-inverseSurface  p-5">
-                    <Text className="text-lg text-inverseOnSurface">
-                      {item.label}
-                    </Text>
+                  <Pressable className={ItemContainerClassName()}>
+                    <Text className={ItemTextClassName()}>{item.label}</Text>
                   </Pressable>
                 </Link>
               );
             }
             case SettingTypes.SWITCH: {
               return (
-                <View className="my-1 flex-row items-center justify-between rounded-lg bg-inverseSurface px-5 py-1">
-                  <Text className="text-lg text-inverseOnSurface">
-                    {item.label}
-                  </Text>
+                <View
+                  className={`${ItemContainerClassName()} flex-row items-center justify-between py-1`}
+                >
+                  <Text className={ItemTextClassName()}>{item.label}</Text>
                   <Switch
                     trackColor={{ false: "#767577", true: "#81b0ff" }}
                     // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -129,20 +128,16 @@ export default function SettingsScreen() {
               return (
                 <Pressable
                   onPress={() => bottomSheetRef.current?.snapToIndex(1)}
-                  className="my-1 rounded-lg bg-inverseSurface p-5"
+                  className={ItemContainerClassName()}
                 >
-                  <Text className="text-lg text-inverseOnSurface">
-                    {item.label}
-                  </Text>
+                  <Text className={ItemTextClassName()}>{item.label}</Text>
                 </Pressable>
               );
             }
           }
         }}
         renderSectionHeader={({ section: { title } }) => (
-          <Text className="py-2 text-xl font-semibold text-primary">
-            {title}
-          </Text>
+          <Text className="text-primary py-2 text-xl font-bold">{title}</Text>
         )}
       />
 

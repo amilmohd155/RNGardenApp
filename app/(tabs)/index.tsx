@@ -33,14 +33,14 @@ export default function Garden() {
   // * Render
   return (
     <View
-      className="flex-1 bg-surface p-5"
+      className="bg-surface flex-1 p-5"
       style={{
         paddingTop: insets.top + 10,
       }}
     >
       {/* Title */}
       <View className="py-5">
-        <Text className="text-5xl font-bold text-onSurface">My garden</Text>
+        <Text className="text-onSurface text-5xl font-bold">My garden</Text>
       </View>
       {/* Search Bar & Filter */}
       <View className="flex-row items-center gap-4 pb-5">
@@ -93,7 +93,7 @@ const EmptyListComponent = () => {
         loop
         source={require("@/assets/anim/empty.json")}
       />
-      <Text className="text-center text-xl font-bold text-onSurface">
+      <Text className="text-onSurface text-center text-xl font-bold">
         {"Looks like you have no plants! \n Click on the plus icon to add one."}
       </Text>
     </View>

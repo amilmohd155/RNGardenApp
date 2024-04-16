@@ -60,6 +60,14 @@
           "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
           "photoLibraryPermissionText": "$(PRODUCT_NAME) needs access to your Photo Library."
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/SpaceMono-Regular.ttf"
+          ]
+        }
       ]
     ],
     "experiments": {

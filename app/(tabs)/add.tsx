@@ -61,7 +61,7 @@ export default function AddScreen() {
 
   return (
     <View
-      className="flex-1 bg-surfaceBright px-5"
+      className="bg-surfaceBright flex-1 px-5"
       style={{ paddingTop: inset.top }}
     >
       {/* Header */}
@@ -92,7 +92,7 @@ export default function AddScreen() {
       {/* Content */}
 
       {/* Divider */}
-      <View className="h-0.5 bg-outline" />
+      <View className="bg-outline h-0.5" />
       {/* Image */}
       <KeyboardAvoidingView
         style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
@@ -105,10 +105,10 @@ export default function AddScreen() {
           <View className="mb-10 gap-5">
             {/* Scientific Name */}
             <View className="flex-row gap-2">
-              <Text className="text-xl font-bold text-onSurfaceVariant">
+              <Text className="text-onSurfaceVariant text-xl font-bold">
                 Scientific Name:
               </Text>
-              <Text className="text-lg italic text-onSurface">
+              <Text className="text-onSurface text-lg italic">
                 Monstera Deliciosa
               </Text>
             </View>
@@ -154,14 +154,14 @@ export default function AddScreen() {
             />
             {/* Light Condition */}
             <View className="gap-2">
-              <Text className="text-xl font-bold text-onSurfaceVariant">
+              <Text className="text-onSurfaceVariant text-xl font-bold">
                 Lighting Condition
               </Text>
               <Pressable
                 onPress={() => bottomSheetRef.current?.expand()}
-                className="flex-row items-center justify-between rounded-lg border-2 border-[#ece5e5] p-4 active:border-primary"
+                className="active:border-primary flex-row items-center justify-between rounded-lg border-2 border-[#ece5e5] p-4"
               >
-                <Text className="text-lg text-onSurfaceVariant/50">
+                <Text className="text-onSurfaceVariant/50 text-lg">
                   {lightCondition}
                 </Text>
                 <Ionicons
@@ -227,7 +227,7 @@ const Description = ({ content }: { content: string }) => {
   return (
     <Pressable className="gap-2" onPress={handleCollapsibleView}>
       <View className="flex-row items-center gap-2">
-        <Text className=" text-xl font-bold text-onSurfaceVariant">
+        <Text className=" text-onSurfaceVariant text-xl font-bold">
           Description
         </Text>
         <AnimatedIcon
@@ -239,7 +239,7 @@ const Description = ({ content }: { content: string }) => {
       </View>
       <Animated.View style={[collapsableStyle]}>
         <Text
-          className="text-lg italic text-onSurface"
+          className="text-onSurface text-lg italic"
           // onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
           onTextLayout={(e) => setHeight(e.nativeEvent.lines[0].height + 20)}
         >

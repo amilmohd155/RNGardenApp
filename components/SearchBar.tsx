@@ -12,7 +12,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 const textInputStyle = cva(
-  "tetx-lg {}-[placeholderTextColor]:color-onSecondary/50 text-onSecondary",
+  "tetx-lg {}-[placeholderTextColor]:color-onSecondary/50 text-onSecondary flex-1 font-bold",
 )();
 
 type SearchBarProps = {

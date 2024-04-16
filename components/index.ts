@@ -11,3 +11,4 @@ export { default as SearchBar } from "./SearchBar";
 export * from "./TextArea";
 export * from "./TextInput";
 export { default as ThemeBottomSheet } from "./ThemeBottomSheet";
+export * from "./RotatingBorderIcon";
