@@ -1,7 +1,7 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { FlashList } from "@shopify/flash-list";
 import LottieView from "lottie-react-native";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -11,10 +11,12 @@ import {
   PlantCard,
   FilterBottomSheet,
 } from "@/components";
+import { useEditPlantActions } from "@/hooks";
 import { usePlantStore } from "@/hooks/usePlantStore";
 
 export default function Garden() {
   const insets = useSafeAreaInsets();
+  const { deletePlant } = useEditPlantActions();
 
   // Bottom Sheet Ref
   const filterSheetRef = useRef<BottomSheet>(null);
@@ -30,17 +32,24 @@ export default function Garden() {
     [sortPlants],
   );
 
+  const handleOnDismiss = useCallback(
+    (id: string) => {
+      deletePlant(id);
+    },
+    [deletePlant],
+  );
+
   // * Render
   return (
     <View
-      className="bg-surface flex-1 p-5"
+      className="flex-1 bg-surface p-5"
       style={{
         paddingTop: insets.top + 10,
       }}
     >
       {/* Title */}
       <View className="py-5">
-        <Text className="text-onSurface text-5xl font-bold">My garden</Text>
+        <Text className="text-5xl font-bold text-onSurface">My garden</Text>
       </View>
       {/* Search Bar & Filter */}
       <View className="flex-row items-center gap-4 pb-5">
@@ -54,7 +63,7 @@ export default function Garden() {
         }}
         showsVerticalScrollIndicator={false}
         data={plants}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <PlantCard
             id={item.id}
             period={item.period}
@@ -63,11 +72,12 @@ export default function Garden() {
             scientificName={item.scientificName}
             portion={item.portion}
             image={item.image}
+            onDismiss={handleOnDismiss}
           />
         )}
         keyExtractor={(item) => item.id}
         estimatedItemSize={140}
-        ItemSeparatorComponent={Seperator}
+        // ItemSeparatorComponent={Seperator}
         ListEmptyComponent={EmptyListComponent}
       />
       {/* Filter Bottom Sheet */}
@@ -93,7 +103,7 @@ const EmptyListComponent = () => {
         loop
         source={require("@/assets/anim/empty.json")}
       />
-      <Text className="text-onSurface text-center text-xl font-bold">
+      <Text className="text-center text-xl font-bold text-onSurface">
         {"Looks like you have no plants! \n Click on the plus icon to add one."}
       </Text>
     </View>

@@ -80,7 +80,7 @@ export const FilterBottomSheet = forwardRef<
 
               <FilterSegementedControl
                 label="Status"
-                values={["Watered", "Not Watered"]}
+                values={["Not Watered", "Watered"]}
                 selectedIndex={selectedStatus}
                 onChange={(event) => {
                   onStatusChange(

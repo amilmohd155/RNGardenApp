@@ -68,7 +68,7 @@ const DATA: SettingListData[] = [
 ];
 
 const ItemContainerClassName = cva(
-  "bg-tertiaryContainer border-outlineVariant my-1 rounded-lg border-2 p-5",
+  " border-outlineVariant my-1 rounded-lg border-2 p-5",
 );
 
 const ItemTextClassName = cva("text-onTertiaryContainer text-lg");
@@ -87,8 +87,8 @@ export default function SettingsScreen() {
   }, [navigation]);
 
   return (
-    <View className="bg-surface flex-1 px-5" style={{ paddingTop: inset.top }}>
-      <Text className="text-primary py-5 text-5xl font-bold">Settings</Text>
+    <View className="flex-1 bg-surface px-5" style={{ paddingTop: inset.top }}>
+      <Text className="py-5 text-5xl font-bold text-primary">Settings</Text>
 
       <SectionList
         showsVerticalScrollIndicator={false}
@@ -137,7 +137,7 @@ export default function SettingsScreen() {
           }
         }}
         renderSectionHeader={({ section: { title } }) => (
-          <Text className="text-primary py-2 text-xl font-bold">{title}</Text>
+          <Text className="py-2 text-xl font-bold text-primary">{title}</Text>
         )}
       />
 

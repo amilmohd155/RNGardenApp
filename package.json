@@ -3,6 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
+    "prestart": "npm run migrate",
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",

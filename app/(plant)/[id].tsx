@@ -4,7 +4,10 @@ import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useNavigation } from "expo-router";
 import { useCallback } from "react";
 import { Pressable, Text, View } from "react-native";
-import Animated from "react-native-reanimated";
+import Animated, {
+  SharedTransition,
+  withSpring,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ReadMore } from "@/components/ReadMore";
@@ -53,7 +56,7 @@ export default function PlantScreen() {
   } = plants;
 
   const iconStyle = cva("{}-[color]: color-onTertiaryContainer")();
-
+  ``;
   return (
     <View className="flex-1 bg-[#eff3ec]">
       <Stack.Screen
@@ -119,18 +122,12 @@ export default function PlantScreen() {
       />
 
       {/* Image */}
-      <Animated.View
+
+      <Animated.Image
         sharedTransitionTag={`plant-image-${id}`}
-        className="h-1/3 w-full"
-      >
-        <Image
-          source={image}
-          placeholder={blurhash}
-          transition={1000}
-          contentFit="cover"
-          className="flex-1"
-        />
-      </Animated.View>
+        source={{ uri: image ? image : undefined }}
+        className="h-1/3 w-full object-contain"
+      />
 
       {/* Body */}
       <View className="-mt-16 flex-1 rounded-t-[32] bg-surface px-5 pt-10">
