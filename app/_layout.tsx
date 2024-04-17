@@ -33,19 +33,16 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const { colorScheme } = useColorScheme();
-  const queryClient = useQueryClient();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <PortalProvider>
         <ThemeProvider value={NavigationTheme(colorScheme)}>
-          <QueryClientProvider client={queryClient}>
-            <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="(tabs)" />
-              <Stack.Screen name="(plant)" />
-              <Stack.Screen name="(settings)" />
-            </Stack>
-          </QueryClientProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="(plant)" />
+            <Stack.Screen name="(settings)" />
+          </Stack>
         </ThemeProvider>
       </PortalProvider>
     </GestureHandlerRootView>

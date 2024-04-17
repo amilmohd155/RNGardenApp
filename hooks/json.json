@@ -1,0 +1,504 @@
+{
+  "body": {
+    "access_token": "tZjHvZnpKRaIJDT",
+    "model_version": "plant_id:3.7.0",
+    "custom_id": null,
+    "input": {
+      "latitude": null,
+      "longitude": null,
+      "similar_images": true,
+      "images": [
+        "https://plant.id/media/imgs/f0ed029aeeef42d09ae24fce2a69a93c.jpg"
+      ],
+      "datetime": "2024-04-17T18:43:05.356824+00:00"
+    },
+    "result": {
+      "is_plant": {
+        "probability": 0.9999994,
+        "threshold": 0.5,
+        "binary": true
+      },
+      "classification": {
+        "suggestions": [
+          {
+            "id": "ca2bd3134625a9fd",
+            "name": "Ficus elastica",
+            "probability": 0.0352,
+            "similar_images": [
+              {
+                "id": "3632ef6a285b67dad5164ccfd94aa7c94d90c982",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/363/2ef6a285b67dad5164ccfd94aa7c94d90c982.jpeg",
+                "similarity": 0.42,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/363/2ef6a285b67dad5164ccfd94aa7c94d90c982.small.jpeg"
+              }
+            ],
+            "details": {
+              "common_names": [
+                "Rubber Bush",
+                "rubber plant",
+                "Rubber Fig",
+                "India Rubber Tree"
+              ],
+              "url": "https://en.wikipedia.org/wiki/Ficus_elastica",
+              "description": {
+                "value": "Ficus elastica, the rubber fig, rubber bush, rubber tree, rubber plant, or Indian rubber bush, Indian rubber tree, is a species of flowering plant in the family Moraceae, native to eastern parts of South and Southeast Asia. It has become naturalized in Sri Lanka, the West Indies, and the US state of Florida. Despite its common names, it is not used in the commercial production of natural rubber.",
+                "citation": "https://en.wikipedia.org/wiki/Ficus_elastica",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "synonyms": [
+                "Ficus clusiifolia",
+                "Ficus cordata",
+                "Ficus decora",
+                "Ficus elastica",
+                "Ficus elastica var. belgica",
+                "Ficus elastica var. benghalensis",
+                "Ficus elastica var. decora",
+                "Ficus elastica var. karet",
+                "Ficus elastica var. minor",
+                "Ficus elastica var. odorata",
+                "Ficus elastica var. rubra",
+                "Ficus elastica var. rubrinervis",
+                "Ficus elastica var. variegata"
+              ],
+              "image": {
+                "value": "https://plant-id.ams3.cdn.digitaloceanspaces.com/knowledge_base/wikidata/c1d/c1d681588863134660c74faf23da502628da2d40.jpg",
+                "citation": "//commons.wikimedia.org/w/index.php?title=User:VuThiAnh&action=edit&redlink=1",
+                "license_name": "CC0",
+                "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+              },
+              "watering": { "max": 2, "min": 2 },
+              "name_authority": "Ficus elastica Roxb. ex Hornem.",
+              "language": "en",
+              "entity_id": "ca2bd3134625a9fd"
+            }
+          },
+          {
+            "id": "8b69f4bef3ac73a4",
+            "name": "Entoloma",
+            "probability": 0.0217,
+            "similar_images": [
+              {
+                "id": "12befc9f3942adbd0c022cf7824ba0c49c5bf1df",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/12b/efc9f3942adbd0c022cf7824ba0c49c5bf1df.jpg",
+                "license_name": "CC BY 4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "citation": "Kirsti Anne  Mandal",
+                "similarity": 0.252,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/12b/efc9f3942adbd0c022cf7824ba0c49c5bf1df.small.jpg"
+              },
+              {
+                "id": "255d910d7fe138241e62341dac7755d50d2e2b54",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/255/d910d7fe138241e62341dac7755d50d2e2b54.jpeg",
+                "license_name": "CC BY 4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "citation": "Ian Adams",
+                "similarity": 0.245,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/255/d910d7fe138241e62341dac7755d50d2e2b54.small.jpeg"
+              }
+            ],
+            "details": {
+              "common_names": ["Pinkgills"],
+              "url": "https://en.wikipedia.org/wiki/Entoloma",
+              "description": {
+                "value": "Entoloma  is a large genus of terrestrial pink-gilled mushrooms, with about 1,000 species.  Most have a drab appearance, pink gills which are attached to the stem, a smooth thick cap, and angular spores.  Many entolomas are saprobic but some are mycorrhizal. The best-known member of the genus is the livid agaric (Entoloma sinuatum), responsible for a number of poisonings over the years in Europe and North America, and Entoloma rhodopolium in Japan. Some southern hemisphere species such as Entoloma rodwayi and Entoloma viridomarginatum from Australia, and Entoloma hochstetteri from New Zealand, are very colourful, with caps of unusual shades of green and blue-green. Most entolomas are dull shades of olive, brown, or grey.",
+                "citation": "https://en.wikipedia.org/wiki/Entoloma",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "synonyms": [
+                "Arenicola",
+                "Clitopiloidea",
+                "Fibropilus",
+                "Lanolea",
+                "Latzinaea",
+                "Leptoniella",
+                "Omphaliopsis",
+                "Paraeccilia",
+                "Paraleptonia",
+                "Pouzaromyces",
+                "Trichopilus"
+              ],
+              "image": {
+                "value": "https://plant-id.ams3.cdn.digitaloceanspaces.com/knowledge_base/wikidata/203/2038edfef4d6e3ac8bc4b089a9894aebbcbc92c7.jpg",
+                "citation": "//commons.wikimedia.org/wiki/User:Archenzo",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "watering": null,
+              "name_authority": "Entoloma Fr. ex P. Kumm., 1871",
+              "language": "en",
+              "entity_id": "8b69f4bef3ac73a4"
+            }
+          },
+          {
+            "id": "07b6ced7c145df0a",
+            "name": "Fritillaria",
+            "probability": 0.0196,
+            "similar_images": [
+              {
+                "id": "c5a74a04e4fd4adf90682b720dbac3e73162d8cd",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/c5a/74a04e4fd4adf90682b720dbac3e73162d8cd.jpeg",
+                "license_name": "CC BY 4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "citation": "joergmlpts",
+                "similarity": 0.309,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/c5a/74a04e4fd4adf90682b720dbac3e73162d8cd.small.jpeg"
+              },
+              {
+                "id": "42c6c7200eebdc57aea4228a4d04e731c254e72e",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/42c/6c7200eebdc57aea4228a4d04e731c254e72e.jpeg",
+                "license_name": "CC BY 4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "citation": "Chris Winchell",
+                "similarity": 0.256,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/42c/6c7200eebdc57aea4228a4d04e731c254e72e.small.jpeg"
+              }
+            ],
+            "details": {
+              "common_names": [
+                "fritillary",
+                "Fritillaries",
+                "mission bells",
+                "Snakeshead Lilies",
+                "Snakesheads",
+                "Checkered Lilies"
+              ],
+              "url": "https://en.wikipedia.org/wiki/Fritillaria",
+              "description": {
+                "value": "Fritillaria (fritillaries) is a genus of spring flowering herbaceous bulbous perennial plants in the lily family (Liliaceae). The type species, Fritillaria meleagris, was first described in Europe in 1571, while other species from the Middle East and Asia were also introduced to Europe at that time. The genus has about 130\\u2013140 species divided among eight subgenera. The flowers are usually solitary, nodding and bell-shaped with bulbs that have fleshy scales, resembling those of lilies. They are known for their large genome size and genetically are very closely related to lilies. They are native to the temperate regions of the Northern hemisphere, from the Mediterranean and North Africa through Eurasia and southwest Asia to western North America. Many are endangered due to enthusiastic picking.\\nThe name Fritillaria is thought to refer to the checkered pattern of F. meleagris, resembling a box in which dice were carried. Fritillaries are commercially important in horticulture as ornamental garden plants and also in traditional Chinese medicine, which is also endangering some species. Fritillaria flowers have been popular subjects for artists to depict and as emblems of regions and organizations.",
+                "citation": "https://en.wikipedia.org/wiki/Fritillaria",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "synonyms": [
+                "Amblirion",
+                "Baimo",
+                "Corona",
+                "Eucrinum",
+                "Imperialis",
+                "Korolkowia",
+                "Liliorhiza",
+                "Lyperia",
+                "Melorima",
+                "Monocodon",
+                "Ochrocodon",
+                "Petilium",
+                "Rhinopetalum",
+                "Sarana",
+                "Theresia",
+                "Tozzettia"
+              ],
+              "image": {
+                "value": "https://plant-id.ams3.cdn.digitaloceanspaces.com/knowledge_base/wikidata/3d0/3d00e2b870bf8177b793a01ee39a8eb67e10a441.jpg",
+                "citation": null,
+                "license_name": "CC0",
+                "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+              },
+              "watering": null,
+              "name_authority": "Fritillaria Tourn. ex L.",
+              "language": "en",
+              "entity_id": "07b6ced7c145df0a"
+            }
+          },
+          {
+            "id": "3fd6a1c6bfe8fed9",
+            "name": "Eucalyptus",
+            "probability": 0.0181,
+            "similar_images": [
+              {
+                "id": "0782c88f1b8fce23b2da21879540a25938f2f6e5",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/078/2c88f1b8fce23b2da21879540a25938f2f6e5.jpeg",
+                "license_name": "CC BY 4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "citation": "Michael Hains",
+                "similarity": 0.336,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/078/2c88f1b8fce23b2da21879540a25938f2f6e5.small.jpeg"
+              },
+              {
+                "id": "9fdf0105c438ab236a6276197019ee491a6d0df0",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/9fd/f0105c438ab236a6276197019ee491a6d0df0.jpeg",
+                "license_name": "CC BY 4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "citation": "Michael Hains",
+                "similarity": 0.285,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/9fd/f0105c438ab236a6276197019ee491a6d0df0.small.jpeg"
+              }
+            ],
+            "details": {
+              "common_names": ["gum", "gum trees"],
+              "url": "https://en.wikipedia.org/wiki/Eucalyptus",
+              "description": {
+                "value": "Eucalyptus () is a genus of over seven hundred species of flowering trees, shrubs or mallees in the myrtle family, Myrtaceae. Along with several other genera in the tribe Eucalypteae, including Corymbia, they are commonly known as eucalypts. Plants in the genus Eucalyptus have bark that is either smooth, fibrous, hard or stringy, leaves with oil glands, and sepals and petals that are fused to form a cap or operculum over the stamens. The fruit is a woody capsule commonly referred to as a gumnut.\\nMost species of Eucalyptus are native to Australia, and every state and territory has representative species. About three-quarters of Australian forests are eucalypt forests. Many eucalypt species have adapted to wildfire, and resprout after fire or have seeds which survive fire.\\nA few species are native to islands north of Australia and a smaller number are only found outside the continent. Eucalypts have been grown in plantations in many other countries because they are fast growing and have valuable timber, or can be used for pulpwood, for honey production or essential oils. In some countries, however, they have been removed because of  the danger of forest fires due to their high inflammability.",
+                "citation": "https://en.wikipedia.org/wiki/Eucalyptus",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "synonyms": [
+                "Aromadendron",
+                "Aromadendrum",
+                "Eucalypton",
+                "Eudesmia",
+                "Symphyomyrtus"
+              ],
+              "image": {
+                "value": "https://plant-id.ams3.cdn.digitaloceanspaces.com/knowledge_base/wikidata/51e/51e3a32bacb8e0001edbe35d75e028855268a82e.jpeg",
+                "citation": "//commons.wikimedia.org/w/index.php?title=User:Ethel_Aardvark&action=edit&redlink=1",
+                "license_name": "CC BY 3.0",
+                "license_url": "https://creativecommons.org/licenses/by/3.0/"
+              },
+              "watering": { "max": 2, "min": 1 },
+              "name_authority": "Eucalyptus L'H\\u00e9r.",
+              "language": "en",
+              "entity_id": "3fd6a1c6bfe8fed9"
+            }
+          },
+          {
+            "id": "d3cad2f95f05764c",
+            "name": "Streptanthus",
+            "probability": 0.0119,
+            "similar_images": [
+              {
+                "id": "48805f7cfccdeb2b6ea248ec6278836ef75a692d",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/488/05f7cfccdeb2b6ea248ec6278836ef75a692d.jpg",
+                "license_name": "CC BY 4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "citation": "Ken-ichi Ueda",
+                "similarity": 0.26,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/488/05f7cfccdeb2b6ea248ec6278836ef75a692d.small.jpg"
+              },
+              {
+                "id": "4c63704f0c665d8a24acf56ea920102f67be8b51",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/4c6/3704f0c665d8a24acf56ea920102f67be8b51.jpg",
+                "license_name": "CC BY 4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "citation": "Kayla Sweeten",
+                "similarity": 0.24,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/4c6/3704f0c665d8a24acf56ea920102f67be8b51.small.jpg"
+              }
+            ],
+            "details": {
+              "common_names": ["twistflower", "Jewelflowers"],
+              "url": "https://en.wikipedia.org/wiki/Streptanthus",
+              "description": {
+                "value": "Streptanthus is a genus of plants within the family Brassicaceae.  There are about 35 known species within the genus Streptanthus, distributed mostly throughout western North America. The common names for this genus are twistflower and jewelflower. Twenty-four of the species and eleven lesser taxa occur in California, thirty-two of which are California endemics; seventeen of these California taxa are classified as rare plants.",
+                "citation": "https://en.wikipedia.org/wiki/Streptanthus",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "synonyms": [
+                "Agianthus",
+                "Cartiera",
+                "Caulanthus",
+                "Disaccanthus",
+                "Euklisia",
+                "Guillenia",
+                "Icianthus",
+                "Mesoreanthus",
+                "Microsemia",
+                "Microsisymbrium",
+                "Mitophyllum",
+                "Pleiocardia",
+                "Sibaropsis",
+                "Stanfordia",
+                "Streptanthella"
+              ],
+              "image": {
+                "value": "https://plant-id.ams3.cdn.digitaloceanspaces.com/knowledge_base/wikidata/3c9/3c99ef97372476193250b800b1821342ba4c60c9.jpg",
+                "citation": "//commons.wikimedia.org/wiki/User:Stan_Shebs",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "watering": null,
+              "name_authority": "Streptanthus Nutt.",
+              "language": "en",
+              "entity_id": "d3cad2f95f05764c"
+            }
+          },
+          {
+            "id": "ebc3143c806095e8",
+            "name": "Vicia",
+            "probability": 0.011,
+            "similar_images": [
+              {
+                "id": "c8398ecbb6fd4e6d010d809bf7f8340440395bec",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/c83/98ecbb6fd4e6d010d809bf7f8340440395bec.jpg",
+                "similarity": 0.246,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/c83/98ecbb6fd4e6d010d809bf7f8340440395bec.small.jpg"
+              },
+              {
+                "id": "6112617242d14aeb52c98b95f93248529eae4aa6",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/611/2617242d14aeb52c98b95f93248529eae4aa6.jpeg",
+                "license_name": "CC BY 4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "citation": "KAnatoliy",
+                "similarity": 0.238,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/611/2617242d14aeb52c98b95f93248529eae4aa6.small.jpeg"
+              }
+            ],
+            "details": {
+              "common_names": ["Vetches", "lentils"],
+              "url": "https://en.wikipedia.org/wiki/Vicia",
+              "description": {
+                "value": "Vicia is a genus of over 240 species of flowering plants that are part of the legume family (Fabaceae), and which are commonly known as vetches. Member species are native to Europe, North America, South America, Asia and Africa. Some other genera of their subfamily Faboideae also have names containing vetch, for example the vetchlings (Lathyrus) or the milk-vetches (Astragalus). The broad bean (Vicia faba) is sometimes separated in a monotypic genus Faba; although not often used today, it is of historical importance in plant taxonomy as the namesake of the order Fabales, the Fabaceae and the Faboideae. The tribe Vicieae in which the vetches are placed is named after the genus' current name. Among the closest living relatives of vetches are the lentils (Lens) and the true peas (Pisum).",
+                "citation": "https://en.wikipedia.org/wiki/Vicia",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "synonyms": [
+                "Abacosa",
+                "Anatropostylia",
+                "Arachus",
+                "Atossa",
+                "Bona",
+                "Coppoleria",
+                "Cracca",
+                "Cujunia",
+                "Endiusa",
+                "Ervilia",
+                "Ervum",
+                "Faba",
+                "Hypechusa",
+                "Lens",
+                "Lentilla",
+                "Orobella",
+                "Parallosa",
+                "Rhynchium",
+                "Sellunia",
+                "Swantia",
+                "Tuamina",
+                "Vicilla",
+                "Vicioides",
+                "Wiggersia"
+              ],
+              "image": {
+                "value": "https://plant-id.ams3.cdn.digitaloceanspaces.com/knowledge_base/wikidata/050/05071f4142a494904ca87e98036d1ffab36ed882.jpg",
+                "citation": "https://commons.wikimedia.org/wiki/File:Vicia_orobus1_eF.jpg",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "watering": null,
+              "name_authority": "Vicia L.",
+              "language": "en",
+              "entity_id": "ebc3143c806095e8"
+            }
+          },
+          {
+            "id": "afbeacf256882f0d",
+            "name": "Allium",
+            "probability": 0.0108,
+            "similar_images": [
+              {
+                "id": "8d85edd69bedeb143ff90fe62b35745380231659",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/8d8/5edd69bedeb143ff90fe62b35745380231659.jpg",
+                "license_name": "CC0",
+                "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "citation": "Krister Wahlstr\\u00f6m",
+                "similarity": 0.266,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/8d8/5edd69bedeb143ff90fe62b35745380231659.small.jpg"
+              },
+              {
+                "id": "bb8ed3b22831cd29938791fb27e017b6871dd219",
+                "url": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/bb8/ed3b22831cd29938791fb27e017b6871dd219.jpg",
+                "license_name": "CC0",
+                "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "citation": "Tobias Sch\\u00f6nberg",
+                "similarity": 0.256,
+                "url_small": "https://plant-id.ams3.cdn.digitaloceanspaces.com/similar_images/3/bb8/ed3b22831cd29938791fb27e017b6871dd219.small.jpg"
+              }
+            ],
+            "details": {
+              "common_names": ["onions", "scallion"],
+              "url": "https://en.wikipedia.org/wiki/Allium",
+              "description": {
+                "value": "",
+                "citation": "https://en.wikipedia.org/wiki/Allium",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "synonyms": [
+                "Aglitheis",
+                "Anguinum",
+                "Ascalonicum",
+                "Berenice",
+                "Briseis",
+                "Butomissa",
+                "Calliprena",
+                "Caloscordum",
+                "Camarilla",
+                "Canidia",
+                "Cepa",
+                "Codonoprasum",
+                "Endotis",
+                "Geboscon",
+                "Getuonis",
+                "Gynodon",
+                "Hexonychia",
+                "Hylogeton",
+                "Iulus",
+                "Kalabotis",
+                "Kepa",
+                "Kromon",
+                "Loncostemon",
+                "Maligia",
+                "Milula",
+                "Moenchia",
+                "Molium",
+                "Moly",
+                "Molyza",
+                "Nectaroscordum",
+                "Ophioscorodon",
+                "Panstenum",
+                "Phyllodolon",
+                "Plexistena",
+                "Porrum",
+                "Praskoinon",
+                "Raphione",
+                "Rhizirideum",
+                "Saturnia",
+                "Schoenissa",
+                "Schoenoprasum",
+                "Scorodon",
+                "Stelmesus",
+                "Stemodoxis",
+                "Trigonea",
+                "Validallium",
+                "Xylorhiza"
+              ],
+              "image": {
+                "value": "https://plant-id.ams3.cdn.digitaloceanspaces.com/knowledge_base/wikidata/31e/31e56ab39e4797ddf602c9cf75643f498616976d.jpg",
+                "citation": "https://commons.wikimedia.org/wiki/File:Allium_vineale01.jpg",
+                "license_name": "CC BY-SA 3.0",
+                "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+              },
+              "watering": { "max": 2, "min": 1 },
+              "name_authority": "Allium L.",
+              "language": "en",
+              "entity_id": "afbeacf256882f0d"
+            }
+          }
+        ]
+      }
+    },
+    "status": "COMPLETED",
+    "sla_compliant_client": true,
+    "sla_compliant_system": true,
+    "created": 1713379385.356824,
+    "completed": 1713379385.56551
+  },
+  "headers": {
+    "content-language": "en-us",
+    "content-length": "27509",
+    "content-type": "application/json",
+    "cross-origin-opener-policy": "unsafe-none",
+    "date": "Wed, 17 Apr 2024 18:43:05 GMT",
+    "location": "https://plant.id/api/v3/identification/tZjHvZnpKRaIJDT",
+    "referrer-policy": "same-origin",
+    "server": "nginx/1.20.1",
+    "strict-transport-security": "max-age=15768000",
+    "vary": "Accept-Language, Origin",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "DENY"
+  },
+  "status": 201
+}
