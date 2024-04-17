@@ -7,7 +7,7 @@ import { Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { useLoadAssets, usePushNotification } from "@/hooks";
+import { useFileSystem, useLoadAssets, usePushNotification } from "@/hooks";
 import { NavigationTheme } from "@/theme";
 
 import "react-native-get-random-values";
@@ -22,6 +22,7 @@ export const unstable_settings = {
 export default function RootLayout() {
   const { isLoaded } = useLoadAssets();
   usePushNotification();
+  useFileSystem();
 
   if (!isLoaded) {
     return null;
@@ -37,10 +38,7 @@ function RootLayoutNav() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <PortalProvider>
-        <ThemeProvider
-          // value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          value={NavigationTheme(colorScheme)}
-        >
+        <ThemeProvider value={NavigationTheme(colorScheme)}>
           <QueryClientProvider client={queryClient}>
             <Stack screenOptions={{ headerShown: false }}>
               <Stack.Screen name="(tabs)" />

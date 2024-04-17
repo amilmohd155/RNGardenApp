@@ -27,8 +27,33 @@ import { TextArea } from "@/components/TextArea";
 import { TextInput } from "@/components/TextInput";
 import { LIGHT_CONDITIONS } from "@/constants/values";
 import { useInsertPlantForm } from "@/hooks/useInsertPlantForm";
+import { useQuery } from "@tanstack/react-query";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
+
+const fetchPlantDetails = async () => {
+  const body = new FormData();
+  // body.append("image", )
+
+  const apiKey: string = process.env.EXPO_PUBLIC_API_KEY!;
+  const headers = new Headers();
+  headers.append("Api-Key", apiKey);
+  headers.append("Content-Type", "multipart/form-data");
+
+  const requestOptions: RequestInit = {
+    method: "POST",
+    headers,
+    body,
+    redirect: "follow",
+  };
+
+  const response = await fetch(
+    "https://api.example.com/plant-details",
+    requestOptions,
+  );
+  const data = await response.json();
+  return data;
+};
 
 export default function AddScreen() {
   const inset = useSafeAreaInsets();
@@ -41,6 +66,8 @@ export default function AddScreen() {
   const [lightCondition, setLightCondition] = useState<string>(
     LIGHT_CONDITIONS.BRIGHT_INDIRECT,
   );
+
+  // const {} = useQuery(({}, ))
 
   const handleLightConditionSubmit = (value: string) => {
     setLightCondition(value);
