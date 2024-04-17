@@ -4,7 +4,9 @@ import BottomSheet, {
   BottomSheetBackdropProps,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { Portal } from "@gorhom/portal";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "expo-router";
 import { useColorScheme } from "nativewind";
 import React, {
   forwardRef,
@@ -17,8 +19,6 @@ import { View, Text, Pressable } from "react-native";
 
 import { useAppPersistStore } from "@/hooks/useAppPersistStore";
 import { ThemePreferences } from "@/theme";
-import { Portal } from "@gorhom/portal";
-import { useNavigation } from "expo-router";
 
 type IThemeData = {
   label: string;

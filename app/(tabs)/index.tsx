@@ -58,12 +58,12 @@ export default function Garden() {
       </View>
       {/* List */}
       <FlashList
-        contentContainerStyle={{
-          paddingBottom: 80,
-        }}
+        // contentContainerStyle={{
+        //   paddingBottom: 80,
+        // }}
         showsVerticalScrollIndicator={false}
         data={plants}
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <PlantCard
             id={item.id}
             period={item.period}
@@ -77,7 +77,6 @@ export default function Garden() {
         )}
         keyExtractor={(item) => item.id}
         estimatedItemSize={140}
-        // ItemSeparatorComponent={Seperator}
         ListEmptyComponent={EmptyListComponent}
       />
       {/* Filter Bottom Sheet */}

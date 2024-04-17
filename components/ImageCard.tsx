@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { cva } from "class-variance-authority";
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { UseControllerProps, useController } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
 

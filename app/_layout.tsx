@@ -2,9 +2,9 @@ import "../global.css";
 
 import { PortalProvider } from "@gorhom/portal";
 import { ThemeProvider } from "@react-navigation/native";
+import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
-import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useLoadAssets, usePushNotification } from "@/hooks";
@@ -32,6 +32,7 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const { colorScheme } = useColorScheme();
+  const queryClient = useQueryClient();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -40,11 +41,13 @@ function RootLayoutNav() {
           // value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
           value={NavigationTheme(colorScheme)}
         >
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="(plant)" />
-            <Stack.Screen name="(settings)" />
-          </Stack>
+          <QueryClientProvider client={queryClient}>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="(plant)" />
+              <Stack.Screen name="(settings)" />
+            </Stack>
+          </QueryClientProvider>
         </ThemeProvider>
       </PortalProvider>
     </GestureHandlerRootView>

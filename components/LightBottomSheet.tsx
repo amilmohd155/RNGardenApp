@@ -3,6 +3,7 @@ import BottomSheet, {
   BottomSheetFooter,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { cva } from "class-variance-authority";
 import { forwardRef, useCallback, useMemo } from "react";
 import { UseControllerProps, useController } from "react-hook-form";
 import { Text, View } from "react-native";
@@ -11,8 +12,8 @@ import { ActionButton } from "./ActionButton";
 import { RadioButton } from "./RadioButton";
 
 import { LightConditionsRadioOptions } from "@/constants/values";
-import { InsertPlantFieldValues } from "@/types/form";
 import Colors from "@/theme/Colors";
+import { InsertPlantFieldValues } from "@/types/form";
 
 export const LightBottomSheet = forwardRef<
   BottomSheet,
@@ -60,7 +61,7 @@ export const LightBottomSheet = forwardRef<
           <ActionButton
             label="Done"
             icon="sunny"
-            iconColor="#3e5e5e"
+            iconClassName={cva("{}-[color]: color-[#3E5E5E]")()}
             containerClassName="bg-[#cfddba]"
             labelClassname="text-primary"
             size={16}

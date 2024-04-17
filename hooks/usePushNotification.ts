@@ -1,9 +1,10 @@
-import { registerForPushNotificationsAsync } from "@/utils";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
 import { Platform } from "react-native";
+
+import { registerForPushNotificationsAsync } from "@/utils";
 
 type PushNotificationState = {
   expoPushToken?: Notifications.ExpoPushToken;

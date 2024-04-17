@@ -1,4 +1,3 @@
-import { usePlantActions, usePlantStore } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import { cva } from "class-variance-authority";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -10,6 +9,8 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+
+import { usePlantActions, usePlantStore } from "@/hooks";
 
 const textInputStyle = cva(
   "tetx-lg {}-[placeholderTextColor]:color-onSecondary/50 text-onSecondary flex-1 font-bold",
