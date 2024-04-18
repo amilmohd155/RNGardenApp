@@ -1,5 +1,3 @@
-import * as FileSystem from "expo-file-system";
-
 import { RadioOption } from "@/components/RadioButton";
 
 export const blurhash =
@@ -23,5 +21,3 @@ export const LightConditionsRadioOptions: RadioOption[] =
   );
 
 export const FIELD_REQUIRED_STR = "This field is required";
-
-export const imageDirectory = FileSystem.documentDirectory + "images/";

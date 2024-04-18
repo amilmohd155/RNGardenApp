@@ -27,7 +27,6 @@ import { TextArea } from "@/components/TextArea";
 import { TextInput } from "@/components/TextInput";
 import { LIGHT_CONDITIONS } from "@/constants/values";
 import { useInsertPlantForm } from "@/hooks/useInsertPlantForm";
-import { useQuery } from "@tanstack/react-query";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
@@ -102,10 +101,13 @@ export default function AddScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         // keyboardVerticalOffset={}
       >
-        <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never">
+        <Animated.ScrollView
+          showsVerticalScrollIndicator={false}
+          overScrollMode="never"
+        >
           <ImageCard control={control} name="image" />
           {/* Form */}
-          <View className="mb-10 gap-5">
+          <View className="mb-10 mt-5 gap-5">
             {/* Scientific Name */}
             <View className="flex-row gap-2">
               <Text className="text-xl font-bold text-onSurfaceVariant">
@@ -187,7 +189,7 @@ export default function AddScreen() {
               editable
             />
           </View>
-        </ScrollView>
+        </Animated.ScrollView>
       </KeyboardAvoidingView>
 
       {/* BottomSheet */}
@@ -226,6 +228,8 @@ const Description = ({ content }: { content: string }) => {
       transform: [{ rotate: `${rotate}deg` }],
     };
   }, [expanded]);
+
+  // if (!content) return null;
 
   return (
     <Pressable className="gap-2" onPress={handleCollapsibleView}>

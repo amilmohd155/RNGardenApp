@@ -2,7 +2,6 @@ import "../global.css";
 
 import { PortalProvider } from "@gorhom/portal";
 import { ThemeProvider } from "@react-navigation/native";
-import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { GestureHandlerRootView } from "react-native-gesture-handler";

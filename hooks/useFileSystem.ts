@@ -1,9 +1,10 @@
 import * as FileSystem from "expo-file-system";
 import { useEffect, useState } from "react";
 
-import { imageDirectory } from "@/constants/values";
-import { ensureDirExists } from "@/utils";
 import { Body } from "@/types/plantApi";
+import { ensureDirExists } from "@/utils";
+
+export const imageDirectory = FileSystem.documentDirectory + "images/";
 
 const apiKey: string = process.env.EXPO_PUBLIC_API_KEY!;
 const apiURL = process.env.EXPO_PUBLIC_API_URL!;
@@ -114,7 +115,17 @@ export const useFileSystem = (): FileSystemHook => {
         },
       } = suggestions[0];
 
-      return { plantAccessToken, isPlant, suggestions };
+      return {
+        plantAccessToken,
+        isPlant,
+        commonNames,
+        description,
+        descriptionCitation,
+        image,
+        name,
+        name_authority,
+        watering,
+      };
     } catch (error) {
       console.log("Error getting plant details: ", error);
 
