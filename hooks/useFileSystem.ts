@@ -9,7 +9,7 @@ export const imageDirectory = FileSystem.documentDirectory + "images/";
 const apiKey: string = process.env.EXPO_PUBLIC_API_KEY!;
 const apiURL = process.env.EXPO_PUBLIC_API_URL!;
 
-const getPlantDetailsURL = `${apiURL}/identification?details=common_names,url,description,name_authority,image,synonyms,watering`;
+const getPlantDetailsURL = `${apiURL}/identification?details=common_names,url,description,image,watering`;
 
 const options: FileSystem.FileSystemUploadOptions = {
   httpMethod: "POST",
@@ -124,7 +124,6 @@ export const useFileSystem = (): FileSystemHook => {
           common_names: commonNames,
           description: { value: description, citation: descriptionCitation },
           image,
-          name_authority,
           watering,
         },
       } = suggestions[0];
@@ -137,7 +136,6 @@ export const useFileSystem = (): FileSystemHook => {
         descriptionCitation,
         image,
         name,
-        name_authority,
         watering,
       };
     } catch (error) {

@@ -14,6 +14,7 @@ import { RadioButton } from "./RadioButton";
 import { LightConditionsRadioOptions } from "@/constants/values";
 import Colors from "@/theme/Colors";
 import { InsertPlantFieldValues } from "@/types/form";
+import { useColorScheme } from "nativewind";
 
 export const LightBottomSheet = forwardRef<
   BottomSheet,
@@ -22,6 +23,7 @@ export const LightBottomSheet = forwardRef<
     onSubmit?: (value: string) => void;
   } & UseControllerProps<InsertPlantFieldValues>
 >(({ onChange, onSubmit, ...props }, ref) => {
+  const { colorScheme } = useColorScheme();
   const snapPoints = useMemo(() => ["40%", "50%"], []);
 
   const { field, formState } = useController<InsertPlantFieldValues>({
@@ -61,9 +63,9 @@ export const LightBottomSheet = forwardRef<
           <ActionButton
             label="Done"
             icon="sunny"
-            iconClassName={cva("{}-[color]: color-[#3E5E5E]")()}
-            containerClassName="bg-[#cfddba]"
-            labelClassname="text-primary"
+            iconClassName={cva("{}-[color]: color-onTertiaryContainer")()}
+            containerClassName="bg-tertiaryContainer"
+            labelClassname="text-onTertiaryContainer"
             size={16}
             onPress={handleOnSubmit} // Add onPress
           />
@@ -82,15 +84,16 @@ export const LightBottomSheet = forwardRef<
       backdropComponent={renderBackdrop}
       footerComponent={renderFooter}
       handleStyle={{
-        backgroundColor: Colors.primaryContainer,
         borderTopEndRadius: 25,
         borderTopStartRadius: 25,
       }}
-      // backgroundStyle={{ backgroundColor: Colors.surface }}
+      backgroundStyle={{
+        backgroundColor: colorScheme === "dark" ? "#1c3a23" : "#f0f0f0",
+      }}
     >
-      <BottomSheetView className="flex-1 gap-5 bg-primaryContainer p-5">
+      <BottomSheetView className="flex-1 gap-5 p-5">
         {/* Header */}
-        <Text className="text-3xl font-bold text-primary">
+        <Text className="text-3xl font-bold text-onSecondaryContainer">
           Lighting Condition
         </Text>
         {/* Content */}

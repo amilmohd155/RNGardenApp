@@ -3,7 +3,8 @@ type Range = {
   min: number;
 };
 
-export const calculateWateringPortion = (preference: Range): number => {
+export const calculateWateringPortion = (preference?: Range): number => {
+  if (!preference) return 0;
   const min = preference.min;
   const max = preference.max;
 
@@ -19,7 +20,9 @@ export const calculateWateringPortion = (preference: Range): number => {
   return wateringPortion;
 };
 
-export const calculateWateringPeriod = (preference: Range) => {
+export const calculateWateringPeriod = (preference?: Range) => {
+  if (!preference) return 0;
+
   const out: Range = { max: 15, min: 1 };
 
   const minMapped = map(preference.min, out);

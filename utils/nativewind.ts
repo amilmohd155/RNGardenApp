@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons, Feather } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { cssInterop, remapProps } from "nativewind";
 import { ImageBackground, TextInput } from "react-native";
@@ -12,6 +12,14 @@ export default () => {
   cssInterop(TextInput, {
     className: {
       target: "style",
+    },
+  });
+  cssInterop(Feather, {
+    className: {
+      target: "style",
+      nativeStyleToProp: {
+        color: "color",
+      },
     },
   });
   cssInterop(MaterialCommunityIcons, {

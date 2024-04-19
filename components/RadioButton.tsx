@@ -26,16 +26,20 @@ export const RadioButton = ({
   };
 
   return (
-    <View className="gap-1">
+    <View className="gap-3">
       {data.map((item) => (
         <Pressable
           key={item.value}
           onPress={() => handleSelection(item.value)}
-          className={`flex-row items-center justify-between rounded-lg p-5 active:bg-[##eff3ec50] ${
-            userOption === item.value ? "bg-surface" : ""
+          className={`flex-row items-center justify-between rounded-lg p-5 active:bg-surfaceBright/15 ${
+            userOption === item.value
+              ? "border-b-0 bg-surfaceBright"
+              : "border-b border-onSurfaceVariant"
           }`}
         >
-          <Text className="text-lg">{item.label}</Text>
+          <Text className="text-center text-lg font-semibold text-onSurfaceVariant">
+            {item.label}
+          </Text>
           {userOption === item.value && (
             <Ionicons name="checkmark" size={24} color="green" />
           )}

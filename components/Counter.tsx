@@ -11,7 +11,7 @@ export const Counter = ({
   unit,
   increment = 1,
   min = 1,
-  max = 10,
+  max = 15,
   ...props
 }: {
   label: string;
@@ -39,25 +39,29 @@ export const Counter = ({
       {/* Counter */}
       <View className="flex-row items-center gap-3">
         {/* Decrement */}
-        <Pressable
+        {/* <Pressable> */}
+        <Feather
+          name="minus"
+          size={COUNTER_SIZE}
           hitSlop={10}
           onPress={minus}
           disabled={(value as number) <= min}
-          className="rounded-lg bg-[#eef0eb] p-2 disabled:bg-red-100"
-        >
-          <Feather name="minus" size={COUNTER_SIZE} color="#3e5e5e" />
-        </Pressable>
+          className="{}-[color]:color-tertiary rounded-lg bg-secondaryContainer p-2 transition-transform active:scale-95 disabled:bg-red-500"
+        />
+        {/* </Pressable> */}
         {/* Count */}
-        <Text className="text-xl font-bold text-onSurfaceVariant">{value}</Text>
+        <Text className="text-xl font-bold text-onSurface/75">{value}</Text>
         {/* Increment */}
-        <Pressable
+        {/* <Pressable className="group rounded-lg bg-secondaryContainer p-2 transition-transform active:scale-105 disabled:bg-red-500"> */}
+        <Feather
+          name="plus"
+          size={COUNTER_SIZE}
           hitSlop={10}
           onPress={add}
           disabled={(value as number) >= max}
-          className="rounded-lg  bg-[#eef0eb] p-2  disabled:bg-red-100"
-        >
-          <Feather name="plus" size={COUNTER_SIZE} color="#3e5e5e" />
-        </Pressable>
+          className="{}-[color]:color-tertiary rounded-lg bg-secondaryContainer p-2 transition-transform active:scale-105 disabled:bg-red-500"
+        />
+        {/* </Pressable> */}
       </View>
       {/* Unit */}
       <Text className="text-xl text-onSurfaceVariant/50">{unit}</Text>

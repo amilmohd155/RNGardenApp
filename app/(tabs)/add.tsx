@@ -41,6 +41,8 @@ export default function AddScreen() {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const [aliasSuggestions, setAliasSuggestions] = useState<string[]>([]);
+  const [waterPortion, setWaterPortion] = useState<number>(0);
+  const [waterPeriod, setWaterPeriod] = useState<number>(0);
 
   const {
     handleSubmit,
@@ -83,8 +85,8 @@ export default function AddScreen() {
 
       setAliasSuggestions(details.commonNames);
 
-      calculateWateringPortion(details.watering);
-      calculateWateringPeriod(details.watering);
+      setWaterPortion(calculateWateringPortion(details.watering));
+      setWaterPeriod(calculateWateringPeriod(details.watering));
     },
     [setValue],
   );
@@ -110,19 +112,29 @@ export default function AddScreen() {
           }}
           label="Cancel"
           icon="close"
-          labelClassname="text-red-600"
-          containerClassName={cva("bg-red-200 flex-1")()}
-          iconClassName={cva("{}-[color]: color-red-600")()}
+          labelClassname={cva("text-red-600 group-active:text-red-100")()}
+          containerClassName={cva(
+            "bg-red-200 flex-1 group active:bg-red-600",
+          )()}
+          iconClassName={cva(
+            "{}-[color]: color-red-600 group-active:color-red-100",
+          )()}
         />
 
         {/* Save Button */}
         <ActionButton
           onPress={handleSubmit((data) => onSubmit(data), onError)}
-          containerClassName={cva("bg-primaryContainer flex-1")()}
-          labelClassname={cva("text-onPrimaryContainer")()}
+          containerClassName={cva(
+            "bg-primaryContainer flex-1 group active:bg-primary",
+          )()}
+          labelClassname={cva(
+            "text-onPrimaryContainer group-active:text-onPrimary",
+          )()}
           label="Save"
           icon="water"
-          iconClassName={cva("{}-[color]: color-onPrimaryContainer")()}
+          iconClassName={cva(
+            "{}-[color]: color-onPrimaryContainer group-active:color-onPrimary",
+          )()}
         />
       </View>
 
@@ -132,7 +144,7 @@ export default function AddScreen() {
       {/* Content */}
       <KeyboardAvoidingView
         style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}
         // keyboardVerticalOffset={}
       >
         <Animated.ScrollView
@@ -167,20 +179,22 @@ export default function AddScreen() {
               name="alias"
               control={control}
               placeholder="e.g. Dexter's plant, Monstera.."
+              suggestions={aliasSuggestions}
               label="Plant name (Alias)"
             />
 
             {/* Suggestions for names */}
-            <AliasSuggestions
+            {/* <TextSuggestions
               suggestions={aliasSuggestions}
               onSuggestionSelected={handleOnAliasSuggestionSelected}
-            />
+            /> */}
 
             {/* Room Input */}
             <TextInput
               name="room"
               control={control}
               label="Room"
+              suggestions={["Bedroom", "Living Room", "Kitchen", "Balcony"]}
               placeholder="e.g. Bedroom's sill, Kitchen's sill..."
             />
 
@@ -210,6 +224,16 @@ export default function AddScreen() {
               rules={{ required: true }}
             />
 
+            {/* Suggestions */}
+            {waterPeriod > 0 && waterPortion > 0 && (
+              <Animated.View>
+                <Text className="text-lg italic text-onTertiaryContainer/50">
+                  <Text className="font-bold not-italic">Suggested: </Text>
+                  {`Water with ${waterPortion} ml for ${waterPeriod} days`}
+                </Text>
+              </Animated.View>
+            )}
+
             {/* Light Condition */}
             <View className="gap-2">
               <Text className="text-xl font-bold text-onSurfaceVariant">
@@ -217,7 +241,7 @@ export default function AddScreen() {
               </Text>
               <Pressable
                 onPress={() => bottomSheetRef.current?.expand()}
-                className="flex-row items-center justify-between rounded-lg border-2 border-[#ece5e5] p-4 active:border-primary"
+                className="flex-row items-center justify-between rounded-lg border-2 border-outline p-4 active:border-primary"
               >
                 <Text className="text-lg text-onSurfaceVariant/50">
                   {lightCondition}
@@ -256,7 +280,7 @@ export default function AddScreen() {
   );
 }
 
-const AliasSuggestions = ({
+const TextSuggestions = ({
   suggestions,
   onSuggestionSelected,
 }: {

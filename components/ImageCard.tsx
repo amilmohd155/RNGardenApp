@@ -15,7 +15,6 @@ import { useFileSystem } from "@/hooks";
 import { InsertPlantFieldValues } from "@/types/form";
 
 const labelClassname = cva("text-lg font-bold text-onTertiaryContainer")();
-const iconClassName = cva("{}-[color]: color-inverseOnSurface")();
 
 const HEIGHT = 150;
 
@@ -51,7 +50,7 @@ export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
         if (prev) {
           deleteImage(prev);
         }
-        return uri;
+        return uri ? uri : null;
       });
       onChange(uri);
     }
@@ -140,26 +139,36 @@ export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
         <Ionicons
           name="camera"
           size={32}
-          className="{}-[color]: absolute right-2 top-2 rounded-xl bg-inverseSurface p-2 shadow-xl shadow-black color-inverseOnSurface active:bg-inverseSurface/50"
+          className="{}-[color]: absolute right-2 top-2 rounded-xl bg-inverseSurface p-2 shadow-xl shadow-black color-inverseOnSurface active:scale-90 active:bg-inverseSurface/50 active:color-inverseOnSurface/75"
           onPress={pickImage}
         />
         {/* Get plant details */}
         <Pressable
           onPress={handleGetPlantDetails}
-          className="mt-2 flex-1 flex-row items-center justify-center gap-5 rounded-xl bg-tertiaryContainer px-5 py-3 active:bg-primary-900"
+          className="group mt-2 flex-1 flex-row items-center justify-center gap-5 rounded-xl bg-tertiaryContainer transition-all delay-75 active:scale-95 active:bg-tertiaryContainer/50"
         >
-          <Ionicons name="cloud-upload" size={32} className={iconClassName} />
-          <Text className={labelClassname}>Get plant details</Text>
+          <Ionicons
+            name="cloud-upload"
+            size={32}
+            className="{}-[color]:color-onTertiaryContainer"
+          />
+          <Text className="text-xl font-bold text-onTertiaryContainer">
+            Get plant details
+          </Text>
         </Pressable>
       </Animated.View>
       {/* Initial selection */}
       <Animated.View style={initialContainerStyle}>
         <Pressable
           onPress={pickImage}
-          className="flex-1 items-center justify-center rounded-xl bg-inverseSurface active:bg-inverseSurface/50"
+          className="group flex-1 items-center justify-center rounded-xl bg-tertiary transition-all active:scale-95 active:bg-black/50"
         >
-          <Ionicons name="camera" size={50} className={iconClassName} />
-          <Text className="text-center text-2xl font-bold text-inverseOnSurface">
+          <Ionicons
+            name="camera"
+            size={50}
+            className="{}-[color]: color-onTertiary group-active:color-white/75"
+          />
+          <Text className="text-center text-2xl font-bold text-onTertiary group-active:text-white/90">
             Tap to upload the photo
           </Text>
         </Pressable>

@@ -22,7 +22,7 @@ export const ActionButton = ({
   return (
     <Pressable
       {...props}
-      className={`flex-row items-center justify-center gap-2 rounded-lg p-3 ${containerClassName}`}
+      className={`flex-row items-center justify-center gap-2 rounded-lg p-3 transition-transform active:scale-95 ${containerClassName}`}
     >
       <Text className={`text-2xl font-semibold ${labelClassname}`}>
         {label}

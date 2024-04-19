@@ -40,12 +40,12 @@ export interface Details {
   common_names: string[];
   url: string;
   description: Description;
-  synonyms: string[];
+  // synonyms: string[];
   image: Image;
   watering?: Watering;
-  name_authority: string;
-  language: string;
-  entity_id: string;
+  // name_authority: string;
+  // language: string;
+  // entity_id: string;
 }
 
 export interface Description {
