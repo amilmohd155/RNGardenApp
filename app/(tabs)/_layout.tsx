@@ -1,11 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { useColorScheme } from "nativewind";
 import React from "react";
 import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-import Colors from "@/theme/Colors";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon({
@@ -34,6 +31,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+        unmountOnBlur: true,
         headerShown: false,
         tabBarShowLabel: true,
         tabBarHideOnKeyboard: false,

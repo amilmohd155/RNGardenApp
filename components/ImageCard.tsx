@@ -1,9 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { cva } from "class-variance-authority";
-
 import * as ImagePicker from "expo-image-picker";
-import { useCallback, useState } from "react";
-import { UseControllerProps, useController } from "react-hook-form";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
+import { UseControllerProps, set, useController } from "react-hook-form";
 import { Pressable, Text, View, Image } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -19,19 +19,23 @@ const iconClassName = cva("{}-[color]: color-inverseOnSurface")();
 
 const HEIGHT = 150;
 
-export const ImageCard = (
-  props: UseControllerProps<InsertPlantFieldValues>,
-) => {
+type ImageCardProps = {
+  getDetails: (details: any) => void;
+} & UseControllerProps<InsertPlantFieldValues>;
+
+export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
   const {
     field: { onChange, value },
   } = useController({ name: "image", control: props.control, ...props });
+
+  const [image, setImage] = useState<string>(value as string | null);
 
   const initialHeight = useSharedValue(HEIGHT);
   const initialOpacity = useSharedValue(1);
   const selectedHeight = useSharedValue(0);
   const selectedOpacity = useSharedValue(0);
 
-  const { loading, saveImage, getPlantDetails } = useFileSystem();
+  const { loading, saveImage, deleteImage, getPlantDetails } = useFileSystem();
 
   const pickImage = useCallback(async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -41,10 +45,27 @@ export const ImageCard = (
     });
 
     if (!result.canceled) {
-      // const uri = await saveImage(result.assets[0].uri);
-      onChange(result.assets[0].uri);
+      const uri = await saveImage(result.assets[0].uri);
+
+      setImage((prev) => {
+        if (prev) {
+          deleteImage(prev);
+        }
+        return uri;
+      });
+      onChange(uri);
     }
-  }, [onChange]);
+  }, [deleteImage, onChange, saveImage]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        if (image) {
+          setImage(null);
+        }
+      };
+    }, []),
+  );
 
   const selectedImageStyle = useAnimatedStyle(() => {
     selectedOpacity.value = withTiming(value ? 1 : 0, { duration: 500 });
@@ -74,9 +95,33 @@ export const ImageCard = (
 
   const handleGetPlantDetails = useCallback(async () => {
     if (!value) return;
-    const details = await getPlantDetails(value as string);
-    console.log(details);
-  }, [getPlantDetails, value]);
+    // const details = await getPlantDetails(value as string);
+    const details = {
+      commonNames: [
+        "Rubber Bush",
+        "rubber plant",
+        "Rubber Fig",
+        "India Rubber Tree",
+      ],
+      description:
+        "Ficus elastica, the rubber fig, rubber bush, rubber tree, rubber plant, or Indian rubber bush, Indian rubber tree, is a species of flowering plant in the family Moraceae, native to eastern parts of South and Southeast Asia. It has become naturalized in Sri Lanka, the West Indies, and the US state of Florida. Despite its common names, it is not used in the commercial production of natural rubber.",
+      descriptionCitation: "https://en.wikipedia.org/wiki/Ficus_elastica",
+      image: {
+        citation:
+          "//commons.wikimedia.org/w/index.php?title=User:VuThiAnh&action=edit&redlink=1",
+        license_name: "CC0",
+        license_url: "https://creativecommons.org/publicdomain/zero/1.0/",
+        value:
+          "https://plant-id.ams3.cdn.digitaloceanspaces.com/knowledge_base/wikidata/c1d/c1d681588863134660c74faf23da502628da2d40.jpg",
+      },
+      isPlant: true,
+      name: "Ficus elastica",
+      plantAccessToken: "0VJQ17DS61KlWEj",
+      watering: { max: 2, min: 2 },
+    };
+    getDetails(details);
+    // console.log(details);
+  }, [getDetails, value]);
 
   return (
     <>
@@ -103,12 +148,7 @@ export const ImageCard = (
           onPress={handleGetPlantDetails}
           className="mt-2 flex-1 flex-row items-center justify-center gap-5 rounded-xl bg-tertiaryContainer px-5 py-3 active:bg-primary-900"
         >
-          <Ionicons
-            onPress={pickImage}
-            name="cloud-upload"
-            size={32}
-            className={iconClassName}
-          />
+          <Ionicons name="cloud-upload" size={32} className={iconClassName} />
           <Text className={labelClassname}>Get plant details</Text>
         </Pressable>
       </Animated.View>

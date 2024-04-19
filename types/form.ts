@@ -5,7 +5,6 @@ import { plants } from "@/db/schema";
 
 export const insertPlantSchema = createInsertSchema(plants).omit({
   description: true,
-  scientificName: true,
   id: true,
 });
 

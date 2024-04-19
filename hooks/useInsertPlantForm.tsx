@@ -12,9 +12,11 @@ export const useInsertPlantForm = () => {
 
   const { ...rest } = useForm<InsertPlantFieldValues>({
     defaultValues: {
+      alias: "",
       period: 1,
       portion: 100,
       lightCondition: "Bright Indirect",
+      image: null,
     },
     mode: "onSubmit",
     resolver: zodResolver(insertPlantSchema),

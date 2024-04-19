@@ -35,14 +35,21 @@ export default function AddScreen() {
   const navigation = useNavigation();
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const { handleSubmit, control, reset, onError, onSubmit } =
-    useInsertPlantForm();
+  const [scientificName, setScientificName] = useState<string>("");
+
+  const {
+    handleSubmit,
+    control,
+    reset,
+    onError,
+    onSubmit,
+    setValue,
+    getValues,
+  } = useInsertPlantForm();
 
   const [lightCondition, setLightCondition] = useState<string>(
     LIGHT_CONDITIONS.BRIGHT_INDIRECT,
   );
-
-  // const {} = useQuery(({}, ))
 
   const handleLightConditionSubmit = (value: string) => {
     setLightCondition(value);
@@ -57,9 +64,21 @@ export default function AddScreen() {
         portion: 100,
         notes: null,
         image: null,
+        scientificName: null,
       });
     });
   }, [navigation, reset]);
+
+  const handleGetDetails = useCallback(
+    (details) => {
+      console.log(details.name);
+
+      setValue("scientificName", details.name);
+
+      setScientificName(details.name);
+    },
+    [setValue],
+  );
 
   return (
     <View
@@ -105,20 +124,34 @@ export default function AddScreen() {
           showsVerticalScrollIndicator={false}
           overScrollMode="never"
         >
-          <ImageCard control={control} name="image" />
+          <ImageCard
+            getDetails={handleGetDetails}
+            control={control}
+            name="image"
+          />
           {/* Form */}
           <View className="mb-10 mt-5 gap-5">
             {/* Scientific Name */}
-            <View className="flex-row gap-2">
-              <Text className="text-xl font-bold text-onSurfaceVariant">
-                Scientific Name:
-              </Text>
-              <Text className="text-lg italic text-onSurface">
-                Monstera Deliciosa
-              </Text>
-            </View>
+            {scientificName && (
+              <View className="flex-row gap-2">
+                <TextInput
+                  control={control}
+                  name="scientificName"
+                  value={scientificName}
+                  hidden
+                />
+                <Text className="text-xl font-bold text-onSurfaceVariant">
+                  Scientific Name:
+                </Text>
+                <Text className="text-lg italic text-onSurface">
+                  {scientificName}
+                </Text>
+              </View>
+            )}
+
             {/* Description */}
             <Description content="" />
+
             {/* Plant Name Input */}
             <TextInput
               name="alias"

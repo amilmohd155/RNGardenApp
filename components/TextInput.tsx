@@ -12,8 +12,12 @@ import { InsertPlantFieldValues } from "@/types/form";
 
 export const TextInput = ({
   label,
+  hidden = false,
   ...props
-}: { label: string } & UseControllerProps<InsertPlantFieldValues> &
+}: {
+  label?: string;
+  hidden?: boolean;
+} & UseControllerProps<InsertPlantFieldValues> &
   TextInputProps) => {
   const {
     field: { value, onChange, ...field },
@@ -27,7 +31,7 @@ export const TextInput = ({
   )();
 
   return (
-    <View className="gap-2">
+    <View className="gap-2" style={{ display: hidden ? "none" : "flex" }}>
       <View className="flex-row items-center justify-between">
         <Text className="text-xl font-bold text-onSurfaceVariant">{label}</Text>
         {error && (

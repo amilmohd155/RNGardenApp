@@ -23,9 +23,23 @@ const options: FileSystem.FileSystemUploadOptions = {
   },
 };
 
+function getFileExtension(filename: string): string {
+  // Split the filename by periods to get an array of substrings
+  const parts = filename.split(".");
+
+  // If there are multiple parts and the last part is not empty, return the last part (extension)
+  if (parts.length > 1 && parts[parts.length - 1] !== "") {
+    return parts[parts.length - 1];
+  } else {
+    // If there's no valid extension, return an empty string or handle it as per your requirement
+    return "jpeg";
+  }
+}
+
 type FileSystemHook = {
   saveImage: (uri: string) => Promise<string | undefined>;
   getPlantDetails: (uri: string) => Promise<any>;
+  deleteImage: (uri: string) => Promise<void>;
   uploading: boolean;
   loading: boolean;
 };
@@ -58,7 +72,7 @@ export const useFileSystem = (): FileSystemHook => {
    * @function saveImage
    */
   const saveImage = async (uri: string) => {
-    const filename = new Date().getTime() + ".jpg"; //Change considered ( get filename extension from params )
+    const filename = new Date().getTime() + "." + getFileExtension(uri); //Change considered ( get filename extension from params )
     const dest = imageDirectory + filename;
     setLoading(true);
     try {
@@ -135,10 +149,15 @@ export const useFileSystem = (): FileSystemHook => {
     }
   };
 
+  const deleteImage = async (uri: string) => {
+    await FileSystem.deleteAsync(uri);
+  };
+
   return {
     saveImage,
     uploading,
     loading,
     getPlantDetails,
+    deleteImage,
   };
 };

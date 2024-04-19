@@ -10,19 +10,18 @@ export const plants = sqliteTable(
       .$defaultFn(() => uuid())
       .primaryKey(),
     alias: text("alias").notNull(),
-    scientificName: text("scientific_name"),
     room: text("room").notNull(),
     period: integer("period").notNull(),
     portion: integer("portion").notNull(),
     lightCondition: text("light_condition", {
       enum: LightConditionsAsArray,
     }),
+    scientificName: text("scientific_name"),
     notes: text("notes"),
     image: text("image"),
-    description: text("description", { mode: "json" }).$type<{
-      text: string;
-      citation: string | null;
-    }>(),
+    description: text("description"),
+    descriptionCitation: text("description_source"),
+    plantAccessToken: text("plant_access_token"),
   },
   (table) => {
     return {
