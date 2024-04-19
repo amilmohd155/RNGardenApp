@@ -1,4 +1,3 @@
-import { SCREEN_WIDTH } from "@gorhom/bottom-sheet";
 import {
   Skia,
   Paint,
@@ -11,11 +10,8 @@ import {
   ImageSVG,
   Group,
   DataSourceParam,
-  fitbox,
-  rect,
 } from "@shopify/react-native-skia";
 import { PropsWithChildren, useMemo } from "react";
-import { StyleProp, ViewStyle } from "react-native";
 import {
   Easing,
   SharedValue,

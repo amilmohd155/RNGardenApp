@@ -3,7 +3,7 @@ import { SCREEN_WIDTH } from "@gorhom/bottom-sheet";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useState } from "react";
-import { LayoutChangeEvent, Text, View, Image } from "react-native";
+import { LayoutChangeEvent, Text, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   interpolateColor,
@@ -15,7 +15,6 @@ import Animated, {
 
 import { RotatingBorderIcon } from "./RotatingBorderIcon";
 
-import { blurhash } from "@/constants/values";
 import { SelectPlant } from "@/db/schema";
 import Colors from "@/theme/Colors";
 

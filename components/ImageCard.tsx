@@ -26,9 +26,9 @@ type ImageCardProps = {
 export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
   const {
     field: { onChange, value },
-  } = useController({ name: "image", control: props.control, ...props });
+  } = useController(props);
 
-  const [image, setImage] = useState<string>(value as string | null);
+  const [image, setImage] = useState<string | null>(value as string | null);
 
   const initialHeight = useSharedValue(HEIGHT);
   const initialOpacity = useSharedValue(1);

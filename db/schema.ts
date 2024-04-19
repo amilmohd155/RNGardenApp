@@ -16,9 +16,9 @@ export const plants = sqliteTable(
     lightCondition: text("light_condition", {
       enum: LightConditionsAsArray,
     }),
-    scientificName: text("scientific_name"),
     notes: text("notes"),
     image: text("image"),
+    scientificName: text("scientific_name"),
     description: text("description"),
     descriptionCitation: text("description_source"),
     plantAccessToken: text("plant_access_token"),

@@ -4,14 +4,18 @@ import { cva } from "class-variance-authority";
 import { useNavigation } from "expo-router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
+  FlexStyle,
   KeyboardAvoidingView,
+  NativeSyntheticEvent,
   Platform,
   Pressable,
-  ScrollView,
   Text,
+  TextLayoutEventData,
   View,
+  useWindowDimensions,
 } from "react-native";
 import Animated, {
+  Easing,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
@@ -27,6 +31,7 @@ import { TextArea } from "@/components/TextArea";
 import { TextInput } from "@/components/TextInput";
 import { LIGHT_CONDITIONS } from "@/constants/values";
 import { useInsertPlantForm } from "@/hooks/useInsertPlantForm";
+import { calculateWateringPeriod, calculateWateringPortion } from "@/utils";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
@@ -35,7 +40,7 @@ export default function AddScreen() {
   const navigation = useNavigation();
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const [scientificName, setScientificName] = useState<string>("");
+  const [aliasSuggestions, setAliasSuggestions] = useState<string[]>([]);
 
   const {
     handleSubmit,
@@ -71,11 +76,22 @@ export default function AddScreen() {
 
   const handleGetDetails = useCallback(
     (details) => {
-      console.log(details.name);
-
       setValue("scientificName", details.name);
+      setValue("description", details.description);
+      setValue("descriptionCitation", details.descriptionCitation);
+      setValue("plantAccessToken", details.plantAccessToken);
 
-      setScientificName(details.name);
+      setAliasSuggestions(details.commonNames);
+
+      calculateWateringPortion(details.watering);
+      calculateWateringPeriod(details.watering);
+    },
+    [setValue],
+  );
+
+  const handleOnAliasSuggestionSelected = useCallback(
+    (value: string) => {
+      setValue("alias", value);
     },
     [setValue],
   );
@@ -110,11 +126,10 @@ export default function AddScreen() {
         />
       </View>
 
-      {/* Content */}
-
       {/* Divider */}
       <View className="h-0.5 bg-outline" />
-      {/* Image */}
+
+      {/* Content */}
       <KeyboardAvoidingView
         style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -124,6 +139,7 @@ export default function AddScreen() {
           showsVerticalScrollIndicator={false}
           overScrollMode="never"
         >
+          {/* Image */}
           <ImageCard
             getDetails={handleGetDetails}
             control={control}
@@ -132,25 +148,19 @@ export default function AddScreen() {
           {/* Form */}
           <View className="mb-10 mt-5 gap-5">
             {/* Scientific Name */}
-            {scientificName && (
+            {getValues("scientificName") && (
               <View className="flex-row gap-2">
-                <TextInput
-                  control={control}
-                  name="scientificName"
-                  value={scientificName}
-                  hidden
-                />
                 <Text className="text-xl font-bold text-onSurfaceVariant">
                   Scientific Name:
                 </Text>
                 <Text className="text-lg italic text-onSurface">
-                  {scientificName}
+                  {getValues("scientificName")}
                 </Text>
               </View>
             )}
 
             {/* Description */}
-            <Description content="" />
+            <Description content={getValues("description")} />
 
             {/* Plant Name Input */}
             <TextInput
@@ -159,6 +169,13 @@ export default function AddScreen() {
               placeholder="e.g. Dexter's plant, Monstera.."
               label="Plant name (Alias)"
             />
+
+            {/* Suggestions for names */}
+            <AliasSuggestions
+              suggestions={aliasSuggestions}
+              onSuggestionSelected={handleOnAliasSuggestionSelected}
+            />
+
             {/* Room Input */}
             <TextInput
               name="room"
@@ -166,6 +183,7 @@ export default function AddScreen() {
               label="Room"
               placeholder="e.g. Bedroom's sill, Kitchen's sill..."
             />
+
             {/* Watering period */}
             <Counter
               name="period"
@@ -178,6 +196,7 @@ export default function AddScreen() {
               defaultValue={1}
               rules={{ required: true }}
             />
+
             {/* Water portion */}
             <Counter
               name="portion"
@@ -190,6 +209,7 @@ export default function AddScreen() {
               defaultValue={150}
               rules={{ required: true }}
             />
+
             {/* Light Condition */}
             <View className="gap-2">
               <Text className="text-xl font-bold text-onSurfaceVariant">
@@ -236,7 +256,56 @@ export default function AddScreen() {
   );
 }
 
-const Description = ({ content }: { content: string }) => {
+const AliasSuggestions = ({
+  suggestions,
+  onSuggestionSelected,
+}: {
+  suggestions: string[];
+  onSuggestionSelected: (value: string) => void;
+}) => {
+  const { width: screenWidth } = useWindowDimensions();
+
+  const display = useSharedValue<FlexStyle["display"]>("none");
+  const translateX = useSharedValue(-screenWidth);
+
+  const suggestionsStyle = useAnimatedStyle(() => {
+    const enabled = suggestions.length > 1;
+    display.value = withTiming(enabled ? "flex" : "none", {
+      duration: 500,
+      easing: Easing.inOut(Easing.ease),
+    });
+
+    translateX.value = withTiming(enabled ? 0 : -screenWidth, {
+      duration: 500,
+      easing: Easing.inOut(Easing.ease),
+    });
+
+    return {
+      display: display.value,
+      transform: [
+        {
+          translateX: translateX.value,
+        },
+      ],
+    };
+  }, [suggestions]);
+
+  return (
+    <Animated.View style={suggestionsStyle} className="flex-row gap-2">
+      {suggestions.slice(0, 3).map((suggestion) => (
+        <Text
+          onPress={() => onSuggestionSelected(suggestion)}
+          className="rounded-2xl bg-tertiary px-5 py-3 text-center font-bold text-onTertiary active:bg-tertiary/50 active:text-onTertiary"
+          key={suggestion}
+        >
+          {suggestion}
+        </Text>
+      ))}
+    </Animated.View>
+  );
+};
+
+const Description = ({ content }: { content?: string | null }) => {
   const animatedHeight = useSharedValue(0);
 
   const [expanded, setExpanded] = useState(false);
@@ -262,7 +331,15 @@ const Description = ({ content }: { content: string }) => {
     };
   }, [expanded]);
 
-  // if (!content) return null;
+  const handleLayoutChange = useCallback(
+    (event: NativeSyntheticEvent<TextLayoutEventData>) => {
+      const lines = event.nativeEvent.lines;
+      setHeight(lines.length * lines[0].height + 10);
+    },
+    [],
+  );
+
+  if (!content) return null;
 
   return (
     <Pressable className="gap-2" onPress={handleCollapsibleView}>
@@ -280,11 +357,9 @@ const Description = ({ content }: { content: string }) => {
       <Animated.View style={[collapsableStyle]}>
         <Text
           className="text-lg italic text-onSurface"
-          // onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
-          onTextLayout={(e) => setHeight(e.nativeEvent.lines[0].height + 20)}
+          onTextLayout={handleLayoutChange}
         >
-          Monstera is a genus of about 50 species of flowering plants in the
-          arum family, Araceae, native to tropical regions of the Americas.
+          {content}
         </Text>
       </Animated.View>
     </Pressable>

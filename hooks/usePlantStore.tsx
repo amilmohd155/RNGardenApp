@@ -1,4 +1,4 @@
-import { asc, eq, ilike, like } from "drizzle-orm";
+import { asc, eq, like } from "drizzle-orm";
 import { create } from "zustand";
 
 import db from "@/db/client";

@@ -25,7 +25,10 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
           lightCondition,
           notes,
           image,
+          scientificName,
           description,
+          descriptionCitation,
+          plantAccessToken,
         } = plant;
         db.insert(plants)
           .values({
@@ -37,6 +40,9 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
             notes,
             image,
             description,
+            descriptionCitation,
+            plantAccessToken,
+            scientificName,
           })
           .run();
 
