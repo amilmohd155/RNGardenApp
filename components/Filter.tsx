@@ -7,6 +7,7 @@ import { Portal } from "@gorhom/portal";
 import SegmentedControl, {
   SegmentedControlProps,
 } from "@react-native-segmented-control/segmented-control";
+import { useColorScheme } from "nativewind";
 import { forwardRef, useCallback, useMemo, useState } from "react";
 import { View, Text } from "react-native";
 
@@ -36,6 +37,7 @@ export const FilterBottomSheet = forwardRef<
     { onSortChange, onStatusChange, selectedSort = 0, selectedStatus = 0 },
     ref,
   ) => {
+    const { colorScheme } = useColorScheme();
     const snapPoints = useMemo(() => ["40%", "50%"], []);
 
     const renderBackdrop = useCallback(
@@ -57,14 +59,23 @@ export const FilterBottomSheet = forwardRef<
           index={-1}
           enablePanDownToClose
           backdropComponent={renderBackdrop}
-          handleIndicatorStyle={{ backgroundColor: "#FFF" }}
+          handleIndicatorStyle={{
+            backgroundColor: colorScheme !== "dark" ? "#1c3a23" : "#f0f0f0",
+          }}
           handleStyle={{
-            backgroundColor: Colors.secondary[500],
             borderTopEndRadius: 15,
             borderTopStartRadius: 15,
           }}
+          backgroundStyle={{
+            backgroundColor:
+              // "#1c3a23"
+              // "#f0f0f0"
+              colorScheme === "dark"
+                ? Colors.secondary[800]
+                : Colors.secondary[100],
+          }}
         >
-          <BottomSheetView className="flex-1 bg-secondaryContainer">
+          <BottomSheetView className="flex-1">
             <Text className="bg-secondary/10 p-5 text-center text-2xl font-bold tracking-wide text-onSecondaryContainer">
               Sort & Filter
             </Text>
@@ -106,7 +117,7 @@ export const FilterButton = ({ onPress }: { onPress: () => void }) => {
       onPress={handleOnPress}
       name="sort"
       size={24}
-      className="{}-[color]:color-onSecondary rounded-lg bg-secondaryContainer px-5 py-3 shadow-lg active:bg-gray-100"
+      className="{}-[color]:color-onTertiary rounded-lg bg-tertiary px-5 py-3 shadow-lg active:bg-gray-100"
     />
   );
 };
@@ -114,6 +125,7 @@ export const FilterButton = ({ onPress }: { onPress: () => void }) => {
 export const FilterSegementedControl = (
   props: SegmentedControlProps & { label: string },
 ) => {
+  const { colorScheme } = useColorScheme();
   const [selectedIndex, setSelectedIndex] = useState(props.selectedIndex);
 
   return (
@@ -128,11 +140,12 @@ export const FilterSegementedControl = (
           setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
           props.onChange?.(event);
         }}
-        style={{ height: 45 }}
-        tintColor="#59746f"
-        backgroundColor="#eff3ec"
-        fontStyle={{ color: "green" }}
-        activeFontStyle={{ color: "white", fontWeight: "bold" }}
+        className="{}-[tintColor]:color-secondary h-16 bg-secondaryContainer"
+        fontStyle={{ color: colorScheme === "dark" ? "white" : "green" }}
+        activeFontStyle={{
+          color: colorScheme === "dark" ? "green" : "white",
+          fontWeight: "bold",
+        }}
       />
     </View>
   );

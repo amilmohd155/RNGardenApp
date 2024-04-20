@@ -21,7 +21,14 @@ import Colors from "@/theme/Colors";
 type PlantCardProps = {
   id: string;
   onDismiss?: (id: string) => void;
-} & Omit<SelectPlant, "lightCondition" | "notes" | "description">;
+} & Omit<
+  SelectPlant,
+  | "lightCondition"
+  | "notes"
+  | "description"
+  | "descriptionCitation"
+  | "plantAccessToken"
+>;
 
 export const PlantCard = ({
   id,

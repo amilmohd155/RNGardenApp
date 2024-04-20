@@ -31,10 +31,6 @@ export const calculateWateringPeriod = (preference?: Range) => {
   const avg = (minMapped + maxMapped) / 2;
 
   const wateringPeriod = Math.floor(avg);
-  console.log(
-    "🚀 ~ file: calculateWateringDetails.ts:31 ~ calculateWateringPeriod ~ wateringPeriod:",
-    wateringPeriod,
-  );
 
   return wateringPeriod;
 };
