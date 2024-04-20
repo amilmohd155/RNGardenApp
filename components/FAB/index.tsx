@@ -66,22 +66,20 @@ const FAB = () => {
 
   const _open = () => {
     setPointerEvents("auto");
-    fabOpacity.value = withTiming(DEFAULT_OPACITY);
+    setOpened(true);
+    fabTranslateY.value = withTiming(-size * 2);
     fabRotate.value = withSpring((3 * Math.PI) / 4);
-    fabTranslateY.value = -size * 2;
-    setTimeout(() => {
-      setOpened(true);
-    }, 300);
+    fabOpacity.value = withTiming(DEFAULT_OPACITY);
   };
 
   const _close = () => {
     setPointerEvents("none");
+    fabTranslateY.value = withTiming(0);
     fabRotate.value = withSpring(0);
     fabOpacity.value = withTiming(0);
-    fabTranslateY.value = 0;
     setTimeout(() => {
       setOpened(false);
-    }, 300);
+    }, 150);
   };
 
   const backdropGesture = Gesture.Tap().onFinalize(() => {
@@ -111,18 +109,15 @@ const FAB = () => {
         />
       </GestureDetector>
       <View className="absolute bottom-10 right-10 items-end gap-3">
-        {opened && (
-          <Animated.View className="gap-3">
-            {actions.map((action, index) => (
-              <SubButton
-                action={action}
-                key={index}
-                index={index}
-                translateY={fabTranslateY}
-              />
-            ))}
-          </Animated.View>
-        )}
+        {opened &&
+          actions.map((action, index) => (
+            <SubButton
+              action={action}
+              key={index}
+              index={index}
+              translateY={fabTranslateY}
+            />
+          ))}
 
         <AnimatedIcon
           style={rIconStyle}
@@ -154,10 +149,8 @@ const SubButton = ({
   });
 
   const rSubButtonStyle = useAnimatedStyle(() => {
-    console.log(derivedTranslateY.value);
-
     return {
-      // opacity: interpolate(derivedTranslateY.value, [0, 40], [0, 1]),
+      // opacity: interpolate(derivedTranslateY.value, [0, -40], [0, 1]),
       transform: [{ translateY: derivedTranslateY.value }],
     };
   });
