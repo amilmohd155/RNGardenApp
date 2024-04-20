@@ -7,7 +7,7 @@ import { Portal } from "@gorhom/portal";
 import SegmentedControl, {
   SegmentedControlProps,
 } from "@react-native-segmented-control/segmented-control";
-import { useColorScheme } from "nativewind";
+import { cssInterop, remapProps, useColorScheme } from "nativewind";
 import { forwardRef, useCallback, useMemo, useState } from "react";
 import { View, Text } from "react-native";
 
@@ -91,7 +91,7 @@ export const FilterBottomSheet = forwardRef<
 
               <FilterSegementedControl
                 label="Status"
-                values={["Not Watered", "Watered"]}
+                values={["Upcoming", "Watered", "Delayed"]}
                 selectedIndex={selectedStatus}
                 onChange={(event) => {
                   onStatusChange(
@@ -122,10 +122,29 @@ export const FilterButton = ({ onPress }: { onPress: () => void }) => {
   );
 };
 
+const CustomSegmentedControl = remapProps(SegmentedControl, {
+  fontClassName: "fontStyle",
+  activeFontClassName: "activeFontStyle",
+});
+cssInterop(CustomSegmentedControl, {
+  className: {
+    target: "style",
+    nativeStyleToProp: {
+      tintColor: "tintColor",
+      backgroundColor: "backgroundColor",
+    },
+  },
+  activeFontClassName: {
+    target: "activeFontStyle",
+  },
+  fontClassName: {
+    target: "fontStyle",
+  },
+});
+
 export const FilterSegementedControl = (
   props: SegmentedControlProps & { label: string },
 ) => {
-  const { colorScheme } = useColorScheme();
   const [selectedIndex, setSelectedIndex] = useState(props.selectedIndex);
 
   return (
@@ -133,19 +152,16 @@ export const FilterSegementedControl = (
       <Text className="text-xl font-semibold text-onSecondaryContainer">
         {props.label}
       </Text>
-      <SegmentedControl
+      <CustomSegmentedControl
         {...props}
         selectedIndex={selectedIndex}
         onChange={(event) => {
           setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
           props.onChange?.(event);
         }}
+        activeFontClassName="font-bold text-onPrimary"
         className="{}-[tintColor]:color-secondary h-16 bg-secondaryContainer"
-        fontStyle={{ color: colorScheme === "dark" ? "white" : "green" }}
-        activeFontStyle={{
-          color: colorScheme === "dark" ? "green" : "white",
-          fontWeight: "bold",
-        }}
+        fontClassName="text-primary"
       />
     </View>
   );

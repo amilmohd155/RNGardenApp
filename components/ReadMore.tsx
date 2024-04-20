@@ -1,17 +1,30 @@
-import React, { useState } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import {
   NativeSyntheticEvent,
   Text,
   TextLayoutEventData,
+  TextProps,
   View,
 } from "react-native";
 
 type Props = {
-  children: React.ReactNode;
+  citation?: string | null;
   numberOfLines?: number;
-};
+  textClassName?: string;
+  readMoreClassName?: string;
+  citationClassName?: string;
+} & TextProps;
 
-export const ReadMore = ({ children, numberOfLines = 3 }: Props) => {
+export const ReadMore = ({
+  numberOfLines = 3,
+  citation,
+  children,
+  className,
+  textClassName = "text-onSurfaceVariant",
+  citationClassName = "text-right italic text-onSurfaceVariant/50",
+  readMoreClassName = "text-onSurface/50",
+  ...props
+}: PropsWithChildren<Props>) => {
   const [textshown, setTextShown] = useState(false);
   const [lengthMore, setLengthMore] = useState(false);
 
@@ -24,19 +37,24 @@ export const ReadMore = ({ children, numberOfLines = 3 }: Props) => {
   };
 
   return (
-    <View>
+    <View className={className}>
       <Text
-        className="text-onSurfaceVariant"
+        {...props}
+        className={textClassName}
         onTextLayout={onTextLayout}
         numberOfLines={textshown ? undefined : numberOfLines}
       >
         {children}
       </Text>
-      {lengthMore ? (
-        <Text onPress={toggleNumberOfLines} className="mt-1 text-outline">
-          {textshown ? "Read less" : "Read more"}
-        </Text>
-      ) : null}
+      <View className="flex-row items-center justify-between py-2">
+        {lengthMore ? (
+          <Text onPress={toggleNumberOfLines} className={readMoreClassName}>
+            {textshown ? "Read less" : "Read more"}
+          </Text>
+        ) : null}
+        {/* Citation */}
+        {citation && <Text className={citationClassName}>{citation}</Text>}
+      </View>
     </View>
   );
 };

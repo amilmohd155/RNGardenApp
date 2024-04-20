@@ -12,3 +12,4 @@ export * from "./TextArea";
 export * from "./TextInput";
 export { default as ThemeBottomSheet } from "./ThemeBottomSheet";
 export * from "./RotatingBorderIcon";
+export { default as FAB } from "./FAB";
