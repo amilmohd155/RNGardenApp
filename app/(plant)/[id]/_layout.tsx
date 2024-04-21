@@ -1,11 +1,21 @@
 import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+
 export default function PlantLayout() {
   return (
     // <SafeAreaView style={{ flex: 1 }}>
     <Stack screenOptions={{ headerShown: false, animation: "ios" }}>
       <Stack.Screen name="index" />
-      <Stack.Screen name="edit" />
+      <Stack.Screen
+        name="edit"
+        options={{
+          presentation: "transparentModal",
+          contentStyle: {
+            backgroundColor: "transparent",
+            justifyContent: "center",
+          },
+          animation: "slide_from_bottom",
+        }}
+      />
       <Stack.Screen
         name="delete"
         options={{
@@ -13,9 +23,9 @@ export default function PlantLayout() {
           contentStyle: {
             backgroundColor: "transparent",
             justifyContent: "center",
-            padding: 24,
           },
-          animation: "slide_from_bottom",
+          animation: "fade_from_bottom",
+          animationDuration: 1000,
         }}
       />
     </Stack>

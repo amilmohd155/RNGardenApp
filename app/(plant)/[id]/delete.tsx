@@ -1,9 +1,10 @@
-import { ActionButton } from "@/components";
-import { useEditPlantActions } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
 import { useCallback } from "react";
 import { View, Text, Pressable } from "react-native";
+
+import { useEditPlantActions } from "@/hooks";
 
 export default function DeletePlantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -25,10 +26,15 @@ export default function DeletePlantScreen() {
   }, [isMounted]);
 
   return (
-    <>
+    <BlurView
+      tint="dark"
+      experimentalBlurMethod="dimezisBlurView"
+      intensity={50}
+      className="absolute bottom-0 left-0 right-0 top-0 justify-center p-8"
+    >
       <Pressable
         onPress={handleDismiss}
-        className="absolute bottom-0 left-0 right-0 top-0 bg-black opacity-50"
+        className="absolute bottom-0 left-0 right-0 top-0 "
         pointerEvents="auto"
       />
       <View className="h-1/2 items-center justify-center gap-5 rounded-xl bg-surfaceBright p-10 shadow-xl shadow-onSurfaceVariant/50">
@@ -57,6 +63,6 @@ export default function DeletePlantScreen() {
           </Text>
         </Pressable>
       </View>
-    </>
+    </BlurView>
   );
 }

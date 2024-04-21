@@ -141,7 +141,7 @@ export default function PlantScreen() {
 
         {/* Note */}
         {notes && (
-          <View className="my-5 gap-2">
+          <View className="gap-2">
             <Text className="text-2xl font-bold text-onSurface">NOTE</Text>
             <Text className="h-[100] min-h-min rounded-lg border-2 border-outline/50 p-3 text-onSecondaryContainer/50">
               {notes}
