@@ -31,19 +31,9 @@ export default function PlantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
 
-  const navigation = useNavigation();
-
   const plants = usePlantStore((state) =>
     state.plants.find((p) => p.id === id),
   );
-
-  const { deletePlant } = useEditPlantActions();
-
-  const handleDeletePost = useCallback(() => {
-    deletePlant(id);
-    // Navigate back
-    navigation.goBack();
-  }, [deletePlant, id, navigation]);
 
   if (!plants) {
     return null;

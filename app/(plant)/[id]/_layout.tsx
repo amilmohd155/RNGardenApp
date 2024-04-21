@@ -15,6 +15,7 @@ export default function PlantLayout() {
             justifyContent: "center",
             padding: 24,
           },
+          animation: "slide_from_bottom",
         }}
       />
     </Stack>
