@@ -78,45 +78,6 @@ export default function PlantScreen() {
                   className={`${iconStyle} rounded-full bg-tertiaryContainer p-2`}
                   onPress={() => navigation.goBack()}
                 />
-                <View className="flex items-end gap-2">
-                  {/* Edit and Delete Button */}
-                  <Pressable
-                    onPress={handleDeletePost}
-                    className="flex-row items-center gap-2 rounded-full bg-tertiaryContainer px-4 py-3"
-                  >
-                    <Ionicons name="trash" size={24} className={iconStyle} />
-                    <Text className="text-lg font-semibold text-onTertiaryContainer">
-                      Remove
-                    </Text>
-                  </Pressable>
-
-                  <Link href={`/${id}/edit`} asChild>
-                    <Pressable className="flex-row items-center gap-2 rounded-full bg-tertiaryContainer px-4 py-3">
-                      <MaterialCommunityIcons
-                        name="pencil"
-                        size={24}
-                        className={iconStyle}
-                      />
-                      <Text className="text-lg font-semibold text-onTertiaryContainer">
-                        Edit
-                      </Text>
-                    </Pressable>
-                  </Link>
-                  {/* Reminder Button  */}
-                  <Pressable
-                    onPress={() => console.log("Reminder")}
-                    className="flex-row items-center gap-2 rounded-full bg-tertiaryContainer px-4 py-3"
-                  >
-                    <MaterialCommunityIcons
-                      name="watering-can"
-                      size={24}
-                      className="{}-[color]: color-onTertiaryContainer"
-                    />
-                    <Text className="text-lg font-semibold text-onTertiaryContainer">
-                      Reminder
-                    </Text>
-                  </Pressable>
-                </View>
               </View>
             );
           },
@@ -194,25 +155,25 @@ export default function PlantScreen() {
 
       <FAB.Group
         icon="add"
-        color="yellow"
+        // color="yellow"
         actions={[
           {
-            icon: "timer",
+            icon: "timer-outline",
             label: "Reminder",
-            color: "blue",
+            color: "#46c750",
             onPress: () => console.log("Reminder"),
           },
           {
             icon: "create",
             label: "Edit",
-            color: "green",
+            color: "#4d81c5",
             onPress: () => console.log("Edit"),
           },
           {
             icon: "trash",
             label: "Remove",
-            color: "red",
-            onPress: () => console.log("Remove"),
+            color: "#c73423",
+            onPress: handleDeletePost,
           },
         ]}
       />

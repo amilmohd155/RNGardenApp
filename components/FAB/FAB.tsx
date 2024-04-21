@@ -11,8 +11,8 @@ import { FABProps } from "./FAB.type";
 const FAB = ({
   translateY,
   index = 0,
-  bottom = 40,
-  right = 40,
+  bottom = 30,
+  right = 30,
   top,
   left,
   ...action
@@ -55,7 +55,7 @@ const FAB = ({
           name={icon}
           size={size}
           {...props}
-          className="rounded-full bg-white p-3"
+          className="rounded-full bg-[#eff3ec] p-3"
         />
       </Pressable>
     </Animated.View>
