@@ -41,7 +41,6 @@ export default function PlantScreen() {
 
   const handleDeletePost = useCallback(() => {
     deletePlant(id);
-
     // Navigate back
     navigation.goBack();
   }, [deletePlant, id, navigation]);
@@ -171,13 +170,13 @@ export default function PlantScreen() {
             icon: "create",
             label: "Edit",
             color: "#4d81c5",
-            onPress: () => router.push(`/plant/${id}/edit`),
+            onPress: () => router.push(`/(plant)/${id}/edit`),
           },
           {
             icon: "trash",
             label: "Remove",
             color: "#c73423",
-            onPress: handleDeletePost,
+            onPress: () => router.push(`/(plant)/${id}/delete`),
           },
         ]}
       />

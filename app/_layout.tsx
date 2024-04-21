@@ -39,9 +39,14 @@ function RootLayoutNav() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <PortalProvider>
         <ThemeProvider value={NavigationTheme(colorScheme)}>
-          <Stack screenOptions={{ headerShown: false }}>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              animation: "slide_from_right",
+            }}
+          >
             <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="(plant)" />
+            <Stack.Screen name="(plant)/[id]" />
             <Stack.Screen name="(settings)" />
           </Stack>
         </ThemeProvider>

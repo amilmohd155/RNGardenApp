@@ -59,7 +59,7 @@ const DATA: SettingListData[] = [
   {
     title: "Feedback",
     data: [
-      { label: "Rate us", type: SettingTypes.LINK },
+      { label: "Rate us", type: SettingTypes.LINK, link: "/_sitemap" },
       { label: "Contact us", type: SettingTypes.LINK },
       { label: "Report a bug", type: SettingTypes.LINK },
       { label: "Request a feature", type: SettingTypes.LINK },

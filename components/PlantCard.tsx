@@ -50,14 +50,11 @@ export const PlantCard = ({
   const marginBottom = useSharedValue(10);
   const containerOpacity = useSharedValue(1);
 
-  const tapGesture = Gesture.Tap()
-    .runOnJS(true)
-    .onEnd(() => {
-      router.navigate({
-        pathname: "/(plant)/[id]",
-        params: { id },
-      });
-    });
+  const tapGesture = Gesture.Tap().onEnd(() => {
+    // router.push(`/(plant)/${id}`);
+    runOnJS(router.navigate)(`/(plant)/${id}`);
+    // router.navigate(`/(plant)/${id}`);
+  });
 
   const panGesture = Gesture.Pan()
     .onChange((event) => {
