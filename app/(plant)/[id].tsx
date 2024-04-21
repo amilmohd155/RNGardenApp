@@ -191,7 +191,8 @@ export default function PlantScreen() {
           </View>
         )}
       </View>
-      <FAB />
+      <FAB icon="airplane" onPress={() => console.log("airplane")} />
+      {/* <FAB.Group /> */}
     </View>
   );
 }

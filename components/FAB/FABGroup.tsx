@@ -1,29 +1,32 @@
 import { Ionicons } from "@expo/vector-icons";
-import { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import { Portal } from "@gorhom/portal";
 import { ComponentProps, useCallback, useState } from "react";
-import { View, Text, Pressable, ViewProps } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  ViewProps,
+  GestureResponderEvent,
+} from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   SharedValue,
-  interpolate,
   runOnJS,
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
-  withDelay,
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { FullWindowOverlay } from "react-native-screens";
 
 type Action = {
   icon: ComponentProps<typeof Ionicons>["name"];
   label?: string;
-  onPress?: () => void;
+  onPress?: (e: GestureResponderEvent) => void;
 } & Omit<ComponentProps<typeof Ionicons>, "onPress" | "name">;
 
-const size = 32;
+const DEFAULT_OPACITY = 0.75;
+const SIZE = 32;
 const icon = "add";
 const color = "rgb(89 116 111)";
 const actions: Action[] = [
@@ -47,11 +50,9 @@ const actions: Action[] = [
   },
 ];
 
-const DEFAULT_OPACITY = 0.75;
-
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
-const FAB = () => {
+const FABGroup = () => {
   const [opened, setOpened] = useState(false);
   const [pointerEvents, setPointerEvents] =
     useState<ViewProps["pointerEvents"]>("none");
@@ -67,7 +68,7 @@ const FAB = () => {
   const _open = () => {
     setPointerEvents("auto");
     setOpened(true);
-    fabTranslateY.value = withTiming(-size * 2);
+    fabTranslateY.value = withTiming(-SIZE * 2);
     fabRotate.value = withSpring((3 * Math.PI) / 4);
     fabOpacity.value = withTiming(DEFAULT_OPACITY);
   };
@@ -110,20 +111,22 @@ const FAB = () => {
       </GestureDetector>
       <View className="absolute bottom-10 right-10 items-end gap-3">
         {opened &&
-          actions.map((action, index) => (
-            <SubButton
-              action={action}
-              key={index}
-              index={index}
-              translateY={fabTranslateY}
-            />
-          ))}
+          actions.map((action, index) => {
+            return (
+              <SubButton
+                action={action}
+                key={index}
+                index={index}
+                translateY={fabTranslateY}
+              />
+            );
+          })}
 
         <AnimatedIcon
           style={rIconStyle}
           onPress={handleOnPress}
           name={icon}
-          size={size}
+          size={SIZE}
           color={color}
           className="absolute bottom-0 right-0 rounded-full bg-white p-3 text-center"
         />
@@ -131,7 +134,7 @@ const FAB = () => {
     </Portal>
   );
 };
-export default FAB;
+export default FABGroup;
 
 const SubButton = ({
   translateY,
