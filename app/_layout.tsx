@@ -11,6 +11,8 @@ import { NavigationTheme } from "@/theme";
 
 import "react-native-get-random-values";
 
+import "expo-dev-client";
+
 export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {

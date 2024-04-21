@@ -124,39 +124,42 @@ export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
 
   return (
     <>
-      {/* After Image selection */}
-      <Animated.View
-        style={selectedImageStyle}
-        // onLayout={(e) => console.log(e.nativeEvent.layout.height)}
-      >
-        {/* Image */}
-        <Image
-          source={{ uri: value as string }}
-          className="justify-centern items-center rounded-xl"
-          height={HEIGHT}
-        />
-        {/* Pick Image */}
-        <Ionicons
-          name="camera"
-          size={32}
-          className="{}-[color]: absolute right-2 top-2 rounded-xl bg-inverseSurface p-2 shadow-xl shadow-black color-inverseOnSurface active:scale-90 active:bg-inverseSurface/50 active:color-inverseOnSurface/75"
-          onPress={pickImage}
-        />
-        {/* Get plant details */}
-        <Pressable
-          onPress={handleGetPlantDetails}
-          className="group mt-2 flex-1 flex-row items-center justify-center gap-5 rounded-xl bg-tertiaryContainer transition-all delay-75 active:scale-95 active:bg-tertiaryContainer/50"
+      {value && (
+        // After Image selection
+        <Animated.View
+          style={selectedImageStyle}
+          // onLayout={(e) => console.log(e.nativeEvent.layout.height)}
         >
-          <Ionicons
-            name="cloud-upload"
-            size={32}
-            className="{}-[color]:color-onTertiaryContainer"
+          {/* Image */}
+
+          <Image
+            source={{ uri: value as string }}
+            className="justify-centern items-center rounded-xl"
+            height={HEIGHT}
           />
-          <Text className="text-xl font-bold text-onTertiaryContainer">
-            Get plant details
-          </Text>
-        </Pressable>
-      </Animated.View>
+          {/* Pick Image */}
+          <Ionicons
+            name="camera"
+            size={32}
+            className="{}-[color]: absolute right-2 top-2 rounded-xl bg-inverseSurface p-2 shadow-xl shadow-black color-inverseOnSurface active:scale-90 active:bg-inverseSurface/50 active:color-inverseOnSurface/75"
+            onPress={pickImage}
+          />
+          {/* Get plant details */}
+          <Pressable
+            onPress={handleGetPlantDetails}
+            className="group mt-2 flex-1 flex-row items-center justify-center gap-5 rounded-xl bg-tertiaryContainer transition-all delay-75 active:scale-95 active:bg-tertiaryContainer/50"
+          >
+            <Ionicons
+              name="cloud-upload"
+              size={32}
+              className="{}-[color]:color-onTertiaryContainer"
+            />
+            <Text className="text-xl font-bold text-onTertiaryContainer">
+              Get plant details
+            </Text>
+          </Pressable>
+        </Animated.View>
+      )}
       {/* Initial selection */}
       <Animated.View style={initialContainerStyle}>
         <Pressable

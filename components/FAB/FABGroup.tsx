@@ -40,7 +40,7 @@ const actions: Action[] = [
   {
     icon: "pin",
     color: "rgb(89 116 111)",
-    // label: "Edit",
+    label: "Edit",
     onPress: () => console.log("Edit"),
   },
   {
@@ -50,8 +50,6 @@ const actions: Action[] = [
     onPress: () => console.log("Delete"),
   },
 ];
-
-const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
 type FABGroupProps = {
   icon: string;
@@ -67,19 +65,15 @@ const FABGroup = () => {
   const fabOpacity = useSharedValue(0);
   const fabTranslateY = useSharedValue(0);
 
-  const handleOnPress = useCallback(() => {
-    return opened ? _close() : _open();
-  }, [opened]);
-
-  const _open = () => {
+  const _open = useCallback(() => {
     setPointerEvents("auto");
     setOpened(true);
     fabTranslateY.value = withTiming(-SIZE * 2);
     fabRotate.value = withSpring((3 * Math.PI) / 4);
     fabOpacity.value = withTiming(DEFAULT_OPACITY);
-  };
+  }, [fabOpacity, fabRotate, fabTranslateY]);
 
-  const _close = () => {
+  const _close = useCallback(() => {
     setPointerEvents("none");
     fabTranslateY.value = withTiming(0);
     fabRotate.value = withSpring(0);
@@ -87,7 +81,11 @@ const FABGroup = () => {
     setTimeout(() => {
       setOpened(false);
     }, 150);
-  };
+  }, [fabOpacity, fabRotate, fabTranslateY]);
+
+  const handleOnPress = useCallback(() => {
+    return opened ? _close() : _open();
+  }, [_close, _open, opened]);
 
   const backdropGesture = Gesture.Tap().onFinalize(() => {
     runOnJS(handleOnPress)();
@@ -119,16 +117,18 @@ const FABGroup = () => {
         {opened &&
           actions.map((action, index) => {
             return (
-              <SubButton
-                action={action}
+              <FAB
                 key={index}
+                icon={action.icon}
+                color={action.color}
+                label={action.label}
+                onPress={() => {}}
                 index={index}
                 translateY={fabTranslateY}
               />
             );
           })}
 
-        {/* <Animated.View style={rIconStyle}> */}
         <FAB
           icon={icon}
           size={SIZE}
@@ -136,64 +136,8 @@ const FABGroup = () => {
           onPress={handleOnPress}
           style={rIconStyle}
         />
-        {/* </Animated.View> */}
-
-        {/* <AnimatedIcon
-          style={rIconStyle}
-          onPress={handleOnPress}
-          name={icon}
-          size={SIZE}
-          color={color}
-          className="absolute bottom-0 right-0 rounded-full bg-white p-3 text-center"
-        /> */}
       </View>
     </Portal>
   );
 };
 export default FABGroup;
-
-const SubButton = ({
-  translateY,
-  index,
-  action,
-}: {
-  index: number;
-  translateY: SharedValue<number>;
-  action: Action;
-}) => {
-  const { icon, label, onPress, ...props } = action;
-
-  const derivedTranslateY = useDerivedValue(() => {
-    return translateY.value * (index + 1);
-  });
-
-  const rSubButtonStyle = useAnimatedStyle(() => {
-    return {
-      // opacity: interpolate(derivedTranslateY.value, [0, -40], [0, 1]),
-      transform: [{ translateY: derivedTranslateY.value }],
-    };
-  });
-
-  return (
-    <Animated.View
-      className="absolute bottom-0 right-0"
-      style={rSubButtonStyle}
-    >
-      <Pressable
-        onPress={onPress}
-        className="flex-row items-center justify-end gap-3"
-      >
-        {label && (
-          <Text className="text-lg font-semibold text-white">{label}</Text>
-        )}
-        <Ionicons
-          name={icon}
-          size={32}
-          color={color}
-          {...props}
-          className="rounded-full bg-white p-3"
-        />
-      </Pressable>
-    </Animated.View>
-  );
-};
