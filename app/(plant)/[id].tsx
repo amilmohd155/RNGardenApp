@@ -158,7 +158,6 @@ export default function PlantScreen() {
           </View>
         )}
       </View>
-
       <FAB.Group
         icon="add"
         actions={[

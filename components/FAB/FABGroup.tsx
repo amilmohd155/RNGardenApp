@@ -70,7 +70,7 @@ const FABGroupComponent = ({
   });
 
   return (
-    <Portal>
+    <>
       <GestureDetector gesture={backdropGesture}>
         <Animated.View
           style={rBackdropStyle}
@@ -103,7 +103,7 @@ const FABGroupComponent = ({
           style={rIconStyle}
         />
       </View>
-    </Portal>
+    </>
   );
 };
 
