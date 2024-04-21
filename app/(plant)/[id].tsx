@@ -192,7 +192,30 @@ export default function PlantScreen() {
         )}
       </View>
 
-      <FAB.Group />
+      <FAB.Group
+        icon="add"
+        color="yellow"
+        actions={[
+          {
+            icon: "timer",
+            label: "Reminder",
+            color: "blue",
+            onPress: () => console.log("Reminder"),
+          },
+          {
+            icon: "create",
+            label: "Edit",
+            color: "green",
+            onPress: () => console.log("Edit"),
+          },
+          {
+            icon: "trash",
+            label: "Remove",
+            color: "red",
+            onPress: () => console.log("Remove"),
+          },
+        ]}
+      />
     </View>
   );
 }

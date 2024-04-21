@@ -1,28 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ComponentProps, useMemo } from "react";
-import { Text, Pressable, GestureResponderEvent } from "react-native";
+import { useMemo } from "react";
+import { Text, Pressable } from "react-native";
 import Animated, {
-  SharedValue,
   useAnimatedStyle,
   useDerivedValue,
-  useSharedValue,
 } from "react-native-reanimated";
 
-type Action = {
-  icon: ComponentProps<typeof Ionicons>["name"];
-  label?: string;
-  size?: number;
-  onPress?: (e: GestureResponderEvent) => void;
-} & Omit<ComponentProps<typeof Ionicons>, "onPress" | "name">;
-
-type FABProps = {
-  bottom?: number;
-  right?: number;
-  left?: number;
-  top?: number;
-  index?: number;
-  translateY?: SharedValue<number>;
-} & Action;
+import { FABProps } from "./FAB.type";
 
 const FAB = ({
   translateY,
@@ -33,17 +17,14 @@ const FAB = ({
   left,
   ...action
 }: FABProps) => {
-  const { icon, label, onPress, size = 32, color, style, ...props } = action;
+  const { icon, label, onPress, size = 32, style, ...props } = action;
 
   const derivedTranslateY = useDerivedValue(() => {
     return translateY ? translateY.value * (index + 1) : 0;
   });
 
   const rStyle = useAnimatedStyle(() => {
-    // console.log("index", index, derivedTranslateY.value);
-
     return {
-      // opacity: interpolate(derivedTranslateY.value, [0, -40], [0, 1]),
       transform: [{ translateY: derivedTranslateY.value }],
     };
   });
@@ -73,7 +54,6 @@ const FAB = ({
         <Ionicons
           name={icon}
           size={size}
-          color={color}
           {...props}
           className="rounded-full bg-white p-3"
         />
