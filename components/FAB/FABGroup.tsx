@@ -18,6 +18,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import FAB from "./FAB";
 
 type Action = {
   icon: ComponentProps<typeof Ionicons>["name"];
@@ -51,6 +52,11 @@ const actions: Action[] = [
 ];
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
+
+type FABGroupProps = {
+  icon: string;
+  color: string;
+};
 
 const FABGroup = () => {
   const [opened, setOpened] = useState(false);
@@ -109,7 +115,7 @@ const FABGroup = () => {
           pointerEvents={pointerEvents}
         />
       </GestureDetector>
-      <View className="absolute bottom-10 right-10 items-end gap-3">
+      <View className="absolute bottom-0 right-0 items-end gap-3">
         {opened &&
           actions.map((action, index) => {
             return (
@@ -122,14 +128,24 @@ const FABGroup = () => {
             );
           })}
 
-        <AnimatedIcon
+        {/* <Animated.View style={rIconStyle}> */}
+        <FAB
+          icon={icon}
+          size={SIZE}
+          color={color}
+          onPress={handleOnPress}
+          style={rIconStyle}
+        />
+        {/* </Animated.View> */}
+
+        {/* <AnimatedIcon
           style={rIconStyle}
           onPress={handleOnPress}
           name={icon}
           size={SIZE}
           color={color}
           className="absolute bottom-0 right-0 rounded-full bg-white p-3 text-center"
-        />
+        /> */}
       </View>
     </Portal>
   );
