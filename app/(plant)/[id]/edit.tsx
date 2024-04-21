@@ -1,53 +1,66 @@
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
-import { useCallback } from "react";
-import { Pressable, Text, View } from "react-native";
+import { useCallback, useState } from "react";
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function EditPlantScreen() {
   const { id } = useLocalSearchParams();
 
-  console.log("EditPlantScreen", id);
-
-  const isMounted = router.canDismiss();
-
   const handleDismiss = useCallback(() => {
-    isMounted && router.dismiss();
-  }, [isMounted]);
+    router.back();
+  }, []);
+
+  const handleOnScroll = (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+  ): void => {};
 
   return (
-    <BlurView
-      tint="dark"
-      experimentalBlurMethod="dimezisBlurView"
-      intensity={50}
-      className="absolute bottom-0 left-0 right-0 top-0"
+    <ScrollView
+      onScroll={handleOnScroll}
+      // scrollEnabled={false}
+      onScrollBeginDrag={(e) => console.log(e.nativeEvent.contentOffset.y)}
+      className="flex-1 rounded-t-3xl bg-surfaceBright p-10"
+      stickyHeaderIndices={[0]}
+      StickyHeaderComponent={() => (
+        <>
+          <View className="flex-row gap-5">
+            <Pressable
+              onPress={handleDismiss}
+              className="flex-1 items-center rounded-lg bg-neutral-200 p-5"
+            >
+              <Text className="text-xl font-bold text-primaryContainer">
+                Cancel
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={handleDismiss}
+              className="flex-1 items-center rounded-lg bg-primaryContainer p-5"
+            >
+              <Text className="text-xl font-bold text-onPrimaryContainer">
+                Save
+              </Text>
+            </Pressable>
+          </View>
+        </>
+      )}
     >
-      <Pressable
-        onPress={handleDismiss}
-        className="absolute bottom-0 left-0 right-0 top-0"
-        pointerEvents="auto"
-      />
-      <ScrollView className="mt-36 flex-1 rounded-t-3xl bg-surfaceBright p-10">
-        <View className="flex-row gap-5">
-          <Pressable
-            onPress={handleDismiss}
-            className="flex-1 items-center rounded-lg bg-neutral-200 p-5"
-          >
-            <Text className="text-xl font-bold text-primaryContainer">
-              Cancel
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={handleDismiss}
-            className="flex-1 items-center rounded-lg bg-primaryContainer p-5"
-          >
-            <Text className="text-xl font-bold text-onPrimaryContainer">
-              Save
-            </Text>
-          </Pressable>
+      {Array.from({ length: 50 }).map((_, index) => (
+        <View key={index} className="mt-5 flex-row gap-5">
+          <Text className="flex-1 text-lg font-bold text-onSurface">
+            Field {index + 1}
+          </Text>
+          <Text className="flex-1 text-lg text-onSurface">
+            Value {index + 1}
+          </Text>
         </View>
-        <View />
-      </ScrollView>
-    </BlurView>
+      ))}
+    </ScrollView>
   );
 }

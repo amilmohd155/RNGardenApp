@@ -5,17 +5,7 @@ export default function PlantLayout() {
     // <SafeAreaView style={{ flex: 1 }}>
     <Stack screenOptions={{ headerShown: false, animation: "ios" }}>
       <Stack.Screen name="index" />
-      <Stack.Screen
-        name="edit"
-        options={{
-          presentation: "transparentModal",
-          contentStyle: {
-            backgroundColor: "transparent",
-            justifyContent: "center",
-          },
-          animation: "slide_from_bottom",
-        }}
-      />
+      <Stack.Screen name="edit" />
       <Stack.Screen
         name="delete"
         options={{
