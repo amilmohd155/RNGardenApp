@@ -86,6 +86,10 @@ const FABGroupComponent = ({
                 {...action}
                 key={index}
                 index={index}
+                onPress={(e) => {
+                  _close();
+                  action.onPress?.(e);
+                }}
                 translateY={fabTranslateY}
               />
             );

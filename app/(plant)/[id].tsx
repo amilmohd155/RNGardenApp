@@ -1,7 +1,13 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { cva } from "class-variance-authority";
 import { Image } from "expo-image";
-import { Link, Stack, useLocalSearchParams, useNavigation } from "expo-router";
+import {
+  Link,
+  Stack,
+  router,
+  useLocalSearchParams,
+  useNavigation,
+} from "expo-router";
 import { useCallback } from "react";
 import { Pressable, Text, View } from "react-native";
 import Animated, {
@@ -155,7 +161,6 @@ export default function PlantScreen() {
 
       <FAB.Group
         icon="add"
-        // color="yellow"
         actions={[
           {
             icon: "timer-outline",
@@ -167,7 +172,7 @@ export default function PlantScreen() {
             icon: "create",
             label: "Edit",
             color: "#4d81c5",
-            onPress: () => console.log("Edit"),
+            onPress: () => router.push(`/plant/${id}/edit`),
           },
           {
             icon: "trash",
