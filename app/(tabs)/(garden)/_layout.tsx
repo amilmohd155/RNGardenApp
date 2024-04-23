@@ -18,7 +18,12 @@ export const MaterialTobTabs = withLayoutContext<
 export default function Layout() {
   return (
     <MaterialTobTabs>
-      <MaterialTobTabs.Screen name="index" />
+      <MaterialTobTabs.Screen
+        name="index"
+        options={{
+          tabBarLabel: "Today",
+        }}
+      />
     </MaterialTobTabs>
   );
 }
