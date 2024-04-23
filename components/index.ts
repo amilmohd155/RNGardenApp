@@ -13,3 +13,5 @@ export * from "./TextInput";
 export { default as ThemeBottomSheet } from "./ThemeBottomSheet";
 export * from "./RotatingBorderIcon";
 export { default as FAB } from "./FAB";
+export * from "./EmptyPlantListComponent";
+export * from "./GardenHeader";

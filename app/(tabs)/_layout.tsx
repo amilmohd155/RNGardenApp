@@ -1,3 +1,4 @@
+import { GardenHeader } from "@/components";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
@@ -52,6 +53,8 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "My garden",
+          headerShown: true,
+          header: (props) => <GardenHeader />,
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name="leaf" focused={focused} color={color} />
           ),
