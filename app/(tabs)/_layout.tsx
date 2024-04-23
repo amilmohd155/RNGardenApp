@@ -50,7 +50,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="(garden)"
         options={{
           title: "My garden",
           headerShown: true,
