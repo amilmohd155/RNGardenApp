@@ -1,9 +1,11 @@
-import { GardenHeader } from "@/components";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { cssInterop, remapProps } from "nativewind";
 import React from "react";
 import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { GardenHeader } from "@/components";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon({
@@ -26,11 +28,21 @@ function TabBarIcon({
   );
 }
 
+const ThemedTab = remapProps(Tabs, {
+  sceneContainerClassName: "sceneContainerStyle",
+});
+cssInterop(ThemedTab, {
+  sceneContainerClassName: {
+    target: "sceneContainerStyle",
+  },
+});
+
 export default function TabLayout() {
   const inset = useSafeAreaInsets();
 
   return (
-    <Tabs
+    <ThemedTab
+      sceneContainerClassName="bg-surface"
       screenOptions={{
         unmountOnBlur: true,
         headerShown: false,
@@ -54,7 +66,7 @@ export default function TabLayout() {
         options={{
           title: "My garden",
           headerShown: true,
-          header: (props) => <GardenHeader />,
+          header: () => <GardenHeader />,
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name="leaf" focused={focused} color={color} />
           ),
@@ -79,6 +91,6 @@ export default function TabLayout() {
           ),
         }}
       />
-    </Tabs>
+    </ThemedTab>
   );
 }

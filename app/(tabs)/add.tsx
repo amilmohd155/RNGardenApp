@@ -91,18 +91,8 @@ export default function AddScreen() {
     [setValue],
   );
 
-  const handleOnAliasSuggestionSelected = useCallback(
-    (value: string) => {
-      setValue("alias", value);
-    },
-    [setValue],
-  );
-
   return (
-    <View
-      className="flex-1 bg-surfaceBright px-5"
-      style={{ paddingTop: inset.top }}
-    >
+    <View className="flex-1 px-5" style={{ paddingTop: inset.top }}>
       {/* Header */}
       <View className="my-5 flex-row justify-center gap-5 rounded-b-lg">
         {/* Cancel Button */}

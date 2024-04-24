@@ -1,12 +1,34 @@
+import { FlashList } from "@shopify/flash-list";
 import React from "react";
 import { View } from "react-native";
 
-import { PlantListPage } from "@/pages";
+import { PlantCard, EmptyPlantListComponent } from "@/components";
+import { usePlantStore } from "@/hooks";
 
 export default function Garden() {
+  const { plants } = usePlantStore();
+
   return (
-    <View className="flex-1 bg-surface px-5">
-      <PlantListPage />
+    <View className="flex-1 px-5">
+      <FlashList
+        showsVerticalScrollIndicator={false}
+        data={plants}
+        renderItem={({ item }) => (
+          <PlantCard
+            id={item.id}
+            period={item.period}
+            room={item.room}
+            alias={item.alias}
+            scientificName={item.scientificName}
+            portion={item.portion}
+            image={item.image}
+          />
+        )}
+        ItemSeparatorComponent={() => <View className="h-5" />}
+        keyExtractor={(item) => item.id}
+        estimatedItemSize={140}
+        ListEmptyComponent={EmptyPlantListComponent}
+      />
     </View>
   );
 }

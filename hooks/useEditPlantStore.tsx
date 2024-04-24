@@ -5,6 +5,7 @@ import { usePlantStore } from "./usePlantStore";
 
 import db from "@/db/client";
 import { type InsertPlant, plants } from "@/db/schema";
+import { getTimestampMsNDaysFromNow } from "@/utils";
 
 type EditPlantStore = {
   actions: {
@@ -30,6 +31,9 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
           descriptionCitation,
           plantAccessToken,
         } = plant;
+
+        const task = getTimestampMsNDaysFromNow(period);
+
         db.insert(plants)
           .values({
             alias,
@@ -43,6 +47,7 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
             descriptionCitation,
             plantAccessToken,
             scientificName,
+            task,
           })
           .run();
 

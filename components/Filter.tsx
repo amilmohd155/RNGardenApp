@@ -19,11 +19,6 @@ enum SortBy {
   period,
 }
 
-enum Status {
-  watered,
-  notWatered,
-}
-
 export const FilterBottomSheet = forwardRef<
   BottomSheet,
   {
@@ -38,7 +33,7 @@ export const FilterBottomSheet = forwardRef<
     ref,
   ) => {
     const { colorScheme } = useColorScheme();
-    const snapPoints = useMemo(() => ["40%", "50%"], []);
+    const snapPoints = useMemo(() => ["25%", "40%"], []);
 
     const renderBackdrop = useCallback(
       (props: any) => (
@@ -68,8 +63,6 @@ export const FilterBottomSheet = forwardRef<
           }}
           backgroundStyle={{
             backgroundColor:
-              // "#1c3a23"
-              // "#f0f0f0"
               colorScheme === "dark"
                 ? Colors.secondary[800]
                 : Colors.secondary[100],
@@ -86,17 +79,6 @@ export const FilterBottomSheet = forwardRef<
                 selectedIndex={selectedSort}
                 onChange={(event) => {
                   onSortChange(SortBy[event.nativeEvent.selectedSegmentIndex]);
-                }}
-              />
-
-              <FilterSegementedControl
-                label="Status"
-                values={["Upcoming", "Watered", "Delayed"]}
-                selectedIndex={selectedStatus}
-                onChange={(event) => {
-                  onStatusChange(
-                    Status[event.nativeEvent.selectedSegmentIndex],
-                  );
                 }}
               />
             </View>
@@ -117,7 +99,7 @@ export const FilterButton = ({ onPress }: { onPress: () => void }) => {
       onPress={handleOnPress}
       name="sort"
       size={24}
-      className="{}-[color]:color-onTertiary rounded-lg bg-tertiary px-5 py-3 shadow-lg active:bg-gray-100"
+      className="{}-[color]:color-onSecondary rounded-lg bg-secondary px-5 py-3 shadow-lg active:bg-secondary/50 active:color-onSecondary/50"
     />
   );
 };

@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { SCREEN_WIDTH } from "@gorhom/bottom-sheet";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
-import { useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { LayoutChangeEvent, Text, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -20,7 +20,7 @@ import Colors from "@/theme/Colors";
 
 type PlantCardProps = {
   id: string;
-  onDismiss?: (id: string) => void;
+  // onDismiss?: (id: string) => boolean;
 } & Omit<
   SelectPlant,
   | "lightCondition"
@@ -30,7 +30,7 @@ type PlantCardProps = {
   | "plantAccessToken"
 >;
 
-export const PlantCard = ({
+const PlantCardComponent = ({
   id,
   scientificName,
   alias,
@@ -38,17 +38,20 @@ export const PlantCard = ({
   period,
   image = "https://picsum.photos/seed/696/3000/2000",
   portion: quantity,
-  onDismiss,
+  // onDismiss,
 }: PlantCardProps) => {
   const { colorScheme } = useColorScheme();
 
-  const [watered, setWatered] = useState(false);
-
-  const itemHeight = useSharedValue(140);
+  const size = useSharedValue(140);
   const wateredColor = useSharedValue(0);
   const translateX = useSharedValue(0);
-  const marginBottom = useSharedValue(10);
-  const containerOpacity = useSharedValue(1);
+  const isDragging = useSharedValue(false);
+
+  const longPressGesture = Gesture.LongPress()
+    .onStart(() => {
+      isDragging.value = true;
+    })
+    .minDuration(500);
 
   const tapGesture = Gesture.Tap().onEnd(() => {
     // router.push(`/(plant)/${id}`);
@@ -57,42 +60,39 @@ export const PlantCard = ({
   });
 
   const panGesture = Gesture.Pan()
+    .manualActivation(true)
+    .onTouchesMove((_e, state) => {
+      if (isDragging.value) {
+        state.activate();
+      } else {
+        state.fail();
+      }
+    })
     .onChange((event) => {
-      if (!wateredColor.value) {
-        translateX.value = event.translationX;
-      } else if (event.translationX > 0) {
+      if (!wateredColor.value && !(event.translationX > 0)) {
         translateX.value = event.translationX;
       }
     })
     .onEnd((event) => {
-      const shouldBeDismissed = translateX.value > itemHeight.value * 0.7;
-      // console.log("shouldBeDismissed", shouldBeDismissed);
-
-      const shouldBeWatered = translateX.value < -itemHeight.value * 0.7;
-      // console.log("shouldBeWatered", shouldBeWatered);
-
-      if (shouldBeDismissed) {
-        translateX.value = withTiming(SCREEN_WIDTH);
-        itemHeight.value = withTiming(0, { duration: 100 });
-        marginBottom.value = withTiming(0, { duration: 100 });
-        containerOpacity.value = withTiming(
-          0,
-          { duration: 100 },
-          (isFinished) => {
-            if (isFinished && onDismiss) {
-              runOnJS(onDismiss)(id);
-            }
-          },
-        );
-      } else if (shouldBeWatered) {
+      const shouldBeWatered = translateX.value < -size.value * 0.7;
+      // console.log("shouldBeWatered", shouldBeWatered)
+      if (shouldBeWatered) {
         wateredColor.value = withTiming(1);
         translateX.value = withTiming(0);
       } else {
         translateX.value = withTiming(0);
       }
-    });
+    })
+    .onFinalize(() => {
+      isDragging.value = false;
+    })
+    .simultaneousWithExternalGesture(longPressGesture);
 
-  const composedGesture = Gesture.Race(tapGesture, panGesture);
+  const composedGesture = Gesture.Race(
+    tapGesture,
+    panGesture,
+    longPressGesture,
+  );
 
   const panStyle = useAnimatedStyle(() => {
     const colors =
@@ -107,6 +107,7 @@ export const PlantCard = ({
         gamma: 2.2,
       },
     );
+
     return {
       backgroundColor,
       transform: [
@@ -117,34 +118,11 @@ export const PlantCard = ({
     };
   });
 
-  function onLayout(event: LayoutChangeEvent): void {
-    const { height } = event.nativeEvent.layout;
-    // console.log("height", height);
-  }
-
-  const containerStyle = useAnimatedStyle(() => {
-    return {
-      height: itemHeight.value,
-      opacity: containerOpacity.value,
-      marginBottom: marginBottom.value,
-    };
-  });
-
   return (
-    <Animated.View
-      style={[containerStyle]}
-      className="justify-center"
-      onLayout={onLayout}
-    >
+    <Animated.View className="justify-center">
       <RotatingBorderIcon
         translateX={translateX}
-        layoutHeight={itemHeight.value * 0.7}
-        svg={require("@/assets/icons/trash.svg")}
-        colors={["#FFC107", "#FF9800"]}
-      />
-      <RotatingBorderIcon
-        translateX={translateX}
-        layoutHeight={itemHeight.value * 0.7}
+        layoutHeight={size.value * 0.7}
         svg={require("@/assets/icons/watering.svg")}
         right
         colors={["#FF0000", "#00FF00", "#0000FF", "#FF0000"]}
@@ -192,3 +170,5 @@ export const PlantCard = ({
     </Animated.View>
   );
 };
+
+export const PlantCard = memo(PlantCardComponent);

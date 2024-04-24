@@ -3,6 +3,7 @@ import { UseControllerProps, useController } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
 
 import { InsertPlantFieldValues } from "@/types/form";
+import { useEffect } from "react";
 
 const COUNTER_SIZE = 24;
 
@@ -31,6 +32,10 @@ export const Counter = ({
   const add = () => {
     onChange(Math.min(max, (value as number) + increment));
   };
+
+  useEffect(() => {
+    console.log(value);
+  }, [value]);
 
   return (
     <View className="flex-row items-center gap-5 py-1">

@@ -87,7 +87,7 @@ export default function SettingsScreen() {
   }, [navigation]);
 
   return (
-    <View className="flex-1 bg-surface px-5" style={{ paddingTop: inset.top }}>
+    <View className="flex-1 px-5" style={{ paddingTop: inset.top }}>
       <Text className="py-5 text-5xl font-bold text-primary">Settings</Text>
 
       <SectionList

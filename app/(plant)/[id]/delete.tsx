@@ -12,18 +12,18 @@ export default function DeletePlantScreen() {
   const { deletePlant } = useEditPlantActions();
 
   const handleDeletePlant = useCallback(() => {
-    deletePlant(id);
+    // deletePlant(id);
     // Navigate back
-    router.navigate("/(tabs)/");
-  }, [deletePlant, id]);
+    console.log("Delete plant", id);
 
-  console.log("DeletePlantScreen", id);
-
-  const isMounted = router.canDismiss();
+    router.dismiss();
+  }, [id]);
 
   const handleDismiss = useCallback(() => {
+    const isMounted = router.canDismiss();
+
     isMounted && router.dismiss();
-  }, [isMounted]);
+  }, []);
 
   return (
     <BlurView

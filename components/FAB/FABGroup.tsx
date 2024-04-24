@@ -70,7 +70,7 @@ const FABGroupComponent = ({
   });
 
   return (
-    <>
+    <Portal>
       <GestureDetector gesture={backdropGesture}>
         <Animated.View
           style={rBackdropStyle}
@@ -78,7 +78,7 @@ const FABGroupComponent = ({
           pointerEvents={pointerEvents}
         />
       </GestureDetector>
-      <View className="absolute bottom-0 right-0 items-end gap-3">
+      <View className="absolute bottom-0 right-0 gap-3">
         {opened &&
           actions.map((action, index) => {
             return (
@@ -103,7 +103,7 @@ const FABGroupComponent = ({
           style={rIconStyle}
         />
       </View>
-    </>
+    </Portal>
   );
 };
 

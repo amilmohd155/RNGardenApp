@@ -1,4 +1,9 @@
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
@@ -19,6 +24,8 @@ export function useLoadAssets() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
     ...Ionicons.font,
+    ...Feather.font,
+    ...MaterialCommunityIcons.font,
   });
 
   const { success: hasRunMigrations, error: runningMigrationError } =

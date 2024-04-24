@@ -18,6 +18,7 @@ export const plants = sqliteTable(
     }),
     notes: text("notes"),
     image: text("image"),
+    task: integer("task", { mode: "timestamp_ms" }).notNull(),
     scientificName: text("scientific_name"),
     description: text("description"),
     descriptionCitation: text("description_source"),

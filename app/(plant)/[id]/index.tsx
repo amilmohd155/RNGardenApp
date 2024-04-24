@@ -156,18 +156,21 @@ export default function PlantScreen() {
             icon: "timer-outline",
             label: "Reminder",
             color: "#46c750",
+            // size: 24,
             onPress: () => console.log("Reminder"),
           },
           {
             icon: "create",
             label: "Edit",
             color: "#4d81c5",
+            // size: 24,
             onPress: () => router.push(`/(plant)/${id}/edit`),
           },
           {
             icon: "trash",
             label: "Remove",
             color: "#c73423",
+            // size: 24,
             onPress: () => router.push(`/(plant)/${id}/delete`),
           },
         ]}

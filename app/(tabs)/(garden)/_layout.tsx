@@ -6,6 +6,8 @@ import {
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { withLayoutContext } from "expo-router";
 
+import { CustomTabBar } from "@/components";
+
 const { Navigator } = createMaterialTopTabNavigator();
 
 export const MaterialTobTabs = withLayoutContext<
@@ -17,11 +19,23 @@ export const MaterialTobTabs = withLayoutContext<
 
 export default function Layout() {
   return (
-    <MaterialTobTabs>
+    <MaterialTobTabs
+      backBehavior="initialRoute"
+      style={{
+        backgroundColor: "transparent",
+      }}
+      tabBar={(props) => <CustomTabBar {...props} />}
+    >
       <MaterialTobTabs.Screen
         name="index"
         options={{
-          tabBarLabel: "Today",
+          title: "All plants",
+        }}
+      />
+      <MaterialTobTabs.Screen
+        name="tasks"
+        options={{
+          title: "Tasks",
         }}
       />
     </MaterialTobTabs>

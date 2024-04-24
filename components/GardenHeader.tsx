@@ -27,7 +27,7 @@ export const GardenHeader = () => {
 
   return (
     <View
-      className="bg-surface px-5"
+      className="px-5"
       style={{
         paddingTop: insets.top + 10,
       }}

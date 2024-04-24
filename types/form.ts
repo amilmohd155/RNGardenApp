@@ -5,6 +5,7 @@ import { plants } from "@/db/schema";
 
 export const insertPlantSchema = createInsertSchema(plants).omit({
   id: true,
+  task: true,
 });
 
 export type InsertPlantFieldValues = zod.infer<typeof insertPlantSchema>;
