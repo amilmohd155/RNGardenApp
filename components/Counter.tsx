@@ -33,10 +33,6 @@ export const Counter = ({
     onChange(Math.min(max, (value as number) + increment));
   };
 
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
-
   return (
     <View className="flex-row items-center gap-5 py-1">
       {/* Label */}

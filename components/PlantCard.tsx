@@ -1,9 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
-import { SCREEN_WIDTH } from "@gorhom/bottom-sheet";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
-import { memo, useCallback, useEffect, useState } from "react";
-import { LayoutChangeEvent, Text, View } from "react-native";
+import { memo } from "react";
+import { Text, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   interpolateColor,
@@ -28,6 +27,7 @@ type PlantCardProps = {
   | "description"
   | "descriptionCitation"
   | "plantAccessToken"
+  | "task"
 >;
 
 const PlantCardComponent = ({
