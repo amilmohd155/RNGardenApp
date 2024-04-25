@@ -1,5 +1,3 @@
-import { platformSelect } from "nativewind/theme";
-
 const presets = require("nativewind/preset");
 
 const colors = require("./theme/Colors");

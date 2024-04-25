@@ -4,9 +4,12 @@ import { View } from "react-native";
 
 import { PlantCard, EmptyPlantListComponent } from "@/components";
 import { usePlantStore } from "@/hooks";
+import { getTimestampMsNDaysFromNow } from "@/utils";
 
 export default function Garden() {
   const { plants } = usePlantStore();
+
+  console.log(getTimestampMsNDaysFromNow(7));
 
   return (
     <View className="flex-1 px-5">
@@ -22,6 +25,7 @@ export default function Garden() {
             scientificName={item.scientificName}
             portion={item.portion}
             image={item.image}
+            task={item.task}
           />
         )}
         ItemSeparatorComponent={() => <View className="h-5" />}

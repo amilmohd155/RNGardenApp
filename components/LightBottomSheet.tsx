@@ -4,6 +4,7 @@ import BottomSheet, {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { cva } from "class-variance-authority";
+import { useColorScheme } from "nativewind";
 import { forwardRef, useCallback, useMemo } from "react";
 import { UseControllerProps, useController } from "react-hook-form";
 import { Text, View } from "react-native";
@@ -12,9 +13,7 @@ import { ActionButton } from "./ActionButton";
 import { RadioButton } from "./RadioButton";
 
 import { LightConditionsRadioOptions } from "@/constants/values";
-import Colors from "@/theme/Colors";
 import { InsertPlantFieldValues } from "@/types/form";
-import { useColorScheme } from "nativewind";
 
 export const LightBottomSheet = forwardRef<
   BottomSheet,

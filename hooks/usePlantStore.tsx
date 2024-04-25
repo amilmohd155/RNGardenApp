@@ -1,8 +1,9 @@
-import { asc, eq, like } from "drizzle-orm";
+import { asc, eq, like, sql } from "drizzle-orm";
 import { create } from "zustand";
 
 import db from "@/db/client";
 import { SelectPlant, plants } from "@/db/schema";
+import { getTimestampMsNDaysFromNow } from "@/utils";
 
 type PlantStore = {
   plants: SelectPlant[];
@@ -11,6 +12,7 @@ type PlantStore = {
     getById: (id: string) => SelectPlant | undefined;
     sortPlants: (sortBy: string) => void;
     searchPlants: (search: string) => void;
+    taskSorting: () => void;
   };
 };
 
@@ -53,6 +55,27 @@ export const usePlantStore = create<PlantStore>()((set) => {
               break;
           }
         },
+        taskSorting: () => {
+          const today = Date.now();
+          // console.log("Task Sorting", new Date(today).getDate());
+
+          // console.log("Today", today);
+
+          const todayTasks = db
+            .select({ task: plants.task })
+            .from(plants)
+            // .where(sql`substr(${plants.task}, 1, 10) = ${"2024-04-26"}`)
+            .get();
+
+          // console.log("Today Tasks", getTimestampMsNDaysFromNow(8));
+
+          const upcomingTasks = db
+            .select()
+            .from(plants)
+            .orderBy(asc(plants.task))
+            .where(sql`task > ${Date.now()}`)
+            .all();
+        },
         searchPlants: (search: string) => {
           const result = db
             .select()
@@ -78,6 +101,9 @@ export const usePlantStore = create<PlantStore>()((set) => {
           console.error("No plant found");
         },
         searchPlants: () => {
+          console.error("No plant found");
+        },
+        taskSorting: () => {
           console.error("No plant found");
         },
       },

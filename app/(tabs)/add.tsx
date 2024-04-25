@@ -41,18 +41,13 @@ export default function AddScreen() {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const [aliasSuggestions, setAliasSuggestions] = useState<string[]>([]);
-  const [waterPortion, setWaterPortion] = useState<number>(0);
-  const [waterPeriod, setWaterPeriod] = useState<number>(0);
+  const [wateringPortionSuggestion, setWateringPortionSuggestion] =
+    useState<number>(0);
+  const [wateringPeriodSuggestion, setWateringPeriodSuggestion] =
+    useState<number>(0);
 
-  const {
-    handleSubmit,
-    control,
-    reset,
-    onError,
-    onSubmit,
-    setValue,
-    getValues,
-  } = useInsertPlantForm();
+  const { handleSubmit, control, onError, onSubmit, setValue, getValues } =
+    useInsertPlantForm();
 
   const [lightCondition, setLightCondition] = useState<string>(
     LIGHT_CONDITIONS.BRIGHT_INDIRECT,
@@ -62,19 +57,19 @@ export default function AddScreen() {
     setLightCondition(value);
   };
 
-  useEffect(() => {
-    navigation.addListener("blur", () => {
-      reset({
-        alias: "",
-        room: "",
-        period: 1,
-        portion: 100,
-        notes: null,
-        image: null,
-        scientificName: null,
-      });
-    });
-  }, [navigation, reset]);
+  // useEffect(() => {
+  //   navigation.addListener("blur", () => {
+  //     reset({
+  //       alias: "",
+  //       room: "",
+  //       period: 1,
+  //       portion: 100,
+  //       notes: null,
+  //       image: null,
+  //       scientificName: null,
+  //     });
+  //   });
+  // }, [navigation, reset]);
 
   const handleGetDetails = useCallback(
     (details) => {
@@ -85,8 +80,8 @@ export default function AddScreen() {
 
       setAliasSuggestions(details.commonNames);
 
-      setWaterPortion(calculateWateringPortion(details.watering));
-      setWaterPeriod(calculateWateringPeriod(details.watering));
+      setWateringPortionSuggestion(calculateWateringPortion(details.watering));
+      setWateringPeriodSuggestion(calculateWateringPeriod(details.watering));
     },
     [setValue],
   );
@@ -173,12 +168,6 @@ export default function AddScreen() {
               label="Plant name (Alias)"
             />
 
-            {/* Suggestions for names */}
-            {/* <TextSuggestions
-              suggestions={aliasSuggestions}
-              onSuggestionSelected={handleOnAliasSuggestionSelected}
-            /> */}
-
             {/* Room Input */}
             <TextInput
               name="room"
@@ -195,9 +184,8 @@ export default function AddScreen() {
               label="Watering every"
               unit="days"
               min={1}
-              max={10}
+              max={15}
               increment={1}
-              defaultValue={1}
               rules={{ required: true }}
             />
 
@@ -210,16 +198,15 @@ export default function AddScreen() {
               increment={50}
               min={50}
               max={500}
-              defaultValue={150}
               rules={{ required: true }}
             />
 
             {/* Suggestions */}
-            {waterPeriod > 0 && waterPortion > 0 && (
+            {wateringPeriodSuggestion > 0 && wateringPortionSuggestion > 0 && (
               <Animated.View>
                 <Text className="text-lg italic text-onTertiaryContainer/50">
                   <Text className="font-bold not-italic">Suggested: </Text>
-                  {`Water with ${waterPortion} ml for ${waterPeriod} days`}
+                  {`Water with ${wateringPortionSuggestion} ml for ${wateringPeriodSuggestion} days`}
                 </Text>
               </Animated.View>
             )}
@@ -233,8 +220,8 @@ export default function AddScreen() {
                 onPress={() => bottomSheetRef.current?.expand()}
                 className="flex-row items-center justify-between rounded-lg border-2 border-outline p-4 active:border-primary"
               >
-                <Text className="text-lg text-onSurfaceVariant/50">
-                  {lightCondition}
+                <Text className="text-lg text-onSurfaceVariant">
+                  {getValues("lightCondition")}
                 </Text>
                 <Ionicons
                   name="chevron-down"
@@ -269,55 +256,6 @@ export default function AddScreen() {
     </View>
   );
 }
-
-const TextSuggestions = ({
-  suggestions,
-  onSuggestionSelected,
-}: {
-  suggestions: string[];
-  onSuggestionSelected: (value: string) => void;
-}) => {
-  const { width: screenWidth } = useWindowDimensions();
-
-  const display = useSharedValue<FlexStyle["display"]>("none");
-  const translateX = useSharedValue(-screenWidth);
-
-  const suggestionsStyle = useAnimatedStyle(() => {
-    const enabled = suggestions.length > 1;
-    display.value = withTiming(enabled ? "flex" : "none", {
-      duration: 500,
-      easing: Easing.inOut(Easing.ease),
-    });
-
-    translateX.value = withTiming(enabled ? 0 : -screenWidth, {
-      duration: 500,
-      easing: Easing.inOut(Easing.ease),
-    });
-
-    return {
-      display: display.value,
-      transform: [
-        {
-          translateX: translateX.value,
-        },
-      ],
-    };
-  }, [suggestions]);
-
-  return (
-    <Animated.View style={suggestionsStyle} className="flex-row gap-2">
-      {suggestions.slice(0, 3).map((suggestion) => (
-        <Text
-          onPress={() => onSuggestionSelected(suggestion)}
-          className="rounded-2xl bg-tertiary px-5 py-3 text-center font-bold text-onTertiary active:bg-tertiary/50 active:text-onTertiary"
-          key={suggestion}
-        >
-          {suggestion}
-        </Text>
-      ))}
-    </Animated.View>
-  );
-};
 
 const Description = ({ content }: { content?: string | null }) => {
   const animatedHeight = useSharedValue(0);

@@ -1,9 +1,9 @@
 import React from "react";
 import { SectionList, View, Text } from "react-native";
 
-import { PlantCard } from "@/components";
+import { EmptyTaskListComponent, PlantCard } from "@/components";
 import { SelectPlant } from "@/db/schema";
-import { usePlants } from "@/hooks";
+import { usePlantActions, usePlants } from "@/hooks";
 
 type Section = {
   title: string;
@@ -11,20 +11,16 @@ type Section = {
 };
 
 export default function Tasks() {
-  const plant = usePlants();
+  const plants = usePlants();
 
-  const sections: Section[] = [
-    // {
-    //   title: "Today",
-    //   data: plant.filter((item) => item.period === "Today"),
-    // },
-    // {
-    //   title: "Upcoming",
-    //   data: plant.filter((item) => item.period === "Upcoming"),
-    // },
-    { title: "Today's tasks", data: plant },
-    { title: "Upcoming tasks", data: plant },
-  ];
+  const sortedTasks = usePlantActions().taskSorting();
+
+  const sections: Section[] = plants.length
+    ? [
+        { title: "Today's tasks", data: plants },
+        { title: "Upcoming tasks", data: plants },
+      ]
+    : [];
 
   return (
     <View className="flex-1 px-5 pb-10">
@@ -39,8 +35,10 @@ export default function Tasks() {
             scientificName={item.scientificName}
             portion={item.portion}
             image={item.image}
+            task={item.task}
           />
         )}
+        ListEmptyComponent={<EmptyTaskListComponent />}
         showsVerticalScrollIndicator={false}
         renderSectionHeader={({ section: { title } }) => (
           <View className="flex-1 rounded-xl">

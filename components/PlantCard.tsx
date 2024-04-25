@@ -15,7 +15,6 @@ import Animated, {
 import { RotatingBorderIcon } from "./RotatingBorderIcon";
 
 import { SelectPlant } from "@/db/schema";
-import Colors from "@/theme/Colors";
 
 type PlantCardProps = {
   id: string;
@@ -27,7 +26,7 @@ type PlantCardProps = {
   | "description"
   | "descriptionCitation"
   | "plantAccessToken"
-  | "task"
+  // | "task"
 >;
 
 const PlantCardComponent = ({
@@ -38,6 +37,7 @@ const PlantCardComponent = ({
   period,
   image = "https://picsum.photos/seed/696/3000/2000",
   portion: quantity,
+  task,
   // onDismiss,
 }: PlantCardProps) => {
   const { colorScheme } = useColorScheme();
@@ -141,7 +141,6 @@ const PlantCardComponent = ({
                   {scientificName}
                 </Text>
               )}
-
               {/* Plant Name */}
               <Text className="text-xl font-bold text-onSecondary">
                 {alias}
@@ -150,11 +149,11 @@ const PlantCardComponent = ({
               <Text className="font-semibold text-onSecondary/75">{room}</Text>
             </View>
             {/* Reminder */}
-            <View className="shrink flex-row items-center gap-1 rounded-2xl border-2 border-outline bg-tertiary px-3 py-2">
+            <View className="shrink flex-row items-center gap-1 rounded-2xl bg-tertiary px-3 py-2">
               <Ionicons
                 name="water-outline"
                 size={24}
-                color={Colors.onTertiaryContainer}
+                className="{}-[color]:color-onTertiary"
               />
               <Text className="text-lg font-bold text-onTertiary">{`${quantity}ml in ${period} days`}</Text>
             </View>

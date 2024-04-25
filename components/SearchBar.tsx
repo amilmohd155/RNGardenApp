@@ -102,7 +102,7 @@ const SearchBar = () => {
         name={searchText ? "close" : "search"}
         size={24}
         onPress={searchText ? handleResetButton : undefined}
-        className={`{}-[color]:color-onSecondaryContainer ${searchText !== "" && "active:rounded-full active:bg-onSecondary/50 active:color-onSecondaryContainer/50"}`}
+        className={`{}-[color]:color-onSecondary ${searchText !== "" && "active:rounded-full active:bg-onSecondary/50 active:color-onSecondaryContainer/50"}`}
       />
     </Pressable>
   );

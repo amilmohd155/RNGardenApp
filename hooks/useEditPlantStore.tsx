@@ -9,7 +9,7 @@ import { getTimestampMsNDaysFromNow } from "@/utils";
 
 type EditPlantStore = {
   actions: {
-    savePlant: (plant: InsertPlant) => void;
+    savePlant: (plant: Omit<InsertPlant, "task">) => void;
     deletePlant: (id: string) => void;
   };
 };

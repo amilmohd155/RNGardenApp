@@ -14,7 +14,7 @@ export const useInsertPlantForm = () => {
     defaultValues: {
       period: 1,
       portion: 100,
-      lightCondition: "Bright Indirect",
+      lightCondition: "Bright Direct",
       image: null,
     },
     mode: "onSubmit",

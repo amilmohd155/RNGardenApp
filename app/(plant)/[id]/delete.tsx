@@ -12,12 +12,11 @@ export default function DeletePlantScreen() {
   const { deletePlant } = useEditPlantActions();
 
   const handleDeletePlant = useCallback(() => {
-    // deletePlant(id);
+    deletePlant(id);
     // Navigate back
-    console.log("Delete plant", id);
-
     router.dismiss();
-  }, [id]);
+    router.navigate("../../");
+  }, [deletePlant, id]);
 
   const handleDismiss = useCallback(() => {
     const isMounted = router.canDismiss();
