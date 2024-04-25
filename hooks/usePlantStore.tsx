@@ -3,10 +3,10 @@ import { create } from "zustand";
 
 import db from "@/db/client";
 import { SelectPlant, plants } from "@/db/schema";
-import { getTimestampMsNDaysFromNow } from "@/utils";
 
 type PlantStore = {
   plants: SelectPlant[];
+  tasks?: { title: string; data: SelectPlant[] }[];
   actions: {
     refetch: () => void;
     getById: (id: string) => SelectPlant | undefined;
@@ -56,25 +56,34 @@ export const usePlantStore = create<PlantStore>()((set) => {
           }
         },
         taskSorting: () => {
-          const today = Date.now();
-          // console.log("Task Sorting", new Date(today).getDate());
-
-          // console.log("Today", today);
+          const today = new Date().toLocaleDateString("en-GB");
 
           const todayTasks = db
-            .select({ task: plants.task })
+            .select()
             .from(plants)
-            // .where(sql`substr(${plants.task}, 1, 10) = ${"2024-04-26"}`)
-            .get();
-
-          // console.log("Today Tasks", getTimestampMsNDaysFromNow(8));
+            .where(sql`${plants.task} = ${today}`)
+            .orderBy(asc(plants.task))
+            .all();
 
           const upcomingTasks = db
             .select()
             .from(plants)
+            .where(sql`task > ${today}`)
             .orderBy(asc(plants.task))
-            .where(sql`task > ${Date.now()}`)
             .all();
+
+          set({
+            tasks: [
+              {
+                title: "Today's tasks",
+                data: todayTasks,
+              },
+              {
+                title: "Upcoming tasks",
+                data: upcomingTasks,
+              },
+            ],
+          });
         },
         searchPlants: (search: string) => {
           const result = db
@@ -94,17 +103,17 @@ export const usePlantStore = create<PlantStore>()((set) => {
       actions: {
         refetch: () => set({ plants: fetchStatement.all() }),
         getById: () => {
-          console.error("No plant found");
+          console.error("Get By ID::No plant found");
           return undefined;
         },
         sortPlants: () => {
-          console.error("No plant found");
+          console.error("Sort Plants::No plant found");
         },
         searchPlants: () => {
-          console.error("No plant found");
+          console.error("Search Plants::No plant found");
         },
         taskSorting: () => {
-          console.error("No plant found");
+          console.error("Task Sorting::No plant found");
         },
       },
     };
@@ -112,4 +121,5 @@ export const usePlantStore = create<PlantStore>()((set) => {
 });
 
 export const usePlants = () => usePlantStore((state) => state.plants);
+export const useTasks = () => usePlantStore((state) => state.tasks);
 export const usePlantActions = () => usePlantStore((state) => state.actions);

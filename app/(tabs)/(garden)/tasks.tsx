@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SectionList, View, Text } from "react-native";
 
 import { EmptyTaskListComponent, PlantCard } from "@/components";
 import { SelectPlant } from "@/db/schema";
-import { usePlantActions, usePlants } from "@/hooks";
+import { usePlantActions, useTasks } from "@/hooks";
 
 type Section = {
   title: string;
@@ -11,16 +11,14 @@ type Section = {
 };
 
 export default function Tasks() {
-  const plants = usePlants();
+  const tasks = useTasks();
+  const { taskSorting } = usePlantActions();
 
-  const sortedTasks = usePlantActions().taskSorting();
+  useEffect(() => {
+    taskSorting();
+  }, [taskSorting]);
 
-  const sections: Section[] = plants.length
-    ? [
-        { title: "Today's tasks", data: plants },
-        { title: "Upcoming tasks", data: plants },
-      ]
-    : [];
+  const sections: Section[] = tasks && tasks.length ? tasks : [];
 
   return (
     <View className="flex-1 px-5 pb-10">
@@ -40,10 +38,8 @@ export default function Tasks() {
         )}
         ListEmptyComponent={<EmptyTaskListComponent />}
         showsVerticalScrollIndicator={false}
-        renderSectionHeader={({ section: { title } }) => (
-          <View className="flex-1 rounded-xl">
-            <Text className="text-2xl font-bold text-neutral-500">{title}</Text>
-          </View>
+        renderSectionHeader={({ section: { title, data } }) => (
+          <SectionHeader title={title} data={data} />
         )}
         ItemSeparatorComponent={() => <View className="h-5" />}
         SectionSeparatorComponent={() => <View className="h-5" />}
@@ -52,3 +48,26 @@ export default function Tasks() {
     </View>
   );
 }
+
+const SectionHeader = ({ title, data }: { title: string; data: any[] }) => {
+  if (!data || !data.length) {
+    return (
+      <View className="flex-1 rounded-xl">
+        <Text className="text-2xl font-bold text-neutral-500">{title}</Text>
+        <View className="items-center justify-center py-14">
+          <Text className="text-center text-2xl leading-10 text-tertiary">
+            {
+              "🌱🌱🌱 \n  Plants happy for today!!! \n No watering needed today."
+            }
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <View className="flex-1 rounded-xl">
+      <Text className="text-2xl font-bold text-neutral-500">{title}</Text>
+    </View>
+  );
+};
