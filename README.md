@@ -8,7 +8,7 @@ A water reminder app, that helps to keep track of the user's plants. Uses Plant.
 
 - Expo 50
 - React Native
-- Nativewind
+- Nativewind v4
 - TailwindCSS
 - React Hook Form
 - Zustand
