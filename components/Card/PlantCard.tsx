@@ -28,6 +28,7 @@ type PlantCardProps = {
   | "description"
   | "descriptionCitation"
   | "plantAccessToken"
+  | "notificationId"
   // | "task"
 >;
 

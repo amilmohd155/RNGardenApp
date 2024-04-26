@@ -4,19 +4,22 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useCallback } from "react";
 import { View, Text, Pressable } from "react-native";
 
-import { useEditPlantActions } from "@/hooks";
+import { useEditPlantActions, useFileSystem } from "@/hooks";
 
 export default function DeletePlantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const { deletePlant } = useEditPlantActions();
+  const { deleteImage } = useFileSystem();
 
   const handleDeletePlant = useCallback(() => {
     deletePlant(id);
+    deleteImage(id, false);
+
     // Navigate back
     router.dismiss();
     router.navigate("../../");
-  }, [deletePlant, id]);
+  }, [deleteImage, deletePlant, id]);
 
   const handleDismiss = useCallback(() => {
     const isMounted = router.canDismiss();

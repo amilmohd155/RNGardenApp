@@ -53,7 +53,7 @@ export const ImageCard = ({
 
       setImage((prev) => {
         if (prev) {
-          deleteImage(prev);
+          deleteImage(prev, true);
         }
         return uri ? uri : null;
       });

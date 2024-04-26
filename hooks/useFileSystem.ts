@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import { Body } from "@/types/plantApi";
 import { ensureDirExists } from "@/utils";
+import { usePlantActions } from "./usePlantStore";
 
 export const imageDirectory = FileSystem.documentDirectory + "images/";
 
@@ -39,7 +40,7 @@ function getFileExtension(filename: string): string {
 type FileSystemHook = {
   saveImage: (uri: string) => Promise<string | undefined>;
   getPlantDetails: (uri: string) => Promise<any>;
-  deleteImage: (uri: string) => Promise<void>;
+  deleteImage: (val: string, isUri: boolean) => Promise<void>;
   uploading: boolean;
   loading: boolean;
 };
@@ -57,6 +58,8 @@ type FileSystemHook = {
 export const useFileSystem = (): FileSystemHook => {
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const { getById } = usePlantActions();
 
   useEffect(() => {
     ensureDirExists(imageDirectory);
@@ -147,8 +150,16 @@ export const useFileSystem = (): FileSystemHook => {
     }
   };
 
-  const deleteImage = async (uri: string) => {
-    await FileSystem.deleteAsync(uri);
+  const deleteImage = async (val: string, isUri: boolean) => {
+    if (!isUri) {
+      const uri = getById(val)?.image;
+      console.log("Deleting image: ", uri);
+
+      uri && (await FileSystem.deleteAsync(uri));
+      return;
+    }
+
+    await FileSystem.deleteAsync(val);
   };
 
   return {

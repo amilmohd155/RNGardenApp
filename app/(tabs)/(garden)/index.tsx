@@ -5,8 +5,19 @@ import { View } from "react-native";
 import { SimplePlantCard, EmptyPlantListComponent } from "@/components";
 import { usePlantStore } from "@/hooks";
 
+import * as Notifications from "expo-notifications";
+
 export default function Garden() {
   const { plants } = usePlantStore();
+
+  // console.log("plants", plants);
+
+  // Notifications.getAllScheduledNotificationsAsync().then((val) => {
+  //   console.log(
+  //     "scheduled Notification",
+  //     val.map((v) => v.identifier),
+  //   );
+  // });
 
   return (
     <View className="flex-1 px-5">

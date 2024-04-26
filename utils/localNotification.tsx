@@ -3,17 +3,26 @@ import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 
-const schedulePushNotification = async () => {
-  await Notifications.scheduleNotificationAsync({
-    identifier: "test",
-    content: {
-      title: "You've got mail! 📬",
-      subtitle: "It's been a while since you used the app.",
-      body: "Here is the notification body",
-      data: { data: "goes here" },
-    },
-    trigger: { seconds: 2 },
+const removeScheduledNotification = async (identifier: string) => {
+  await Notifications.cancelScheduledNotificationAsync(identifier);
+};
+
+const schedulePushNotification = async (
+  request: Notifications.NotificationRequestInput,
+) => {
+  const indentifier = await Notifications.scheduleNotificationAsync({
+    ...request,
+    // identifier: "test",
+    // content: {
+    //   title: "You've got mail! 📬",
+    //   subtitle: "It's been a while since you used the app.",
+    //   body: "Here is the notification body",
+    //   data: { data: "goes here" },
+    // },
+    // trigger: { seconds: 2 },
   });
+
+  return indentifier;
 };
 
 async function registerForPushNotificationsAsync() {
@@ -56,4 +65,8 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 
-export { registerForPushNotificationsAsync, schedulePushNotification };
+export {
+  registerForPushNotificationsAsync,
+  schedulePushNotification,
+  removeScheduledNotification,
+};

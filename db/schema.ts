@@ -23,6 +23,7 @@ export const plants = sqliteTable(
     description: text("description"),
     descriptionCitation: text("description_source"),
     plantAccessToken: text("plant_access_token"),
+    notificationId: text("notification_id"),
   },
   (table) => {
     return {

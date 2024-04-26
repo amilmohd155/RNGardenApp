@@ -16,6 +16,7 @@ type Props = {
     | "description"
     | "descriptionCitation"
     | "plantAccessToken"
+    | "notificationId"
   >;
 };
 

@@ -5,7 +5,11 @@ import { usePlantStore } from "./usePlantStore";
 
 import db from "@/db/client";
 import { type InsertPlant, plants, SelectPlant } from "@/db/schema";
-import { getTimestampMsNDaysFromNow } from "@/utils";
+import {
+  getTimestampMsNDaysFromNow,
+  removeScheduledNotification,
+  schedulePushNotification,
+} from "@/utils";
 
 type EditPlantStore = {
   actions: {
@@ -30,7 +34,7 @@ type EditPlantStore = {
 const useEditPlantStore = create<EditPlantStore>()((set) => {
   return {
     actions: {
-      savePlant: (plant) => {
+      savePlant: async (plant) => {
         const {
           alias,
           room,
@@ -47,6 +51,19 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
 
         const task = getTimestampMsNDaysFromNow(period);
 
+        const notificationId = await schedulePushNotification({
+          content: {
+            title: `Water ${alias}`,
+            body: `It's time to water your ${alias}!`,
+            data: { plantId: plant.id },
+          },
+          trigger: {
+            seconds: period * 24 * 60 * 60,
+            repeats: true,
+            channelId: "default",
+          },
+        });
+
         db.insert(plants)
           .values({
             alias,
@@ -61,6 +78,7 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
             plantAccessToken,
             scientificName,
             task,
+            notificationId,
           })
           .run();
 
@@ -68,9 +86,31 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
         usePlantStore.getState().actions.refetch();
       },
       deletePlant: (id) => {
-        db.delete(plants).where(eq(plants.id, id)).run();
+        const data = db
+          .selectDistinct({
+            notificationId: plants.notificationId,
+            image: plants.image,
+          })
+          .from(plants)
+          .where(eq(plants.id, id))
+          .get();
+
+        console.log(data);
+
+        if (!data || !data.notificationId) {
+          throw new Error("identifier not found");
+        }
+
+        removeScheduledNotification(data.notificationId)
+          .then(() => {
+            db.delete(plants).where(eq(plants.id, id)).run();
+            usePlantStore.getState().actions.refetch();
+          })
+          .catch((error) => {
+            console.log("Error deleting plant: ", error);
+          });
+
         // Refetch the plants (usePlantStore)
-        usePlantStore.getState().actions.refetch();
       },
       editPlant: (plant) => {
         db.update(plants)
@@ -89,7 +129,9 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
           })
           .where(eq(plants.id, plant.id!))
           .run();
-        usePlantStore.getState().actions.taskSorting();
+
+        // Refetch the plants (usePlantStore)
+        usePlantStore.getState().actions.refetch();
       },
       editTask: (id: string, period: number) => {
         const task = getTimestampMsNDaysFromNow(period);
@@ -100,7 +142,7 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
           })
           .where(eq(plants.id, id))
           .run();
-        usePlantStore.getState().actions.refetch();
+        usePlantStore.getState().actions.taskSorting();
       },
     },
   };
