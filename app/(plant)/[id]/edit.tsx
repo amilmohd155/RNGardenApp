@@ -18,7 +18,7 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Counter, ImageCard, TextArea, TextInput } from "@/components";
-import { usePlantActions } from "@/hooks";
+import { useEditPlantActions, usePlantActions } from "@/hooks";
 import Colors from "@/theme/Colors";
 import { EditPlantFieldValues, editPlantSchema } from "@/types/form";
 
@@ -31,7 +31,7 @@ export default function EditPlantScreen() {
 
   // Get the plant by id
   const plant = usePlantActions().getById(id);
-  const { editPlant } = usePlantActions();
+  const { editPlant } = useEditPlantActions();
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -46,6 +46,7 @@ export default function EditPlantScreen() {
 
   const onSubmit: SubmitHandler<EditPlantFieldValues> = (data) => {
     editPlant({ ...data, id });
+    router.dismiss();
   };
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -55,7 +56,7 @@ export default function EditPlantScreen() {
   });
 
   const handleDismiss = useCallback(() => {
-    router.back();
+    router.dismiss();
   }, []);
 
   const rStickyHeaderStyle = useAnimatedStyle(() => {

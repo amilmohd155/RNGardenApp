@@ -2,9 +2,8 @@ import { FlashList } from "@shopify/flash-list";
 import React from "react";
 import { View } from "react-native";
 
-import { PlantCard, EmptyPlantListComponent } from "@/components";
+import { SimplePlantCard, EmptyPlantListComponent } from "@/components";
 import { usePlantStore } from "@/hooks";
-import { getTimestampMsNDaysFromNow } from "@/utils";
 
 export default function Garden() {
   const { plants } = usePlantStore();
@@ -14,18 +13,7 @@ export default function Garden() {
       <FlashList
         showsVerticalScrollIndicator={false}
         data={plants}
-        renderItem={({ item }) => (
-          <PlantCard
-            id={item.id}
-            period={item.period}
-            room={item.room}
-            alias={item.alias}
-            scientificName={item.scientificName}
-            portion={item.portion}
-            image={item.image}
-            task={item.task}
-          />
-        )}
+        renderItem={({ item }) => <SimplePlantCard plant={item} />}
         ItemSeparatorComponent={() => <View className="h-5" />}
         keyExtractor={(item) => item.id}
         estimatedItemSize={140}

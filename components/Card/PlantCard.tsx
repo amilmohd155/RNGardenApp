@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { Text, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -12,9 +12,11 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { RotatingBorderIcon } from "./RotatingBorderIcon";
+import { RotatingBorderIcon } from "../RotatingBorderIcon";
 
 import { SelectPlant } from "@/db/schema";
+import { useEditPlantActions } from "@/hooks";
+import { getDaysLeft } from "@/utils";
 
 type PlantCardProps = {
   id: string;
@@ -47,6 +49,12 @@ const PlantCardComponent = ({
   const translateX = useSharedValue(0);
   const isDragging = useSharedValue(false);
 
+  const { editTask } = useEditPlantActions();
+
+  const handleWatering = useCallback(() => {
+    editTask(id, period);
+  }, [editTask, id, period]);
+
   const longPressGesture = Gesture.LongPress()
     .onStart(() => {
       isDragging.value = true;
@@ -75,10 +83,14 @@ const PlantCardComponent = ({
     })
     .onEnd((event) => {
       const shouldBeWatered = translateX.value < -size.value * 0.7;
-      // console.log("shouldBeWatered", shouldBeWatered)
+
       if (shouldBeWatered) {
-        wateredColor.value = withTiming(1);
         translateX.value = withTiming(0);
+        wateredColor.value = withTiming(1, {}, (isFinished) => {
+          if (isFinished) {
+            runOnJS(handleWatering)();
+          }
+        });
       } else {
         translateX.value = withTiming(0);
       }
@@ -155,7 +167,7 @@ const PlantCardComponent = ({
                 size={24}
                 className="{}-[color]:color-onTertiary"
               />
-              <Text className="text-lg font-bold text-onTertiary">{`${quantity}ml in ${period} days`}</Text>
+              <Text className="text-lg font-bold text-onTertiary">{`${quantity}ml ${getDaysLeft(task)}`}</Text>
             </View>
           </View>
 
