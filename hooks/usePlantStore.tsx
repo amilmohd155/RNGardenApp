@@ -13,6 +13,16 @@ type PlantStore = {
     sortPlants: (sortBy: string) => void;
     searchPlants: (search: string) => void;
     taskSorting: () => void;
+    editPlant: (
+      plant: Omit<
+        SelectPlant,
+        | "task"
+        | "plantAccessToken"
+        | "descriptionCitation"
+        | "description"
+        | "scientificName"
+      >,
+    ) => void;
   };
 };
 
@@ -94,6 +104,25 @@ export const usePlantStore = create<PlantStore>()((set) => {
 
           set({ plants: result });
         },
+        editPlant: (plant) => {
+          db.update(plants)
+            .set({
+              alias: plant.alias,
+              room: plant.room,
+              period: plant.period,
+              portion: plant.portion,
+              lightCondition: plant.lightCondition,
+              notes: plant.notes,
+              image: plant.image,
+              // description: plant.description,
+              // descriptionCitation: plant.descriptionCitation,
+              // plantAccessToken: plant.plantAccessToken,
+              // scientificName: plant.scientificName,
+            })
+            .where(eq(plants.id, plant.id))
+            .run();
+          set({ plants: fetchStatement.all() });
+        },
       },
     };
   } catch (error) {
@@ -114,6 +143,9 @@ export const usePlantStore = create<PlantStore>()((set) => {
         },
         taskSorting: () => {
           console.error("Task Sorting::No plant found");
+        },
+        editPlant: () => {
+          console.error("Edit Plant::No plant found");
         },
       },
     };

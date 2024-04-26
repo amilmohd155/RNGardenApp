@@ -9,8 +9,6 @@ import { getTimestampMsNDaysFromNow } from "@/utils";
 export default function Garden() {
   const { plants } = usePlantStore();
 
-  // console.log(getTimestampMsNDaysFromNow(7));
-
   return (
     <View className="flex-1 px-5">
       <FlashList

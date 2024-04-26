@@ -54,7 +54,7 @@ const SectionHeader = ({ title, data }: { title: string; data: any[] }) => {
     return (
       <View className="flex-1 rounded-xl">
         <Text className="text-2xl font-bold text-neutral-500">{title}</Text>
-        <View className="items-center justify-center py-14">
+        <View className="my-14 items-center justify-center">
           <Text className="text-center text-2xl leading-10 text-tertiary">
             {
               "🌱🌱🌱 \n  Plants happy for today!!! \n No watering needed today."

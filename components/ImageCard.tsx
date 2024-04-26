@@ -19,10 +19,15 @@ const labelClassname = cva("text-lg font-bold text-onTertiaryContainer")();
 const HEIGHT = 150;
 
 type ImageCardProps = {
-  getDetails: (details: any) => void;
+  getDetails?: (details: any) => void;
+  edit?: boolean;
 } & UseControllerProps<InsertPlantFieldValues>;
 
-export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
+export const ImageCard = ({
+  getDetails,
+  edit = false,
+  ...props
+}: ImageCardProps) => {
   const {
     field: { onChange, value },
   } = useController(props);
@@ -66,11 +71,13 @@ export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
     }, []),
   );
 
-  const selectedImageStyle = useAnimatedStyle(() => {
+  const selectedImageViewStyle = useAnimatedStyle(() => {
     selectedOpacity.value = withTiming(value ? 1 : 0, { duration: 500 });
-    selectedHeight.value = withTiming(value ? HEIGHT + 60 : 0, {
-      duration: 500,
-    });
+    selectedHeight.value = edit
+      ? withTiming(HEIGHT)
+      : withTiming(value ? HEIGHT + 60 : 0, {
+          duration: 500,
+        });
     const marginTop = withTiming(value ? 20 : 0);
 
     return {
@@ -118,7 +125,7 @@ export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
       plantAccessToken: "0VJQ17DS61KlWEj",
       watering: { max: 2, min: 2 },
     };
-    getDetails(details);
+    getDetails && getDetails(details);
     // console.log(details);
   }, [getDetails, value]);
 
@@ -127,7 +134,7 @@ export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
       {value && (
         // After Image selection
         <Animated.View
-          style={selectedImageStyle}
+          style={selectedImageViewStyle}
           // onLayout={(e) => console.log(e.nativeEvent.layout.height)}
         >
           {/* Image */}
@@ -145,19 +152,21 @@ export const ImageCard = ({ getDetails, ...props }: ImageCardProps) => {
             onPress={pickImage}
           />
           {/* Get plant details */}
-          <Pressable
-            onPress={handleGetPlantDetails}
-            className="group mt-2 flex-1 flex-row items-center justify-center gap-5 rounded-xl bg-tertiaryContainer transition-all delay-75 active:scale-95 active:bg-tertiaryContainer/50"
-          >
-            <Ionicons
-              name="cloud-upload"
-              size={32}
-              className="{}-[color]:color-onTertiaryContainer"
-            />
-            <Text className="text-xl font-bold text-onTertiaryContainer">
-              Get plant details
-            </Text>
-          </Pressable>
+          {!edit && (
+            <Pressable
+              onPress={handleGetPlantDetails}
+              className="group mt-2 flex-1 flex-row items-center justify-center gap-5 rounded-xl bg-tertiaryContainer transition-all delay-75 active:scale-95 active:bg-tertiaryContainer/50"
+            >
+              <Ionicons
+                name="cloud-upload"
+                size={32}
+                className="{}-[color]:color-onTertiaryContainer"
+              />
+              <Text className="text-xl font-bold text-onTertiaryContainer">
+                Get plant details
+              </Text>
+            </Pressable>
+          )}
         </Animated.View>
       )}
       {/* Initial selection */}

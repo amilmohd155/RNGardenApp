@@ -70,7 +70,7 @@ const FABGroupComponent = ({
   });
 
   return (
-    <Portal>
+    <Portal hostName="FABGroup">
       <GestureDetector gesture={backdropGesture}>
         <Animated.View
           style={rBackdropStyle}

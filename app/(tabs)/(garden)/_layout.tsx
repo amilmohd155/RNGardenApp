@@ -5,6 +5,7 @@ import {
 } from "@react-navigation/material-top-tabs";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { withLayoutContext } from "expo-router";
+import { useWindowDimensions } from "react-native";
 
 import { CustomTabBar } from "@/components";
 
@@ -18,13 +19,21 @@ export const MaterialTobTabs = withLayoutContext<
 >(Navigator);
 
 export default function Layout() {
+  const { width } = useWindowDimensions();
+
   return (
     <MaterialTobTabs
       backBehavior="initialRoute"
+      initialLayout={{
+        width,
+      }}
       style={{
         backgroundColor: "transparent",
       }}
       tabBar={(props) => <CustomTabBar {...props} />}
+      screenOptions={{
+        lazy: true,
+      }}
     >
       <MaterialTobTabs.Screen
         name="index"

@@ -2,20 +2,16 @@ import { Ionicons } from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { cva } from "class-variance-authority";
 import { useNavigation } from "expo-router";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
-  FlexStyle,
   KeyboardAvoidingView,
   NativeSyntheticEvent,
-  Platform,
   Pressable,
   Text,
   TextLayoutEventData,
   View,
-  useWindowDimensions,
 } from "react-native";
 import Animated, {
-  Easing,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
@@ -23,12 +19,14 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { ActionButton } from "@/components/ActionButton";
-import { Counter } from "@/components/Counter";
-import { ImageCard } from "@/components/ImageCard";
-import { LightBottomSheet } from "@/components/LightBottomSheet";
-import { TextArea } from "@/components/TextArea";
-import { TextInput } from "@/components/TextInput";
+import {
+  ActionButton,
+  Counter,
+  ImageCard,
+  LightBottomSheet,
+  TextArea,
+  TextInput,
+} from "@/components";
 import { LIGHT_CONDITIONS } from "@/constants/values";
 import { useInsertPlantForm } from "@/hooks/useInsertPlantForm";
 import { calculateWateringPeriod, calculateWateringPortion } from "@/utils";
@@ -56,20 +54,6 @@ export default function AddScreen() {
   const handleLightConditionSubmit = (value: string) => {
     setLightCondition(value);
   };
-
-  // useEffect(() => {
-  //   navigation.addListener("blur", () => {
-  //     reset({
-  //       alias: "",
-  //       room: "",
-  //       period: 1,
-  //       portion: 100,
-  //       notes: null,
-  //       image: null,
-  //       scientificName: null,
-  //     });
-  //   });
-  // }, [navigation, reset]);
 
   const handleGetDetails = useCallback(
     (details) => {
