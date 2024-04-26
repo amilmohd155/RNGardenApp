@@ -8,7 +8,7 @@ A water reminder app, that helps to keep track of the user's plants. Uses Plant.
 
 - Expo 50
 - React Native
-- Nativewind
+- Nativewind v4
 - TailwindCSS
 - React Hook Form
 - Zustand
@@ -17,6 +17,11 @@ A water reminder app, that helps to keep track of the user's plants. Uses Plant.
 - Drizzle
 - SQLlite
 - Zod
+
+## Screenshots
+
+<img src='screenshots/IMG-20240426-WA0018.jpg' width='230' alt="All Plants"> <img src='screenshots/IMG-20240426-WA0017.jpg' width='230' alt="Task"> <img src='screenshots/IMG-20240426-WA0014.jpg' width='230' alt="Plant Page"> 
+<img src='screenshots/IMG-20240426-WA0016.jpg' width='230' alt="Add"> 
 
 
 ## Environment Variables
