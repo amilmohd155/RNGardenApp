@@ -18,6 +18,11 @@ A water reminder app, that helps to keep track of the user's plants. Uses Plant.
 - SQLlite
 - Zod
 
+## Screenshots
+
+<img src='Screenshots/IMG-20240426-WA0014.jpg' width='230' alt="Homepage"> <img src='Screenshots/IMG-20240426-WA0016.jpg' width='230' alt="Activity"> <img src='Screenshots/IMG-20240426-WA0017.jpg' width='230' alt="Create Ping">
+<img src='Screenshots/IMG-20240426-WA0018.jpg' width='230' alt="Select your picks"> 
+
 
 ## Environment Variables
 
