@@ -58,7 +58,10 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
             data: { plantId: plant.id },
           },
           trigger: {
-            seconds: period * 24 * 60 * 60,
+            day: task.getDate(),
+            month: task.getMonth(),
+            hour: task.getHours(),
+            minute: task.getMinutes(),
             repeats: true,
             channelId: "default",
           },

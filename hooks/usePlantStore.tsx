@@ -1,30 +1,32 @@
 import { asc, eq, like, sql } from "drizzle-orm";
 import { create } from "zustand";
 
+import { useTaskStore } from "./useTaskStore";
+
 import db from "@/db/client";
 import { SelectPlant, plants } from "@/db/schema";
 
 type PlantStore = {
   plants: SelectPlant[];
-  tasks?: { title: string; data: SelectPlant[] }[];
   actions: {
     refetch: () => void;
     getById: (id: string) => SelectPlant | undefined;
     sortPlants: (sortBy: string) => void;
     searchPlants: (search: string) => void;
-    taskSorting: () => void;
   };
 };
 
-export const usePlantStore = create<PlantStore>()((set) => {
+export const usePlantStore = create<PlantStore>()((set, get) => {
   const fetchStatement = db.select().from(plants);
 
   try {
     return {
       plants: db.select().from(plants).all(),
+      tasks: [],
       actions: {
         refetch: () => {
           const result = db.select().from(plants).all();
+          useTaskStore.getState().actions.refetchTasks();
 
           set({ plants: result });
         },
@@ -55,36 +57,6 @@ export const usePlantStore = create<PlantStore>()((set) => {
               break;
           }
         },
-        taskSorting: () => {
-          const today = new Date().toLocaleDateString("en-GB");
-
-          const todayTasks = db
-            .select()
-            .from(plants)
-            .where(sql`${plants.task} = ${today}`)
-            .orderBy(asc(plants.task))
-            .all();
-
-          const upcomingTasks = db
-            .select()
-            .from(plants)
-            .where(sql`task > ${today}`)
-            .orderBy(asc(plants.task))
-            .all();
-
-          set({
-            tasks: [
-              {
-                title: "Today's tasks",
-                data: todayTasks,
-              },
-              {
-                title: "Upcoming tasks",
-                data: upcomingTasks,
-              },
-            ],
-          });
-        },
         searchPlants: (search: string) => {
           const result = db
             .select()
@@ -100,6 +72,7 @@ export const usePlantStore = create<PlantStore>()((set) => {
     console.error(error);
     return {
       plants: [],
+      tasks: [],
       actions: {
         refetch: () => set({ plants: fetchStatement.all() }),
         getById: () => {
@@ -112,14 +85,10 @@ export const usePlantStore = create<PlantStore>()((set) => {
         searchPlants: () => {
           console.error("Search Plants::No plant found");
         },
-        taskSorting: () => {
-          console.error("Task Sorting::No plant found");
-        },
       },
     };
   }
 });
 
 export const usePlants = () => usePlantStore((state) => state.plants);
-export const useTasks = () => usePlantStore((state) => state.tasks);
 export const usePlantActions = () => usePlantStore((state) => state.actions);

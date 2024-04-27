@@ -6,7 +6,7 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
 
 import { SelectPlant } from "@/db/schema";
-import { getDaysLeft } from "@/utils";
+import { getDaysLeftAsString } from "@/utils";
 
 type Props = {
   plant: Omit<
@@ -26,6 +26,8 @@ export const SimplePlantCard = ({
   const gesture = Gesture.Tap().onEnd(() => {
     runOnJS(router.navigate)(`/(plant)/${id}`);
   });
+
+  console.log("SimplePlantCard", task);
 
   return (
     <View className="justify-center">
@@ -53,7 +55,7 @@ export const SimplePlantCard = ({
                 size={24}
                 className="{}-[color]:color-onTertiary"
               />
-              <Text className="text-lg font-bold text-onTertiary">{`${quantity}ml ${getDaysLeft(task)}`}</Text>
+              <Text className="text-lg font-bold text-onTertiary">{`${quantity}ml ${getDaysLeftAsString(task)}`}</Text>
             </View>
           </View>
 

@@ -16,7 +16,7 @@ import { RotatingBorderIcon } from "../RotatingBorderIcon";
 
 import { SelectPlant } from "@/db/schema";
 import { useEditPlantActions } from "@/hooks";
-import { getDaysLeft } from "@/utils";
+import { getDaysLeftAsString } from "@/utils";
 
 type PlantCardProps = {
   id: string;
@@ -168,7 +168,7 @@ const PlantCardComponent = ({
                 size={24}
                 className="{}-[color]:color-onTertiary"
               />
-              <Text className="text-lg font-bold text-onTertiary">{`${quantity}ml ${getDaysLeft(task)}`}</Text>
+              <Text className="text-lg font-bold text-onTertiary">{`${quantity}ml ${getDaysLeftAsString(task)}`}</Text>
             </View>
           </View>
 

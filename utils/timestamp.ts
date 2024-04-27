@@ -1,4 +1,4 @@
-function getTimestampMsNDaysFromNow(n: number): number {
+function getTimestampMsNDaysFromNow(n: number): Date {
   const currentDate = new Date();
 
   const newDate = new Date(
@@ -8,18 +8,23 @@ function getTimestampMsNDaysFromNow(n: number): number {
   );
   newDate.setHours(9, 30, 0, 0);
 
-  return newDate.getTime();
+  return newDate;
 }
 
-//date format: dd/mm/yyyy
-function getDaysLeft(date: Date): string {
+function getDaysLeft(date: Date): number {
+  const currentDate = new Date();
+
+  const diffTime = date.getTime() - currentDate.getTime();
+
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+}
+
+function getDaysLeftAsString(date: Date): string {
   const currentDate = new Date();
 
   const diffTime = date.getTime() - currentDate.getTime();
 
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-  console.log(diffDays);
 
   if (diffDays < 0) {
     return "Overdue, delayed by " + Math.abs(diffDays) + " days";
@@ -30,4 +35,4 @@ function getDaysLeft(date: Date): string {
   return `in ${diffDays} days`;
 }
 
-export { getTimestampMsNDaysFromNow, getDaysLeft };
+export { getTimestampMsNDaysFromNow, getDaysLeftAsString, getDaysLeft };
