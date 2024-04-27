@@ -95,8 +95,6 @@ const useEditPlantStore = create<EditPlantStore>()((set) => {
           .where(eq(plants.id, id))
           .get();
 
-        console.log(data);
-
         if (!data || !data.notificationId) {
           throw new Error("identifier not found");
         }

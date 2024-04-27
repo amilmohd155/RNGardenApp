@@ -18,7 +18,9 @@ export default function Tasks() {
     taskSorting();
   }, [taskSorting]);
 
-  const sections: Section[] = tasks && tasks.length ? tasks : [];
+  const sections: Section[] = tasks?.some((task) => task.data.length > 0)
+    ? tasks
+    : [];
 
   return (
     <View className="flex-1 px-5 pb-10">

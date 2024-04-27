@@ -1,33 +1,15 @@
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { PortalHost } from "@gorhom/portal";
 import { cva } from "class-variance-authority";
-import { Image } from "expo-image";
-import {
-  Link,
-  Stack,
-  router,
-  useLocalSearchParams,
-  useNavigation,
-} from "expo-router";
-import { useCallback } from "react";
-import { Pressable, Text, View } from "react-native";
-import Animated, {
-  SharedTransition,
-  withSpring,
-} from "react-native-reanimated";
+import { Stack, router, useLocalSearchParams } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { Text, View } from "react-native";
+import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { ReadMore } from "@/components/ReadMore";
-import { blurhash } from "@/constants/values";
-import { useEditPlantActions } from "@/hooks/useEditPlantStore";
-import { usePlantStore } from "@/hooks/usePlantStore";
 import { FAB } from "@/components";
-import { StatusBar } from "expo-status-bar";
-import { PortalHost } from "@gorhom/portal";
-
-const DESCRIPTION =
-  'Leucojum vernum, called the spring snowflake, is a species of flowering plant in the family Amaryllidaceae. It is native to central and southern Europe from Belgium to Ukraine. It is considered naturalized in north-western Europe, including Great Britain and parts of Scandinavia, and in the US states of Georgia and Florida. This spring flowering bulbous herbaceous perennial is cultivated as an ornamental for a sunny position. The plant multiplies in favourable conditions to form clumps. Each plant bears a single white flower with greenish marks near the tip of the tepal, on a stem about 10–20 cm (3.9–7.9 in) tall, occasionally more.\nThe Latin specific epithet vernum means "relating to Spring". Its close relative, Leucojum aestivum, flowers in summer.';
-
-const CITATION = "https://en.wikipedia.org/wiki/Leucojum_vernum";
+import { ReadMore } from "@/components/ReadMore";
+import { usePlantStore } from "@/hooks/usePlantStore";
 
 export default function PlantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -158,7 +140,7 @@ export default function PlantScreen() {
             label: "Reminder",
             color: "#46c750",
             // size: 24,
-            onPress: () => console.log("Reminder"),
+            onPress: () => router.push(`/(plant)/${id}/reminder`),
           },
           {
             icon: "create",

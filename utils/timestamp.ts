@@ -1,26 +1,30 @@
-function getTimestampMsNDaysFromNow(n: number): string {
-  // Get current timestamp in milliseconds
-  const currentTimestamp = new Date().getTime();
+function getTimestampMsNDaysFromNow(n: number): number {
+  const currentDate = new Date();
 
-  // Calculate timestamp n days from now
-  const futureTimestamp = currentTimestamp + n * 24 * 60 * 60 * 1000;
+  const newDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate() + n,
+  );
+  newDate.setHours(9, 30, 0, 0);
 
-  return new Date(futureTimestamp).toLocaleDateString("en-GB");
+  return newDate.getTime();
 }
 
 //date format: dd/mm/yyyy
-function getDaysLeft(date: string): string {
-  const [day, month, year] = date.split("/").map(Number);
-
-  const formattedDate = new Date(year, month - 1, day);
-
+function getDaysLeft(date: Date): string {
   const currentDate = new Date();
 
-  const diffTime = formattedDate.getTime() - currentDate.getTime();
+  const diffTime = date.getTime() - currentDate.getTime();
 
-  const diffDays = Math.abs(Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  if (diffDays < 1) {
+  console.log(diffDays);
+
+  if (diffDays < 0) {
+    return "Overdue, delayed by " + Math.abs(diffDays) + " days";
+  }
+  if (diffDays === 0) {
     return "Today";
   }
   return `in ${diffDays} days`;
