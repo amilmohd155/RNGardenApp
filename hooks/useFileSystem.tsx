@@ -1,9 +1,10 @@
 import * as FileSystem from "expo-file-system";
 import { useEffect, useState } from "react";
 
+import { usePlantActions } from "./usePlantStore";
+
 import { Body } from "@/types/plantApi";
 import { ensureDirExists } from "@/utils";
-import { usePlantActions } from "./usePlantStore";
 
 export const imageDirectory = FileSystem.documentDirectory + "images/";
 

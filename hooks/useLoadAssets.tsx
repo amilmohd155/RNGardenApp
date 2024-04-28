@@ -41,7 +41,10 @@ export function useLoadAssets() {
 
   useEffect(() => {
     if (loadingFontsError) throw loadingFontsError;
-    if (runningMigrationError) throw runningMigrationError;
+    if (runningMigrationError) {
+      console.error("Error running migrations", runningMigrationError);
+      throw runningMigrationError;
+    }
   }, [loadingFontsError, runningMigrationError]);
 
   useEffect(() => {

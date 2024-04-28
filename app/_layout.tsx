@@ -6,7 +6,8 @@ import { Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { useFileSystem, useLoadAssets, usePushNotification } from "@/hooks";
+import { useLoadAssets, usePushNotification } from "../hooks";
+
 import { NavigationTheme } from "@/theme";
 
 import "react-native-get-random-values";
@@ -21,8 +22,9 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const { isLoaded } = useLoadAssets();
+  // const { isLoaded } = { isLoaded: true };
   usePushNotification();
-  useFileSystem();
+  // useFileSystem();
 
   if (!isLoaded) {
     return null;

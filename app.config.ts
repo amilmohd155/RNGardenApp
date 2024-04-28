@@ -9,5 +9,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     googleServicesFile:
       process.env.GOOGLE_SERVICES_FILE || "./google-services.json",
+    package: "com.docren.garden",
   },
 });

@@ -12,7 +12,7 @@ export const plants = sqliteTable(
     alias: text("alias").notNull(),
     room: text("room").notNull(),
     period: integer("period").notNull(),
-    task: integer("task", { mode: "timestamp_ms" }).notNull(),
+    // task: integer("task", { mode: "timestamp_ms" }).notNull(),
     portion: integer("portion").notNull(),
     lightCondition: text("light_condition", {
       enum: LightConditionsAsArray,
