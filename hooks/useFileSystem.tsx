@@ -55,7 +55,7 @@ type FileSystemHook = {
  *   - uploading: A boolean indicating whether an upload is in progress.
  *   - getPlantDetails: A function that retrieves plant details from an API.
  */
-export const useFileSystem = (): FileSystemHook => {
+const useFileSystem = (): FileSystemHook => {
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -170,3 +170,5 @@ export const useFileSystem = (): FileSystemHook => {
     deleteImage,
   };
 };
+
+export default useFileSystem;

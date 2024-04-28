@@ -1,0 +1,78 @@
+{
+    "expo": {
+        "name": "Garden",
+        "slug": "garden",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/images/icon.png",
+        "scheme": "myapp",
+        "userInterfaceStyle": "automatic",
+        "extra": {
+            "eas": {
+                "projectId": "a74ef24a-6539-4d26-8dc0-852d7f1ebe91"
+            },
+            "router": {
+                "origin": false
+            }
+        },
+        "splash": {
+            "image": "./assets/images/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "ios": {
+            "supportsTablet": true,
+            "infoPlist": {
+                "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera."
+            },
+            "bundleIdentifier": "com.docren.garden"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/images/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "permissions": [
+                "android.permission.CAMERA",
+                "android.permission.RECORD_AUDIO"
+            ],
+            "googleServicesFile": "./google-services.json",
+            "package": "com.docren.garden"
+        },
+        "web": {
+            "bundler": "metro",
+            "output": "static",
+            "favicon": "./assets/images/favicon.png"
+        },
+        "plugins": [
+            "expo-router",
+            [
+                "react-native-vision-camera",
+                {
+                    "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera."
+                }
+            ],
+            [
+                "expo-image-picker",
+                {
+                    "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
+                    "photoLibraryPermissionText": "$(PRODUCT_NAME) needs access to your Photo Library."
+                }
+            ],
+            [
+                "expo-font",
+                {
+                    "fonts": [
+                        "./assets/fonts/SpaceMono-Regular.ttf"
+                    ]
+                }
+            ]
+        ],
+        "experiments": {
+            "typedRoutes": true
+        }
+    }
+}
