@@ -29,7 +29,7 @@
     "@shopify/react-native-skia": "0.1.221",
     "babel-plugin-inline-import": "^3.0.0",
     "class-variance-authority": "^0.7.0",
-    "drizzle-orm": "^0.30.9",
+    "drizzle-orm": "^0.30.7",
     "drizzle-zod": "^0.5.1",
     "expo": "~50.0.17",
     "expo-blur": "~12.9.2",

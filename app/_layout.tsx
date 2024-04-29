@@ -6,13 +6,18 @@ import { Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { useLoadAssets, usePushNotification } from "../hooks";
+import { useFileSystem, useLoadAssets, usePushNotification } from "../hooks";
 
 import { NavigationTheme } from "@/theme";
 
 import "react-native-get-random-values";
 
 import "expo-dev-client";
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
+import db, { expo } from "@/db/client";
+import migrations from "@/drizzle/migrations";
+import { useEffect, useState } from "react";
+import { deleteDatabaseSync } from "expo-sqlite/next";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -21,10 +26,24 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
+  // useEffect(() => {
+  //   return () => {
+  //     expo.closeSync();
+  //   };
+  // }, []);
+
   const { isLoaded } = useLoadAssets();
+
+  // const { success, error } = useMigrations(db, migrations);
+  // console.log(success);
+  // console.log(error);
+
+  // expo.closeSync();
+  // deleteDatabaseSync("plant.db");
+
   // const { isLoaded } = { isLoaded: true };
   usePushNotification();
-  // useFileSystem();
+  useFileSystem();
 
   if (!isLoaded) {
     return null;
