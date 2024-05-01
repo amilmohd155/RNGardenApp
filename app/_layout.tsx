@@ -32,7 +32,7 @@ export default function RootLayout() {
   //   };
   // }, []);
 
-  const { isLoaded } = useLoadAssets();
+  // const { isLoaded } = useLoadAssets();
 
   // const { success, error } = useMigrations(db, migrations);
   // console.log(success);
@@ -41,7 +41,7 @@ export default function RootLayout() {
   // expo.closeSync();
   // deleteDatabaseSync("plant.db");
 
-  // const { isLoaded } = { isLoaded: true };
+  const { isLoaded } = { isLoaded: true };
   usePushNotification();
   useFileSystem();
 
